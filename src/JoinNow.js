@@ -1,4 +1,6 @@
 import Button from "./Button";
+import ButtonGrey from "./ButtonGrey";
+import Error from "./Error";
 
 function JoinNow() {
     return (
@@ -6,15 +8,13 @@ function JoinNow() {
 
             <div style={styles.title}>Join Now!</div>
 
-            <div style={styles.msg}>Sign up as a Frasers Experience (FRx)
+            <div style={styles.msg}>Sign up as a Frasers Experience (FRx)<br />
                 member and be rewarded.
             </div>
 
             <input type="text" style={styles.mobileNo} placeholder='Mobile No'></input>
 
-            <div style={styles.error}>
-                Please enter Mobile No.
-            </div>
+            <Error error="Please enter a valid Mobile No." />
 
             <div style={styles.note}>
                 A one-time password (OTP) will be sent to this Mobile No. for verification.
@@ -22,55 +22,38 @@ function JoinNow() {
 
             <Button text="Next" />
 
-            <div style={styles.help}>
-                If you have difficulties registering for a
-                FRx account, please approach our friendly
-                Customer Service for assistance.
-            </div>
-
         </div>
     );
 }
 
 const styles = {
     container: {
-        paddingBottom: 100,
     },
     title: {
-        fontSize: 40,
+        fontSize: 30,
         fontWeight: 600,
     },
     msg: {
-        fontSize: 34,
-        paddingTop: 40,
+        fontSize: 26,
+        paddingTop: 35,
         fontWeight: 400
     },
     mobileNo: {
-        fontSize: 27,
-        padding: 30,
-        marginTop: 50,
+        fontSize: 21,
+        padding: 27,
+        marginTop: 45,
         border: '1px solid #DFE0E5',
         width: '100%',
-        fontFamily: 'Montserrat'
+        fontFamily: 'Montserrat',
+        fontWeight: 500,
     },
     note: {
-        fontSize: 27,
+        fontSize: 21,
         fontWeight: 500,
-        marginTop: 50,
-        marginBottom: 80,
+        marginTop: 40,
+        marginBottom: 60,
+        lineHeight: '150%',
     },
-    help: {
-        fontSize: 28,
-        marginTop: 50,
-        padding: '0 56px'
-    },
-    error: {
-        color: '#FA7268',
-        fontSize: 26,
-        marginTop: '13px',
-        fontWeight: 500,
-        textAlign: 'left',
-    }
 };
 
 export default JoinNow;

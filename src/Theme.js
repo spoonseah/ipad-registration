@@ -5,8 +5,8 @@ const Theme = {
         textAlign: 'center',
         marginLeft: 'auto',
         marginRight: 'auto',
-        padding: 30,
-        border: '1px dashed #ccc'
+        padding: '0 115px 100px 115px',
+        color: "#333",
     },
 };
 

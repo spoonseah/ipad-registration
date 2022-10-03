@@ -11,3 +11,11 @@ body {
 img {
   max-width: 100%;
 }
+
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus {
+  outline: none;
+}
