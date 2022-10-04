@@ -14,10 +14,10 @@ function App() {
     <div style={Theme.globalStyle}>
       <Header />
 
-      {/* <JoinNow /> */}
+      <JoinNow />
       {/* <Otp /> */}
       {/* <Form /> */}
-      <Welcome />
+      {/* <Welcome /> */}
     </div>
   );
 }
