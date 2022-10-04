@@ -1,6 +1,8 @@
 import Button from "./Button";
 import ButtonGrey from "./ButtonGrey";
 import Error from "./Error";
+import ToggleActive from "./ToggleActive";
+import ToggleInactive from "./ToggleInactive";
 
 function Form() {
     return (
@@ -10,6 +12,7 @@ function Form() {
                 Tell us more about yourself.
             </div>
 
+            {/* form container */}
             <div style={styles.formContainer}>
 
                 {/* section label */}
@@ -177,7 +180,131 @@ function Form() {
                 </div>
                 {/* /residence */}
 
+                {/* section label */}
+                <div style={styles.section}>
+                    Your contact details
+                </div>
+                {/* section label */}
+
+                {/* mobile no */}
+                <div style={styles.item}>
+                    <div style={styles.txtfieldDisabled}>
+                        <div style={styles.disabledLabel}>
+                            Mobile No.*
+                        </div>
+                        <div style={styles.disabledValue}>9631 9467</div>
+                    </div>
+                </div>
+                {/* /mobile no */}
+
+                {/* email */}
+                <div style={styles.item}>
+                    <div style={styles.txtfieldWrap}>
+                        {/* <div style={styles.txtfieldLabel}>
+                            Email*
+                        </div> */}
+                        <input type="text" style={styles.txtfield} placeholder="Email*" />
+                    </div>
+                    {/* <Error error="Please check your entry" /> */}
+                </div>
+                {/* /email */}
+
+                {/* section label */}
+                <div style={styles.section}>
+                    Set your password
+                </div>
+                {/* section label */}
+
+                {/* password */}
+                <div style={styles.item}>
+                    <div style={styles.txtfieldWrap}>
+                        {/* <div style={styles.txtfieldLabel}>
+                            Password*
+                        </div> */}
+                        <input type="text" style={styles.txtfield} placeholder="Password*" />
+                    </div>
+                    {/* <Error error="Please check your entry" /> */}
+                </div>
+                {/* /password */}
+
+                {/* retype */}
+                <div style={styles.item}>
+                    <div style={styles.txtfieldWrap}>
+                        {/* <div style={styles.txtfieldLabel}>
+                            Retype Password*
+                        </div> */}
+                        <input type="text" style={styles.txtfield} placeholder="Retype Password*" />
+                    </div>
+                    {/* <Error error="Please check your entry" /> */}
+                </div>
+                {/* /retype */}
+
+                {/* consent */}
+                <div style={styles.item}>
+                    <div style={styles.consent}>
+                        I consent to receive promotional marketing messages from Frasers Property Retail Management Pte. Ltd.
+                    </div>
+                </div>
+                {/* /consent */}
+
+                {/* toggles */}
+                <div style={styles.item}>
+                    <div style={styles.toggleWrap}>
+
+                        {/* toggle item */}
+                        <div style={styles.toggleItem}>
+                            <div>
+                                Receive promotions via call
+                            </div>
+                            <div>
+                                <ToggleInactive />
+                            </div>
+                        </div>
+                        {/* /toggle item */}
+
+                        {/* toggle item */}
+                        <div style={styles.toggleItem}>
+                            <div>
+                                Receive promotions via email
+                            </div>
+                            <div>
+                                <ToggleActive />
+                            </div>
+                        </div>
+                        {/* /toggle item */}
+
+                        {/* toggle item */}
+                        <div style={styles.toggleItem}>
+                            <div>
+                                Receive promotions via SMS
+                            </div>
+                            <div>
+                                <ToggleInactive />
+                            </div>
+                        </div>
+                        {/* /toggle item */}
+
+                    </div>
+                </div>
+                {/* /toggles */}
+
+                {/* agreement */}
+                <div style={styles.item}>
+                    <div style={styles.agreement}>
+                        <div style={styles.checkboxWrap}><input type="checkbox" /></div>
+                        <div style={styles.agreeText}>I have read and agree to the <a href="https://www.frasersexperience.com/terms-of-use" target="_blank" style={styles.link}>Terms of Use</a>, <a href="https://www.frasersproperty.com/privacy-policy" target="_blank" style={styles.link}>Privacy Policy</a> and the <a href="https://www.frasersexperience.com/privacy-policy-addendum/" target="_blank" style={styles.link}>Privacy Policy Addendum</a> on how my personal data may be collected, used, disclosed and processed by Frasers Property Limited (“Frasers”), and other organisations related to Frasers (including its subsidiaries)(collectively the “Frasers Property Group”).</div>
+                    </div>
+                </div>
+                {/* /agreement */}
+
+                {/* submit */}
+                <div style={styles.item}>
+                    <Button text="Finish" />
+                </div>
+                {/* /submit */}
+
             </div>
+            {/* /form container */}
 
         </div>
     );
@@ -198,6 +325,7 @@ const styles = {
         fontSize: 20,
         fontWeight: 500,
         marginBottom: 15,
+        marginTop: 40
     },
     selectWrap: {
         width: '100%',
@@ -220,7 +348,7 @@ const styles = {
         color: '#999',
         backgroundImage: 'url("../images/down-arrow.png")',
         backgroundRepeat: 'no-repeat',
-        backgroundPosition: '100% 50%'
+        backgroundPosition: '100% 50%',
     },
     txtfield: {
         appearance: 'none',
@@ -240,6 +368,56 @@ const styles = {
     },
     item: {
         marginBottom: 25,
+    },
+    txtfieldDisabled: {
+        backgroundColor: '#F2F2F3',
+        padding: '25px 30px',
+        borderRadius: "5px",
+    },
+    disabledLabel: {
+        fontSize: 20,
+        fontWeight: 600,
+        marginBottom: 5
+    },
+    disabledValue: {
+        fontSize: 20,
+        color: '#333',
+        fontWeight: 500
+    },
+    consent: {
+        fontSize: 19,
+        fontWeight: 500,
+        lineHeight: '130%',
+        paddingTop: 20,
+    },
+    toggleItem: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginBottom: 15,
+        alignItems: 'center'
+    },
+    toggleWrap: {
+        fontSize: 20,
+        color: '#999',
+        fontWeight: 500
+    },
+    agreement: {
+        display: 'flex',
+        fontSize: 20,
+        paddingBottom: 30
+    },
+    checkboxWrap: {
+        width: '7%',
+    },
+    agreeText: {
+        width: '85%',
+        fontSize: 16,
+        lineHeight: '150%',
+        fontWeight: 500
+    },
+    link: {
+        color: '#FA7268',
+        textDecoration: 'none',
     }
 };
 

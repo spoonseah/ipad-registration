@@ -15,6 +15,7 @@ const styles = {
         fontWeight: 500,
         color: '#807979',
         borderRadius: '3px',
+        textAlign: 'center'
     },
 };
 
