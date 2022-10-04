@@ -1,8 +1,8 @@
 import Button from "./Button";
-import ButtonGrey from "./ButtonGrey";
 import Error from "./Error";
 import ToggleActive from "./ToggleActive";
 import ToggleInactive from "./ToggleInactive";
+import Help from "./Help";
 
 function Form() {
     return (
@@ -305,6 +305,8 @@ function Form() {
 
             </div>
             {/* /form container */}
+
+            <Help />
 
         </div>
     );

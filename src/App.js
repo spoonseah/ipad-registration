@@ -6,6 +6,7 @@ import Help from "./Help";
 import JoinNow from "./JoinNow";
 import Otp from "./Otp";
 import Form from "./Form";
+import Welcome from "./Welcome";
 
 
 function App() {
@@ -13,13 +14,10 @@ function App() {
     <div style={Theme.globalStyle}>
       <Header />
 
-      {/* Pages */}
       {/* <JoinNow /> */}
       {/* <Otp /> */}
-      <Form />
-      {/* End Pages */}
-
-      <Help />
+      {/* <Form /> */}
+      <Welcome />
     </div>
   );
 }

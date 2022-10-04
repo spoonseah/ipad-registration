@@ -1,6 +1,6 @@
 import Button from "./Button";
-import ButtonGrey from "./ButtonGrey";
 import Error from "./Error";
+import Help from "./Help";
 
 function JoinNow() {
     return (
@@ -21,6 +21,8 @@ function JoinNow() {
             </div>
 
             <Button text="Next" />
+
+            <Help />
 
         </div>
     );

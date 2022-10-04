@@ -1,6 +1,7 @@
 import Button from "./Button";
 import ButtonGrey from "./ButtonGrey";
 import Error from "./Error";
+import Help from "./Help";
 
 function JoinNow() {
     return (
@@ -27,6 +28,8 @@ function JoinNow() {
                 <div style={styles.button}><ButtonGrey text="Resend OTP" /></div>
                 <div style={styles.button}><Button text="Submit" /></div>
             </div>
+
+            <Help />
 
         </div>
     );
