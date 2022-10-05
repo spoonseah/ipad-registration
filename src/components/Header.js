@@ -3,7 +3,7 @@ import { IMAGES } from "../resources/theme/Images";
 function Header() {
   return (
     <div style={styles.container}>
-      <img src={IMAGES.BUY} style={styles.logo} />
+      <img src={IMAGES.LOGO} style={styles.logo} />
     </div>
   );
 }
