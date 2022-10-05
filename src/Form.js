@@ -34,19 +34,19 @@ function Form() {
                             <option value="Dr">Dr</option>
                         </select>
                     </div>
-                    {/* <Error error="Please check your entry" /> */}
+                    <Error error="Please check your entry" />
                 </div>
                 {/* /salutation */}
 
                 {/* given name */}
                 <div style={styles.item}>
                     <div style={styles.txtfieldWrap}>
-                        {/* <div style={styles.txtfieldLabel}>
+                        <div style={styles.txtfieldLabel}>
                             Given Name*
-                        </div> */}
-                        <input type="text" style={styles.txtfield} placeholder="Given Name*" />
+                        </div>
+                        <input type="text" style={styles.txtfield} placeholder="Given Name*" value="David" />
                     </div>
-                    {/* <Error error="Please enter given name" /> */}
+                    <Error error="Please enter given name" />
                 </div>
                 {/* /given name */}
 

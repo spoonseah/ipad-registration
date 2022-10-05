@@ -1,6 +1,6 @@
 import './App.css';
 import Theme from "./Theme";
-import Header from "./Header";
+import Header from "./Layouts/Header/Header";
 import Help from "./Help";
 
 import JoinNow from "./JoinNow";

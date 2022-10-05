@@ -1,7 +1,7 @@
 function Header() {
     return (
         <div style={styles.container}>
-            <img src={"../images/frx-logo.png"} style={styles.logo} />
+            <img src={"../../Images/Assets/frx-logo.png"} style={styles.logo} />
         </div>
     );
 }
