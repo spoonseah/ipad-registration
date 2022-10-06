@@ -286,7 +286,7 @@ function Form() {
 
         {/* submit */}
         <div style={styles.item}>
-          <Button text="Finish" />
+          <Button text="Finish" theme="black" />
         </div>
         {/* /submit */}
       </div>

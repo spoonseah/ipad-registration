@@ -1,4 +1,4 @@
-function Toggle(props) {
+function ToggleActive() {
     return (
         <div style={styles.toggle}>
             <div style={styles.knobActive}></div>
@@ -26,4 +26,4 @@ const styles = {
     }
 };
 
-export default Toggle;
+export default ToggleActive;

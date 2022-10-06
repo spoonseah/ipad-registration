@@ -1,4 +1,4 @@
-function Toggle() {
+function ToggleInactive() {
     return (
         <div style={styles.toggle}>
             <div style={styles.knobInactive}></div>
@@ -26,4 +26,4 @@ const styles = {
     }
 };
 
-export default Toggle;
+export default ToggleInactive;

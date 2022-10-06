@@ -14,8 +14,8 @@ function App() {
 
       {/* <JoinNow /> */}
       {/* <Otp /> */}
-      {/* <Form /> */}
-      <Welcome />
+      <Form />
+      {/* <Welcome /> */}
     </div>
   );
 }
