@@ -109,7 +109,6 @@ const styles = {
     margin: "30px 0 50px 0",
   },
   downloadImg: {
-    height: 90,
   },
 };
 
