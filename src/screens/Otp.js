@@ -21,7 +21,7 @@ function JoinNow() {
         <input type="text" maxlength="1" style={styles.digit}></input>
       </div>
 
-      <Error error="OTP is incorrect or has expired" />
+      {/* <Error error="OTP is incorrect or has expired" /> */}
 
       <div style={styles.buttonWrap}>
         <div style={styles.button}>

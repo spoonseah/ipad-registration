@@ -7,10 +7,8 @@ function Welcome() {
       <div style={styles.title}>Welcome to the FRx family!</div>
 
       <div style={styles.msg}>
-        Get started by scanning the QR Code to
-        <br />
-        download the Frasers Experience(FRx) app
-        <br />
+        Get started by scanning the QR Code to<br />
+        download the Frasers Experience(FRx) app<br />
         and unlock your exclusive member benefits.
       </div>
 
@@ -18,7 +16,7 @@ function Welcome() {
       <div style={styles.iconWrap}>
         <div style={styles.item}>
           <div>
-            <img src={IMAGES.BUY} style={styles.iconImg} />
+            <img src={IMAGES.EARN} style={styles.iconImg} />
           </div>
           <div style={styles.iconText}>
             Earn FRx Points with 2X Points on your birthday month
@@ -36,7 +34,7 @@ function Welcome() {
 
         <div style={styles.item}>
           <div>
-            <img src={IMAGES.EARN} style={styles.iconImg} />
+            <img src={IMAGES.USE} style={styles.iconImg} />
           </div>
           <div style={styles.iconText}>
             Use FRx Gift Cards to offset your shopping spree
@@ -45,7 +43,7 @@ function Welcome() {
 
         <div style={styles.item}>
           <div>
-            <img src={IMAGES.EARN} style={styles.iconImg} />
+            <img src={IMAGES.PARK} style={styles.iconImg} />
           </div>
           <div style={styles.iconText}>
             Enjoy free parking at our malls with FRx Carpark$
@@ -56,13 +54,13 @@ function Welcome() {
 
       {/* qr-code */}
       <div style={styles.qrcode}>
-        <img src={IMAGES.DOWN_ARROW} style={styles.qrImg} />
+        <img src={IMAGES.QRCODE} style={styles.qrImg} />
       </div>
       {/* /qr-code */}
 
       {/* download-frx */}
       <div style={styles.downloadFRx}>
-        <img src={IMAGES.DOWN_ARROW} style={styles.downloadImg} />
+        <img src={IMAGES.DOWNLOAD} style={styles.downloadImg} />
       </div>
       {/* /download-frx */}
 
