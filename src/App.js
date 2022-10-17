@@ -1,21 +1,30 @@
 import "./App.css";
-import Header from "./components/Header";
 import Theme from "./resources/theme/Theme";
 
+import Welcome from "./screens/Welcome";
 import JoinNow from "./screens/JoinNow";
 import Otp from "./screens/Otp";
-import Form from "./screens/Form";
-import Welcome from "./screens/Welcome";
+import RegistrationForm from "./screens/RegistrationForm";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./components/common/Header";
 
 function App() {
   return (
     <div style={Theme.globalStyle}>
+      {/* <Header /> */}
       <Header />
-
-      {/* <JoinNow /> */}
-      {/* <Otp /> */}
-      <Form />
-      {/* <Welcome /> */}
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Welcome />}></Route>
+          <Route exact path="/JoinNow" element={<JoinNow />}></Route>
+          <Route exact path="/OTP" element={<Otp />}></Route>
+          <Route
+            exact
+            path="/RegistrationForm"
+            element={<RegistrationForm />}
+          ></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

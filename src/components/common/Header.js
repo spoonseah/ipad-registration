@@ -1,5 +1,5 @@
 import React from "react";
-import { IMAGES } from "../resources/theme/Images";
+import { IMAGES } from "../../resources/theme/Images";
 function Header() {
   return (
     <div style={styles.container}>

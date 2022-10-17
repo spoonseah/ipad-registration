@@ -1,18 +1,16 @@
-import Button from "../components/Button";
-import Error from "../components/Error";
+import Button from "../components/common/Button";
+import Error from "../components/common/Error";
 import ToggleActive from "../components/ToggleActive";
 import ToggleInactive from "../components/ToggleInactive";
 import Help from "./Help";
 
-function Form() {
+function RegistrationForm() {
   return (
     <div style={styles.container}>
-
       <div style={styles.msg}>Tell us more about yourself.</div>
 
       {/* form container */}
       <div style={styles.formContainer}>
-
         {/* section label */}
         <div style={styles.section}>Your profile</div>
         {/* section label */}
@@ -36,7 +34,11 @@ function Form() {
         <div style={styles.item}>
           <div style={styles.txtfieldWrap}>
             {/* <div style={styles.txtfieldLabel}>Given Name*</div> */}
-            <input type="text" style={styles.txtfield} placeholder="Given Name*" />
+            <input
+              type="text"
+              style={styles.txtfield}
+              placeholder="Given Name*"
+            />
           </div>
           {/* <Error error="Please enter given name" /> */}
         </div>
@@ -115,7 +117,11 @@ function Form() {
             {/* <div style={styles.txtfieldLabel}>
               Block No.
             </div> */}
-            <input type="text" style={styles.txtfield} placeholder="Block No." />
+            <input
+              type="text"
+              style={styles.txtfield}
+              placeholder="Block No."
+            />
           </div>
           {/* <Error error="Please check your entry" /> */}
         </div>
@@ -127,7 +133,11 @@ function Form() {
             {/* <div style={styles.txtfieldLabel}>
               Street Name
             </div> */}
-            <input type="text" style={styles.txtfield} placeholder="Street Name" />
+            <input
+              type="text"
+              style={styles.txtfield}
+              placeholder="Street Name"
+            />
           </div>
           {/* <Error error="Please check your entry" /> */}
         </div>
@@ -151,7 +161,11 @@ function Form() {
             {/* <div style={styles.txtfieldLabel}>
               Postal Code*
             </div> */}
-            <input type="text" style={styles.txtfield} placeholder="Postal Code*" />
+            <input
+              type="text"
+              style={styles.txtfield}
+              placeholder="Postal Code*"
+            />
           </div>
           {/* <Error error="Please check your entry" /> */}
         </div>
@@ -250,21 +264,27 @@ function Form() {
             {/* toggle item */}
             <div style={styles.toggleItem}>
               <div>Receive promotions via call</div>
-              <div><ToggleInactive /></div>
+              <div>
+                <ToggleInactive />
+              </div>
             </div>
             {/* /toggle item */}
 
             {/* toggle item */}
             <div style={styles.toggleItem}>
               <div>Receive promotions via email</div>
-              <div><ToggleActive /></div>
+              <div>
+                <ToggleActive />
+              </div>
             </div>
             {/* /toggle item */}
 
             {/* toggle item */}
             <div style={styles.toggleItem}>
               <div>Receive promotions via SMS</div>
-              <div><ToggleInactive /></div>
+              <div>
+                <ToggleInactive />
+              </div>
             </div>
             {/* /toggle item */}
           </div>
@@ -278,7 +298,34 @@ function Form() {
               <input type="checkbox" />
             </div>
             <div style={styles.agreeText}>
-              I have read and agree to the <a href="https://www.frasersexperience.com/terms-of-use" target="_blank" style={styles.link}>Terms of Use</a>, <a href="https://www.frasersproperty.com/privacy-policy" target="_blank" style={styles.link} >Privacy Policy</a>, and the <a href="https://www.frasersexperience.com/privacy-policy-addendum/" target="_blank" style={styles.link} >Privacy Policy Addendum</a> on how my personal data may be collected, used, disclosed and processed by Frasers Property Limited (“Frasers”), and other organisations related to Frasers (including its subsidiaries)(collectively the “Frasers Property Group”).
+              I have read and agree to the{" "}
+              <a
+                href="https://www.frasersexperience.com/terms-of-use"
+                target="_blank"
+                style={styles.link}
+              >
+                Terms of Use
+              </a>
+              ,{" "}
+              <a
+                href="https://www.frasersproperty.com/privacy-policy"
+                target="_blank"
+                style={styles.link}
+              >
+                Privacy Policy
+              </a>
+              , and the{" "}
+              <a
+                href="https://www.frasersexperience.com/privacy-policy-addendum/"
+                target="_blank"
+                style={styles.link}
+              >
+                Privacy Policy Addendum
+              </a>{" "}
+              on how my personal data may be collected, used, disclosed and
+              processed by Frasers Property Limited (“Frasers”), and other
+              organisations related to Frasers (including its
+              subsidiaries)(collectively the “Frasers Property Group”).
             </div>
           </div>
         </div>
@@ -293,7 +340,7 @@ function Form() {
       {/* /form container */}
 
       <Help />
-    </div >
+    </div>
   );
 }
 
@@ -407,4 +454,4 @@ const styles = {
   },
 };
 
-export default Form;
+export default RegistrationForm;

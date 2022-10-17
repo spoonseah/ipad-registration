@@ -1,8 +1,11 @@
-import Button from "../components/Button";
-import Error from "../components/Error";
+import { useNavigate } from "react-router-dom";
+import Button from "../components/common/Button";
+import Error from "../components/common/Error";
 import Help from "./Help";
 
 function JoinNow() {
+  let navigate = useNavigate();
+
   return (
     <div style={styles.container}>
       <div style={styles.title}>Join Now!</div>
@@ -26,7 +29,7 @@ function JoinNow() {
         verification.
       </div>
 
-      <Button text="Next" />
+      <Button text="Next" onClick={() => navigate("/OTP")} />
 
       <Help />
     </div>

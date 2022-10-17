@@ -1,9 +1,9 @@
-import Button from "../components/Button";
-import ButtonGrey from "../components/ButtonGrey";
-import Error from "../components/Error";
+import { useNavigate } from "react-router";
+import Button from "../components/common/Button";
 import Help from "./Help";
 
-function JoinNow() {
+function OTP() {
+  let navigate = useNavigate();
   return (
     <div style={styles.container}>
       <div style={styles.msg}>
@@ -25,10 +25,10 @@ function JoinNow() {
 
       <div style={styles.buttonWrap}>
         <div style={styles.button}>
-          <ButtonGrey text="Resend OTP" />
+          <Button text="Resend OTP" />
         </div>
         <div style={styles.button}>
-          <Button text="Submit" />
+          <Button text="Submit" onClick={() => navigate("/RegistrationForm")} />
         </div>
       </div>
 
@@ -76,4 +76,4 @@ const styles = {
   },
 };
 
-export default JoinNow;
+export default OTP;
