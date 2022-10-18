@@ -1,4 +1,5 @@
 import React from "react";
+import { COLOR } from "../../resources/theme/Color";
 
 export default function FRxCards({ img, text }) {
   return (
@@ -16,11 +17,12 @@ const styles = {
     width: "22%",
   },
   iconImg: {
-    height: "65px",
+    height: "60px",
   },
   iconText: {
-    fontSize: 15,
-    fontWeight: 600,
+    fontSize: "15px",
+    fontWeight: 500,
     marginTop: 10,
+    color: COLOR.SECONDARY_BLACK,
   },
 };

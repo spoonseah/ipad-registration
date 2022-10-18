@@ -10,8 +10,8 @@ function Header() {
 
 const styles = {
   container: {
-    paddingTop: 75,
-    paddingBottom: 65,
+    marginTop: "40px",
+    marginBottom: "25px",
   },
   logo: {
     height: 63,

@@ -1,0 +1,5 @@
+export const COLOR = {
+  BLACK: "#000000",
+  SECONDARY_BLACK: "#333333",
+  WHITE: "#FFFFFF",
+};
