@@ -1,13 +1,25 @@
+import { COLOR } from "./Color";
+
 const Theme = {
-    globalStyle: {
-        fontSize: 14,
-        maxWidth: 800,
-        textAlign: 'center',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        padding: '0 115px 100px 115px',
-        color: "#333",
-    },
+  globalStyle: {
+    fontSize: 14,
+    maxWidth: 800,
+    textAlign: "center",
+    marginLeft: "auto",
+    marginRight: "auto",
+    padding: "0 115px 100px 115px",
+    color: "#333",
+  },
+  title: {
+    fontSize: "25px",
+    fontWeight: 600,
+  },
+  description: {
+    fontSize: "20px",
+    marginTop: "18px",
+    fontWeight: 100,
+    color: COLOR.SECONDARY_BLACK,
+  },
 };
 
 export default Theme;

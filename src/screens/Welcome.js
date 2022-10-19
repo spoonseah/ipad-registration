@@ -4,16 +4,17 @@ import FRxCards from "../components/common/FRxCards";
 import { COLOR } from "../resources/theme/Color";
 import { FRX_GIFT_CARD } from "../resources/theme/Constants";
 import { IMAGES } from "../resources/theme/Images";
+import Theme from "../resources/theme/Theme";
 
 function Welcome() {
   let navigate = useNavigate();
   return (
     <div style={styles.container}>
       {/* title */}
-      <div style={styles.title}>Welcome to the FRx family!</div>
+      <div style={Theme.title}>Welcome to the FRx family!</div>
 
       {/* description */}
-      <div style={styles.msg}>
+      <div style={Theme.description}>
         Get started by scanning the QR Code to download the Frasers
         Experience(FRx) app and unlock your exclusive member benefits.
       </div>
@@ -43,16 +44,7 @@ const styles = {
   container: {
     width: "100%",
   },
-  title: {
-    fontSize: "25px",
-    fontWeight: 600,
-  },
-  msg: {
-    fontSize: "20px",
-    paddingTop: 35,
-    fontWeight: 400,
-    color: COLOR.SECONDARY_BLACK,
-  },
+
   iconWrap: {
     display: "flex",
     marginTop: 35,

@@ -1,18 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../components/common/Button";
 import Error from "../components/common/Error";
+import { COLOR } from "../resources/theme/Color";
+import Theme from "../resources/theme/Theme";
 import Help from "./Help";
 
 function JoinNow() {
   let navigate = useNavigate();
 
   return (
-    <div style={styles.container}>
-      <div style={styles.title}>Join Now!</div>
+    <div>
+      <div style={Theme.title}>Join Now!</div>
 
-      <div style={styles.msg}>
-        Sign up as a Frasers Experience (FRx)
-        <br />
+      <div style={Theme.description}>
+        Sign up as a Frasers Experience (FRx) <br />
         member and be rewarded.
       </div>
 
@@ -25,11 +26,19 @@ function JoinNow() {
       <Error error="Please enter a valid Mobile No." />
 
       <div style={styles.note}>
-        A one-time password (OTP) will be sent to this Mobile No. for
+        A one-time password (OTP) will be sent to this <br /> Mobile No. for
         verification.
       </div>
 
-      <Button text="Next" onClick={() => navigate("/OTP")} />
+      <Button
+        text="Next"
+        onClick={() => navigate("/OTP")}
+        customStyle={{
+          backgroundColor: COLOR.BLACK,
+          color: COLOR.WHITE,
+          marginTop: "40px",
+        }}
+      />
 
       <Help />
     </div>
@@ -37,30 +46,21 @@ function JoinNow() {
 }
 
 const styles = {
-  container: {},
-  title: {
-    fontSize: 30,
-    fontWeight: 600,
-  },
-  msg: {
-    fontSize: 26,
-    paddingTop: 35,
-    fontWeight: 400,
-  },
   mobileNo: {
     fontSize: 21,
-    padding: 27,
-    marginTop: 45,
+    height: "60px",
+    marginTop: "30px",
     border: "1px solid #DFE0E5",
     width: "100%",
     fontFamily: "Montserrat",
     fontWeight: 500,
+    paddingRight: "15px",
+    paddingLeft: "15px",
   },
   note: {
     fontSize: 21,
     fontWeight: 500,
-    marginTop: 40,
-    marginBottom: 60,
+    marginTop: "25px",
     lineHeight: "150%",
   },
 };

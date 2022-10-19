@@ -2,7 +2,10 @@ import { COLOR } from "../../resources/theme/Color";
 
 function Button(props) {
   return (
-    <div onClick={props.onClick} style={styles.button}>
+    <div
+      onClick={props.onClick}
+      style={{ ...styles.button, ...props.customStyle }}
+    >
       {props.text}
     </div>
   );
