@@ -20,6 +20,12 @@ const Theme = {
     fontWeight: 100,
     color: COLOR.SECONDARY_BLACK,
   },
+  oneTimeOTP: {
+    fontSize: "18px",
+    fontWeight: 500,
+    marginTop: "25px",
+    lineHeight: "150%",
+  },
 };
 
 export default Theme;
