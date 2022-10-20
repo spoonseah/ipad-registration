@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/common/Button";
-import Error from "../components/common/Error";
 import Input from "../components/common/Input";
 import { validateContactNo } from "../helper/validations";
+import WebApi from "../helper/WebApi";
 import { COLOR } from "../resources/theme/Color";
 import Theme from "../resources/theme/Theme";
 import Help from "./Help";
 let hex_md5 = require("md5");
-function JoinNow() {
+function JoinNow(props) {
   const [contact, setContact] = useState("");
   const [contact_error_text, setContact_error_text] = useState("");
   let navigate = useNavigate();
@@ -37,8 +37,29 @@ function JoinNow() {
       setContact_error_text("Please enter Mobile No.");
       return;
     }
+
     try {
-      navigate("/OTP");
+      new WebApi()
+        .PreJoinSignup(props, contact, checksum)
+        .then((response) => {
+          console.log("url ress", response);
+          if (response?.data?.data?.status == "success") {
+            console.log(
+              " response?.data?.data?.status",
+              response?.data?.data?.status
+            );
+          } else {
+            if (response?.data?.data?.status == "fail") {
+              if (response.data.data.reason.includes("Mobile used by other")) {
+                console.log("Mobile used by other", response.data.data.reason);
+              }
+            } else {
+            }
+            return;
+          }
+        })
+        .catch(() => {});
+      // navigate("/OTP");
     } catch (error) {
       console.error(error);
     }

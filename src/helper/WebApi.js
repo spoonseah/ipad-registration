@@ -1,12 +1,11 @@
 import axios from "axios";
-import { REACT_APP_FRX_API_BASE_URL } from "@env";
 import StatusUpdate from "./StatusUpdate";
 
 const _TIME_OUT = 15000;
 const api_version = 31;
 
 export default class WebApi {
-  _BASE_URL = REACT_APP_FRX_API_BASE_URL;
+  _BASE_URL = `${process.env.REACT_APP_FRX_API_BASE_URL}`;
   PRE_JOIN = "auth/pre_join";
   ARTICLE_LIST = "listarticle";
   ARTICLE_DETAIL = "articledetail";
@@ -21,6 +20,7 @@ export default class WebApi {
     }
 
     let _headers = custom_headers;
+
     if (!_headers) {
       _headers = [];
     }
@@ -29,10 +29,12 @@ export default class WebApi {
     if (!_params) {
       _params = {};
     }
+
     if (_url !== this.ARTICLE_DETAIL && _url !== this.ARTICLE_LIST) {
       _params.version = api_version;
     }
     try {
+      console.log("url respinseeee", _url, _params, _TIME_OUT, _headers);
       let response = await axios({
         method: "post",
         url: _url,
@@ -40,9 +42,10 @@ export default class WebApi {
         timeout: _TIME_OUT,
         headers: _headers,
       });
-      setTimeout(() => {
-        new StatusUpdate().processResponse(response.data, props);
-      }, 400);
+      console.log("url response", response);
+      // setTimeout(() => {
+      //   new StatusUpdate().processResponse(response.data, props);
+      // }, 400);
 
       return response;
     } catch (error) {
@@ -50,7 +53,7 @@ export default class WebApi {
       err.error = error;
       err.no_result = true;
       setTimeout(() => {
-        console.log("Unable to connect with server post req");
+        console.log("Unable to connect with server post req", error);
       }, 400);
       return err;
     }

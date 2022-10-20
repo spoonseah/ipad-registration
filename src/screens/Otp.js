@@ -1,34 +1,65 @@
 import { useNavigate } from "react-router";
 import Button from "../components/common/Button";
 import Help from "./Help";
+import PinInput from "react-pin-input";
+import { COLOR } from "../resources/theme/Color";
+import Theme from "../resources/theme/Theme";
 
 function OTP() {
   let navigate = useNavigate();
   return (
     <div style={styles.container}>
-      <div style={styles.msg}>
-        Please enter the one time password (OTP) sent to:
+      <div style={Theme.description}>
+        Please enter the one time password (OTP)
+        <br /> sent to:
       </div>
 
       <div style={styles.userno}>9631 9467</div>
 
-      <div style={styles.otpWrap}>
-        <input type="text" maxlength="1" style={styles.digit}></input>
-        <input type="text" maxlength="1" style={styles.digit}></input>
-        <input type="text" maxlength="1" style={styles.digit}></input>
-        <input type="text" maxlength="1" style={styles.digit}></input>
-        <input type="text" maxlength="1" style={styles.digit}></input>
-        <input type="text" maxlength="1" style={styles.digit}></input>
-      </div>
-
-      {/* <Error error="OTP is incorrect or has expired" /> */}
+      <PinInput
+        length={6}
+        initialValue=""
+        onChange={(value, index) => {}}
+        type="numeric"
+        inputMode="number"
+        style={{
+          marginTop: "25px",
+        }}
+        inputStyle={{
+          // height: "65px",
+          // width: "60px",
+          borderColor: COLOR.GRAY,
+          color: COLOR.SECONDARY_BLACK,
+          fontSize: "20px",
+          marginRight: "5px",
+        }}
+        onComplete={(value, index) => {}}
+        autoSelect={true}
+        cell
+        regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+      />
 
       <div style={styles.buttonWrap}>
         <div style={styles.button}>
-          <Button text="Resend OTP" />
+          <Button
+            text="Resend OTP"
+            customStyle={{
+              backgroundColor: COLOR.GRAY,
+              border: `0px`,
+              color: COLOR.SECONDARY_BLACK,
+            }}
+          />
         </div>
         <div style={styles.button}>
-          <Button text="Submit" onClick={() => navigate("/RegistrationForm")} />
+          <Button
+            text="Submit"
+            customStyle={{
+              backgroundColor: COLOR.BLACK,
+              border: `0px`,
+              color: COLOR.WHITE,
+            }}
+            onClick={() => navigate("/RegistrationForm")}
+          />
         </div>
       </div>
 
@@ -52,19 +83,6 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     margin: "40px -10px 0 -10px",
-  },
-  digit: {
-    width: "15%",
-    height: 85,
-    textAlign: "center",
-    margin: 7,
-    fontSize: 29,
-    boxShadow: "2px 3px 10px rgba(0,0,0,0.1)",
-    border: 0,
-    fontFamily: "Montserrat",
-    border: "1px solid #DFE0E5",
-    fontWeight: "500",
-    color: "#333333",
   },
   buttonWrap: {
     display: "flex",

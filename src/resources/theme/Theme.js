@@ -17,7 +17,7 @@ const Theme = {
   description: {
     fontSize: "20px",
     marginTop: "18px",
-    fontWeight: 100,
+    fontWeight: 500,
     color: COLOR.SECONDARY_BLACK,
   },
   oneTimeOTP: {
