@@ -1,4 +1,5 @@
 import React from "react";
+import Theme from "../../resources/theme/Theme";
 import Error from "./Error";
 
 export default function Input(props) {
@@ -10,7 +11,7 @@ export default function Input(props) {
         marginTop: 45,
       }}
     >
-      {value !== "" && <div style={{ display: "flex" }}>{label}</div>}
+      {value !== "" && <div style={Theme.label}>{label}</div>}
       <input
         type={type}
         style={styles.inputStyle}
@@ -18,7 +19,7 @@ export default function Input(props) {
         value={value}
         onChange={onChange}
       ></input>
-      {<Error error={errorText} />}
+      {errorText != "" && <Error error={errorText} />}
     </div>
   );
 }

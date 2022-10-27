@@ -1,10 +1,12 @@
 import { useState } from "react";
 import Button from "../components/common/Button";
+import DropDownMenu from "../components/common/DropDownMenu";
 import Error from "../components/common/Error";
 import Input from "../components/common/Input";
 import ToggleButton from "../components/common/ToggleSwitch";
 
 import { COLOR } from "../resources/theme/Color";
+import Theme from "../resources/theme/Theme";
 import Help from "./Help";
 
 function RegistrationForm() {
@@ -17,6 +19,9 @@ function RegistrationForm() {
   const [passwordError, setPasswordError] = useState("");
   const [retypePassword, setRetypePassword] = useState("");
   const [retypePasswordError, setRetypePasswordError] = useState("");
+  const [blockNo, setBlockNo] = useState("");
+  const [streetName, setStreetName] = useState("");
+  const [unitNo, setUnitNo] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [postalCodeError, setPostalCodeError] = useState("");
   const register = () => {
@@ -50,6 +55,13 @@ function RegistrationForm() {
 
   return (
     <>
+      <div style={styles.description}>Tell us more about yourself.</div>
+      <div style={styles.section}>Your profile</div>
+
+      {/* salutation */}
+      <DropDownMenu label={"Salutation"} />
+
+      {/* given name */}
       <Input
         label={"Given Name*"}
         type={"text"}
@@ -58,6 +70,8 @@ function RegistrationForm() {
         onChange={(text) => setGivenName(text.target.value)}
         errorText={givenNameError}
       />
+
+      {/* surname */}
       <Input
         label={"Surname"}
         type={"text"}
@@ -65,30 +79,51 @@ function RegistrationForm() {
         value={surName}
         onChange={(text) => setSurName(text.target.value)}
       />
+      <DropDownMenu
+        label={"Gender*"}
+        customStyle={{
+          marginTop: 45,
+        }}
+      />
+      <DropDownMenu
+        label={"Date of Birth*"}
+        customStyle={{
+          marginTop: 45,
+        }}
+      />
+      <DropDownMenu
+        label={"Household Income*"}
+        customStyle={{
+          marginTop: 45,
+        }}
+      />
+      <div style={styles.section}>Your address</div>
+
       <Input
-        label={"Email"}
-        type={"email"}
-        placeholder={"Email*"}
-        value={email}
-        onChange={(text) => setEmail(text.target.value)}
-        errorText={emailError}
+        label={"Block No"}
+        type={"text"}
+        placeholder={"Block No"}
+        value={blockNo}
+        onChange={(text) => setBlockNo(text.target.value)}
+        errorText={givenNameError}
       />
       <Input
-        label={"Password*"}
-        type={"password"}
-        placeholder={"Password*"}
-        value={password}
-        onChange={(text) => setPassword(text.target.value)}
-        errorText={passwordError}
+        label={"Street Name"}
+        type={"text"}
+        placeholder={"Street Name"}
+        value={streetName}
+        onChange={(text) => setStreetName(text.target.value)}
+        errorText={givenNameError}
       />
       <Input
-        label={"Retype Password"}
-        type={"password"}
-        placeholder={"Retype Password*"}
-        value={retypePassword}
-        onChange={(text) => setRetypePassword(text.target.value)}
-        errorText={retypePasswordError}
+        label={"Unit No"}
+        type={"text"}
+        placeholder={"Unit No"}
+        value={unitNo}
+        onChange={(text) => setUnitNo(text.target.value)}
+        errorText={givenNameError}
       />
+      {/* Postal Code */}
       <Input
         label={"Postal Code*"}
         type={"text"}
@@ -97,12 +132,53 @@ function RegistrationForm() {
         onChange={(text) => setPostalCode(text.target.value)}
         errorText={postalCodeError}
       />
+      <DropDownMenu
+        label={"Type of Residence"}
+        customStyle={{
+          marginTop: 45,
+        }}
+      />
+
+      {/* Email */}
+      <Input
+        label={"Email"}
+        type={"email"}
+        placeholder={"Email*"}
+        value={email}
+        onChange={(text) => setEmail(text.target.value)}
+        errorText={emailError}
+      />
+      <div style={styles.section}>Set your password</div>
+
+      {/* Password */}
+      <Input
+        label={"Password*"}
+        type={"password"}
+        placeholder={"Password*"}
+        value={password}
+        onChange={(text) => setPassword(text.target.value)}
+        errorText={passwordError}
+      />
+      {/* Retype Password */}
+      <Input
+        label={"Retype Password"}
+        type={"password"}
+        placeholder={"Retype Password*"}
+        value={retypePassword}
+        onChange={(text) => setRetypePassword(text.target.value)}
+        errorText={retypePasswordError}
+      />
+
       <div
         style={{
-          fontSize: "14px",
-          display: "flex",
+          // fontSize: "14px",
+          // display: "flex",
           textAlign: "left",
-          fontWeight: "500",
+          // fontWeight: "500",
+          fontSize: 19,
+          fontWeight: 500,
+          lineHeight: "130%",
+          paddingTop: 20,
         }}
       >
         I consent to receive promotional marketing messages from Frasers
@@ -117,21 +193,14 @@ function RegistrationForm() {
         text="Finish"
         onClick={register}
       />
+      <Help />
     </>
   );
 }
 
 const styles = {
-  container: {},
-  msg: {
-    fontSize: 29,
-    fontWeight: 600,
-  },
-  formContainer: {
-    textAlign: "left",
-    marginTop: 60,
-  },
   section: {
+    display: "flex",
     fontSize: 20,
     fontWeight: 500,
     marginBottom: 15,
@@ -228,6 +297,10 @@ const styles = {
   link: {
     color: "#FA7268",
     textDecoration: "none",
+  },
+  description: {
+    fontSize: 29,
+    fontWeight: 600,
   },
 };
 

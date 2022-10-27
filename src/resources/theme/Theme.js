@@ -36,6 +36,12 @@ const Theme = {
     marginBottom: 60,
     lineHeight: "150%",
   },
+  label: {
+    display: "flex",
+    fontSize: 20,
+    fontWeight: 500,
+    marginBottom: 5,
+  },
 };
 
 export default Theme;

@@ -4,4 +4,5 @@ export const COLOR = {
   WHITE: "#FFFFFF",
   primary: "#FA7268",
   GRAY: "#DFE0E5",
+  DARK_GRAY: "#999",
 };
