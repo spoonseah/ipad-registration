@@ -59,7 +59,7 @@ function OTP(props) {
   };
 
   return (
-    <div style={styles.container}>
+    <>
       <div style={Theme.description}>
         Please enter the one time password (OTP)
         <br /> sent to:
@@ -77,12 +77,22 @@ function OTP(props) {
           marginTop: "25px",
         }}
         inputStyle={{
-          // height: "65px",
-          // width: "60px",
-          borderColor: COLOR.GRAY,
-          color: COLOR.SECONDARY_BLACK,
-          fontSize: "20px",
-          marginRight: "5px",
+          // borderColor: COLOR.GRAY,
+          // color: COLOR.SECONDARY_BLACK,
+          // fontSize: "20px",
+          // marginRight: "5px",
+
+          width: "15%",
+          height: 85,
+          textAlign: "center",
+          margin: 7,
+          fontSize: 29,
+          boxShadow: "2px 3px 10px rgba(0,0,0,0.1)",
+          border: 0,
+          fontFamily: "Montserrat",
+          border: "1px solid #DFE0E5",
+          fontWeight: "500",
+          color: "#333333",
         }}
         autoSelect={true}
         regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
@@ -115,17 +125,19 @@ function OTP(props) {
       </div>
 
       <Help />
-    </div>
+    </>
   );
 }
 
 const styles = {
-  container: {},
   msg: {
     fontSize: 25,
     fontWeight: 400,
   },
   userno: {
+    // fontWeight: 600,
+    // fontSize: 30,
+    // marginTop: 30,
     fontWeight: 600,
     fontSize: 30,
     marginTop: 30,

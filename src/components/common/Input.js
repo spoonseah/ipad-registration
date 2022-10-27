@@ -6,7 +6,8 @@ export default function Input(props) {
   return (
     <div
       style={{
-        marginTop: "23px",
+        // marginTop: "23px",
+        marginTop: 45,
       }}
     >
       {value !== "" && <div style={{ display: "flex" }}>{label}</div>}
@@ -24,14 +25,20 @@ export default function Input(props) {
 
 const styles = {
   inputStyle: {
+    // fontSize: 21,
+    // height: "60px",
+    // border: "1px solid #DFE0E5",
+    // width: "100%",
+    // fontFamily: "Montserrat",
+    // fontWeight: 500,
+    // paddingRight: "15px",
+    // paddingLeft: "15px",
+    // marginTop: "7px",
     fontSize: 21,
-    height: "60px",
+    padding: 27,
     border: "1px solid #DFE0E5",
     width: "100%",
     fontFamily: "Montserrat",
     fontWeight: 500,
-    paddingRight: "15px",
-    paddingLeft: "15px",
-    marginTop: "7px",
   },
 };

@@ -11,9 +11,13 @@ function Help() {
 
 const styles = {
   help: {
-    fontSize: "16px",
-    marginTop: "25px",
-    lineHeight: "23px",
+    // fontSize: "16px",
+    // marginTop: "25px",
+    // lineHeight: "23px",
+
+    fontSize: 21,
+    marginTop: 40,
+    lineHeight: "130%",
   },
 };
 

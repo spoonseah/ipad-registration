@@ -38,39 +38,44 @@ function JoinNow(props) {
       setContact_error_text("Please enter Mobile No.");
       return;
     }
+    navigate("/OTP", {
+      state: {
+        contact: contact,
+      },
+    });
 
-    try {
-      new WebApi()
-        .PreJoinSignup(props, contact, checksum)
-        .then((response) => {
-          console.log("url ress", response);
-          if (response?.data?.data?.status == "success") {
-            console.log(
-              " response?.data?.data?.status",
-              response?.data?.data?.verification_code
-            );
-            setVerification_token(response.data.data.verification_code);
-            navigate("/OTP", {
-              state: {
-                contact: contact,
-                verification_token: response.data.data.verification_code,
-              },
-            });
-          } else {
-            if (response?.data?.data?.status == "fail") {
-              if (response.data.data.reason.includes("Mobile used by other")) {
-                console.log("Mobile used by other", response.data.data.reason);
-                setContact_error_text("This Mobile No. is already registered.");
-              }
-            } else {
-            }
-            return;
-          }
-        })
-        .catch(() => {});
-    } catch (error) {
-      console.error(error);
-    }
+    // try {
+    //   new WebApi()
+    //     .PreJoinSignup(props, contact, checksum)
+    //     .then((response) => {
+    //       console.log("url ress", response);
+    //       if (response?.data?.data?.status == "success") {
+    //         console.log(
+    //           " response?.data?.data?.status",
+    //           response?.data?.data?.verification_code
+    //         );
+    //         setVerification_token(response.data.data.verification_code);
+    //         navigate("/OTP", {
+    //           state: {
+    //             contact: contact,
+    //             verification_token: response.data.data.verification_code,
+    //           },
+    //         });
+    //       } else {
+    //         if (response?.data?.data?.status == "fail") {
+    //           if (response.data.data.reason.includes("Mobile used by other")) {
+    //             console.log("Mobile used by other", response.data.data.reason);
+    //             setContact_error_text("This Mobile No. is already registered.");
+    //           }
+    //         } else {
+    //         }
+    //         return;
+    //       }
+    //     })
+    //     .catch(() => {});
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
   return (
     <div>
@@ -98,7 +103,7 @@ function JoinNow(props) {
         customStyle={{
           backgroundColor: COLOR.BLACK,
           color: COLOR.WHITE,
-          marginTop: "35px",
+          // marginTop: "35px",
         }}
       />
 

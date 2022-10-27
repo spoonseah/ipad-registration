@@ -9,7 +9,7 @@ import Theme from "../resources/theme/Theme";
 function Welcome() {
   let navigate = useNavigate();
   return (
-    <div style={styles.container}>
+    <>
       {/* title */}
       <div style={Theme.title}>Welcome to the FRx family!</div>
 
@@ -35,17 +35,22 @@ function Welcome() {
       <img src={IMAGES.DOWNLOAD} style={styles.downloadImg} />
 
       {/* button */}
-      <Button text="Start Over" onClick={() => navigate("/JoinNow")} />
-    </div>
+      <Button
+        text="Start Over"
+        onClick={() => navigate("/JoinNow")}
+        customStyle={{
+          border: `0.6px solid ${COLOR.SECONDARY_BLACK}`,
+          color: COLOR.SECONDARY_BLACK,
+        }}
+      />
+    </>
   );
 }
 
 const styles = {
-  container: {
-    width: "100%",
-  },
-
   iconWrap: {
+    // same
+
     display: "flex",
     marginTop: 35,
     justifyContent: "space-between",
@@ -54,12 +59,14 @@ const styles = {
     marginTop: 40,
   },
   qrImg: {
-    height: "185px",
-    width: "185px",
+    // height: "185px",
+    // width: "185px",
+    height: 230,
   },
   downloadImg: {
-    marginTop: "20px",
-    height: "75px",
+    margin: "30px 0 50px 0",
+    // marginTop: "20px",
+    // height: "75px",
   },
 };
 
