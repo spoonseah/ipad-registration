@@ -2,9 +2,14 @@ import React from "react";
 import Error from "./Error";
 
 export default function Input(props) {
-  const { type, placeholder, value, onChange, errorText, error } = props;
+  const { label, type, placeholder, value, onChange, errorText } = props;
   return (
-    <div>
+    <div
+      style={{
+        marginTop: "23px",
+      }}
+    >
+      {value !== "" && <div style={{ display: "flex" }}>{label}</div>}
       <input
         type={type}
         style={styles.inputStyle}
@@ -21,12 +26,12 @@ const styles = {
   inputStyle: {
     fontSize: 21,
     height: "60px",
-    marginTop: "30px",
     border: "1px solid #DFE0E5",
     width: "100%",
     fontFamily: "Montserrat",
     fontWeight: 500,
     paddingRight: "15px",
     paddingLeft: "15px",
+    marginTop: "7px",
   },
 };

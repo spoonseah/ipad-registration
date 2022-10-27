@@ -3,12 +3,13 @@ import StatusUpdate from "./StatusUpdate";
 
 const _TIME_OUT = 15000;
 const api_version = 31;
-
 export default class WebApi {
-  _BASE_URL = `${process.env.REACT_APP_FRX_API_BASE_URL}`;
+  _BASE_URL = `https://frxapi.tgate.sg/stage/`;
   PRE_JOIN = "auth/pre_join";
   ARTICLE_LIST = "listarticle";
   ARTICLE_DETAIL = "articledetail";
+  RESEND_MOBILE_OTP_ONLY = "auth/resend_mobile_otp_only";
+  VERIFY_MOBILE_OTP_ONLY = "auth/verify_mobile_otp_only";
 
   async sendPostRequest(props, _url, _params, custom_headers) {
     _url = this._BASE_URL + _url;
@@ -64,6 +65,24 @@ export default class WebApi {
     let body = {
       mobilephonenumber: _mobileNumber,
       checksum: _checksum,
+    };
+    return this.sendPostRequest(props, url, body);
+  }
+
+  resendMobileOtpOnly(props, _checksum, _verification_token) {
+    let url = this.RESEND_MOBILE_OTP_ONLY;
+    let body = {
+      checksum: _checksum,
+      verification_token: _verification_token,
+    };
+    return this.sendPostRequest(props, url, body);
+  }
+  verifyMobileOtpOnly(props, _checksum, _verification_token, _otp) {
+    let url = this.VERIFY_MOBILE_OTP_ONLY;
+    let body = {
+      checksum: _checksum,
+      verification_token: _verification_token,
+      otp: _otp,
     };
     return this.sendPostRequest(props, url, body);
   }

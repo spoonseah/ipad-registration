@@ -11,6 +11,7 @@ let hex_md5 = require("md5");
 function JoinNow(props) {
   const [contact, setContact] = useState("");
   const [contact_error_text, setContact_error_text] = useState("");
+  const [verification_token, setVerification_token] = useState("");
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -46,12 +47,20 @@ function JoinNow(props) {
           if (response?.data?.data?.status == "success") {
             console.log(
               " response?.data?.data?.status",
-              response?.data?.data?.status
+              response?.data?.data?.verification_code
             );
+            setVerification_token(response.data.data.verification_code);
+            navigate("/OTP", {
+              state: {
+                contact: contact,
+                verification_token: response.data.data.verification_code,
+              },
+            });
           } else {
             if (response?.data?.data?.status == "fail") {
               if (response.data.data.reason.includes("Mobile used by other")) {
                 console.log("Mobile used by other", response.data.data.reason);
+                setContact_error_text("This Mobile No. is already registered.");
               }
             } else {
             }
@@ -59,7 +68,6 @@ function JoinNow(props) {
           }
         })
         .catch(() => {});
-      // navigate("/OTP");
     } catch (error) {
       console.error(error);
     }
