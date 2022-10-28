@@ -1,24 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import Theme from "../../resources/theme/Theme";
-import { FiChevronDown } from "react-icons/fi";
 import { COLOR } from "../../resources/theme/Color";
-function DropDownMenu({ label, options, customStyle }) {
+import DatePicker from "react-date-picker";
+
+function DropDownMenu({ label, customStyle, Options, dob }) {
+  const [value, setValue] = useState("Select");
+  const [date, setDate] = useState(new Date());
+
+  const optionsHandler = (event) => {
+    setValue(event.target.value);
+  };
+  const dateHandler = (event) => {
+    setDate(event.target.value);
+  };
   return (
     <div style={{ ...styles.selectWrap, ...customStyle }}>
       <div style={Theme.label}>{label}</div>
-      <div
+      <select
         style={{
-          display: "flex",
-          alignItems: "center",
+          color: COLOR.DARK_GRAY,
+          width: "100%",
+          fontSize: 20,
+          border: 0,
+          fontWeight: 500,
+          fontFamily: "Montserrat",
+          // color: "#999",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "100% 50%",
         }}
+        value={value}
+        onChange={dob ? dateHandler : optionsHandler}
       >
-        <select style={styles.select}>
-          {/* {options.map((options) => {
-            <option value={options}>{options}</option>;
-          })} */}
-        </select>
-        <FiChevronDown size={22} color={COLOR.DARK_GRAY} />
-      </div>
+        {dob ? (
+          <DatePicker onChange={dateHandler} value={date} />
+        ) : (
+          <>
+            {Options.map((option) => (
+              <option value={option.value}>{option.label}</option>
+            ))}
+          </>
+        )}
+      </select>
     </div>
   );
 }

@@ -3,10 +3,14 @@ import Button from "../components/common/Button";
 import DropDownMenu from "../components/common/DropDownMenu";
 import Error from "../components/common/Error";
 import Input from "../components/common/Input";
-import ToggleButton from "../components/common/ToggleSwitch";
-
+import ToggleActive from "../components/common/ToggleActive";
 import { COLOR } from "../resources/theme/Color";
-import Theme from "../resources/theme/Theme";
+import {
+  Gender,
+  HouseholdIncome,
+  Salutation,
+  TypeOfResidence,
+} from "../resources/theme/Constants";
 import Help from "./Help";
 
 function RegistrationForm() {
@@ -59,7 +63,7 @@ function RegistrationForm() {
       <div style={styles.section}>Your profile</div>
 
       {/* salutation */}
-      <DropDownMenu label={"Salutation"} />
+      <DropDownMenu label={"Salutation"} Options={Salutation} />
 
       {/* given name */}
       <Input
@@ -81,18 +85,21 @@ function RegistrationForm() {
       />
       <DropDownMenu
         label={"Gender*"}
+        Options={Gender}
         customStyle={{
           marginTop: 45,
         }}
       />
       <DropDownMenu
         label={"Date of Birth*"}
+        dob
         customStyle={{
           marginTop: 45,
         }}
       />
       <DropDownMenu
         label={"Household Income*"}
+        Options={HouseholdIncome}
         customStyle={{
           marginTop: 45,
         }}
@@ -134,10 +141,19 @@ function RegistrationForm() {
       />
       <DropDownMenu
         label={"Type of Residence"}
+        Options={TypeOfResidence}
         customStyle={{
           marginTop: 45,
         }}
       />
+      {/* section label */}
+      <div style={styles.section}>Your contact details</div>
+
+      {/* mobile no */}
+      <div style={styles.txtfieldDisabled}>
+        <div style={styles.disabledLabel}>Mobile No.*</div>
+        <div style={styles.disabledValue}>9631 9467</div>
+      </div>
 
       {/* Email */}
       <Input
@@ -169,22 +185,54 @@ function RegistrationForm() {
         errorText={retypePasswordError}
       />
 
-      <div
-        style={{
-          // fontSize: "14px",
-          // display: "flex",
-          textAlign: "left",
-          // fontWeight: "500",
-          fontSize: 19,
-          fontWeight: 500,
-          lineHeight: "130%",
-          paddingTop: 20,
-        }}
-      >
+      <div style={styles.consent}>
         I consent to receive promotional marketing messages from Frasers
         Property Retail Management Pte. Ltd.
       </div>
-      <ToggleButton />
+      <div
+        style={{
+          marginBottom: 25,
+        }}
+      >
+        <ToggleActive text={"Receive promotions via call"} />
+        <ToggleActive text={"Receive promotions via email"} />
+        <ToggleActive text={"Receive promotions via SMS"} />
+      </div>
+      <div style={styles.agreement}>
+        <div style={styles.checkboxWrap}>
+          <input type="checkbox" />
+        </div>
+        <div style={styles.agreeText}>
+          I have read and agree to the{" "}
+          <a
+            href="https://www.frasersexperience.com/terms-of-use"
+            target="_blank"
+            style={styles.link}
+          >
+            Terms of Use
+          </a>
+          ,{" "}
+          <a
+            href="https://www.frasersproperty.com/privacy-policy"
+            target="_blank"
+            style={styles.link}
+          >
+            Privacy Policy
+          </a>
+          , and the{" "}
+          <a
+            href="https://www.frasersexperience.com/privacy-policy-addendum/"
+            target="_blank"
+            style={styles.link}
+          >
+            Privacy Policy Addendum
+          </a>{" "}
+          on how my personal data may be collected, used, disclosed and
+          processed by Frasers Property Limited (“Frasers”), and other
+          organisations related to Frasers (including its
+          subsidiaries)(collectively the “Frasers Property Group”).
+        </div>
+      </div>
       <Button
         customStyle={{
           backgroundColor: COLOR.BLACK,
@@ -199,6 +247,10 @@ function RegistrationForm() {
 }
 
 const styles = {
+  description: {
+    fontSize: 29,
+    fontWeight: 600,
+  },
   section: {
     display: "flex",
     fontSize: 20,
@@ -206,52 +258,12 @@ const styles = {
     marginBottom: 15,
     marginTop: 40,
   },
-  selectWrap: {
-    width: "100%",
-    border: "1px solid #DFE0E5",
-    borderRadius: "5px",
-    padding: "15px 30px",
-  },
-  label: {
-    fontSize: 20,
-    fontWeight: 500,
-    marginBottom: 5,
-  },
-  select: {
-    appearance: "none",
-    width: "100%",
-    fontSize: 20,
-    border: 0,
-    fontWeight: 500,
-    fontFamily: "Montserrat",
-    color: "#999",
-    backgroundImage: 'url("../images/down-arrow.png")',
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "100% 50%",
-  },
-  txtfield: {
-    appearance: "none",
-    border: "1px solid #DFE0E5",
-    padding: "25px 30px",
-    borderRadius: "5px",
-    width: "100%",
-    fontSize: 20,
-    fontWeight: 500,
-    color: "#999",
-    fontFamily: "Montserrat",
-  },
-  txtfieldLabel: {
-    fontSize: 20,
-    fontWeight: 500,
-    marginBottom: 10,
-  },
-  item: {
-    marginBottom: 25,
-  },
+
   txtfieldDisabled: {
     backgroundColor: "#F2F2F3",
     padding: "25px 30px",
     borderRadius: "5px",
+    textAlign: "left",
   },
   disabledLabel: {
     fontSize: 20,
@@ -264,32 +276,30 @@ const styles = {
     fontWeight: 500,
   },
   consent: {
-    // fontSize: 19,
-    // fontWeight: 500,
-    // lineHeight: "130%",
-    // paddingTop: 20,
-  },
-  toggleItem: {
-    display: "flex",
-    justifyContent: "space-between",
-    marginBottom: 15,
-    alignItems: "center",
-  },
-  toggleWrap: {
-    fontSize: 20,
-    color: "#999",
+    // fontSize: "14px",
+    // display: "flex",
+    textAlign: "left",
+    // fontWeight: "500",
+    fontSize: 19,
     fontWeight: 500,
+    lineHeight: "130%",
+    paddingTop: 20,
+    marginBottom: 25,
   },
+
   agreement: {
+    // fontSize: 20,
+    // paddingBottom: 30,
     display: "flex",
-    fontSize: 20,
-    paddingBottom: 30,
+    marginBottom: 25,
   },
   checkboxWrap: {
-    width: "7%",
+    flex: 0.1,
+    textAlign: "left",
   },
   agreeText: {
-    width: "85%",
+    flex: 0.9,
+    textAlign: "left",
     fontSize: 16,
     lineHeight: "150%",
     fontWeight: 500,
@@ -297,10 +307,6 @@ const styles = {
   link: {
     color: "#FA7268",
     textDecoration: "none",
-  },
-  description: {
-    fontSize: 29,
-    fontWeight: 600,
   },
 };
 
