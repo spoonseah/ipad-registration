@@ -60,7 +60,7 @@ function OTP(props) {
 
   return (
     <>
-      <div style={Theme.description}>
+      <div style={Theme.otpDescription}>
         Please enter the one time password (OTP)
         <br /> sent to:
       </div>

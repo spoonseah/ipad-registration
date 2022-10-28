@@ -24,6 +24,10 @@ const Theme = {
     fontSize: 26,
     fontWeight: 400,
   },
+  otpDescription: {
+    fontSize: '25px',
+    fontWeight: 400,
+  },
   oneTimeOTP: {
     // fontSize: "18px",
     // fontWeight: 500,
