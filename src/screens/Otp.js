@@ -74,7 +74,9 @@ function OTP(props) {
         type="numeric"
         inputMode="number"
         style={{
-          marginTop: "25px",
+          margin: "40px -10px 0",
+          display: "flex",
+          justifyContent: "center",
         }}
         inputStyle={{
           // borderColor: COLOR.GRAY,
