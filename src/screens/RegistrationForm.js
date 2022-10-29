@@ -227,10 +227,7 @@ function RegistrationForm() {
           >
             Privacy Policy Addendum
           </a>{" "}
-          on how my personal data may be collected, used, disclosed and
-          processed by Frasers Property Limited (“Frasers”), and other
-          organisations related to Frasers (including its
-          subsidiaries)(collectively the “Frasers Property Group”).
+          on which include how my personal data may be collected, used, disclosed and processed by Frasers Property Retail Management Pte. Ltd. (“Frasers”) and its related corporations.
         </div>
       </div>
       <Button
