@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-function ToggleActive({ text }) {
-  const [active, setActive] = useState(false);
+function ToggleActive({ text, active, onClickHandler }) {
   return (
     <div
       style={{
@@ -20,8 +19,8 @@ function ToggleActive({ text }) {
       >
         {text}
       </div>
-      <div style={styles.toggle} onClick={() => setActive(!active)}>
-        <div style={active ? styles.knobActive : styles.knobInactive}></div>
+      <div style={styles.toggle} onClick={onClickHandler}>
+        <div style={active ? styles.knobActive : styles.knobInactive} />
       </div>
     </div>
   );

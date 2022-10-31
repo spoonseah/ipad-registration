@@ -19,24 +19,24 @@ export const FRX_GIFT_CARD = [
   },
 ];
 
-export const Salutation = [
+export const salutationType = [
   { label: "Mr", value: "Mr" },
   { label: "Ms", value: "Ms" },
   { label: "Mrs", value: "Mrs" },
   { label: "Dr", value: "Dr" },
 ];
-export const Gender = [
+export const genderType = [
   { label: "Male", value: "Male" },
   { label: "Female", value: "Female" },
   { label: "Prefer not to say", value: "Prefer not to say" },
 ];
-export const HouseholdIncome = [
+export const householdIncome = [
   { label: "0 - 1000", value: "0 - 1000" },
   { label: "1000 - 2999", value: "1000 - 2999" },
   { label: "3000 - 5999", value: "3000 - 5999" },
   { label: "6000", value: "6000" },
 ];
-export const TypeOfResidence = [
+export const residenceType = [
   { label: "HDB", value: "HDB" },
   { label: "Condominum", value: "Condominum" },
   { label: "Landed Property", value: "Landed Property" },

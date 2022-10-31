@@ -2,45 +2,63 @@ import React, { useState } from "react";
 import Theme from "../../resources/theme/Theme";
 import { COLOR } from "../../resources/theme/Color";
 import DatePicker from "react-date-picker";
-
-function DropDownMenu({ label, customStyle, Options, dob }) {
-  const [value, setValue] = useState("Select");
-  const [date, setDate] = useState(new Date());
-
-  const optionsHandler = (event) => {
-    setValue(event.target.value);
-  };
-  const dateHandler = (event) => {
-    setDate(event.target.value);
-  };
+import { BiChevronDown } from "react-icons/bi";
+function DropDownMenu({
+  label,
+  customStyle,
+  Options,
+  dob,
+  value,
+  optionsHandler,
+  date,
+  dobHandler,
+}) {
   return (
     <div style={{ ...styles.selectWrap, ...customStyle }}>
       <div style={Theme.label}>{label}</div>
-      <select
-        style={{
-          color: COLOR.DARK_GRAY,
-          width: "100%",
-          fontSize: 20,
-          border: 0,
-          fontWeight: 500,
-          fontFamily: "Montserrat",
-          // color: "#999",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "100% 50%",
-        }}
-        value={value}
-        onChange={dob ? dateHandler : optionsHandler}
-      >
-        {dob ? (
-          <DatePicker onChange={dateHandler} value={date} />
-        ) : (
+      {!dob ? (
+        <select
+          style={{
+            color: COLOR.DARK_GRAY,
+            width: "100%",
+            fontSize: 20,
+            border: 0,
+            fontWeight: 500,
+            fontFamily: "Montserrat",
+            // color: "#999",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "100% 50%",
+          }}
+          value={value}
+          onChange={optionsHandler}
+        >
           <>
-            {Options.map((option) => (
-              <option value={option.value}>{option.label}</option>
+            {Options.map((option, index) => (
+              <option key={index} value={option.value} placeholder="Select">
+                {option.label}
+              </option>
             ))}
           </>
-        )}
-      </select>
+        </select>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            color: COLOR.DARK_GRAY,
+          }}
+        >
+          <DatePicker
+            onChange={dobHandler}
+            value={date}
+            style={{ margin: 0, padding: 0 }}
+            calendarIcon={false}
+            clearIcon={false}
+            customStyles={{ dateInput: { borderWidth: 0 } }}
+          />
+          <BiChevronDown size={20} />
+        </div>
+      )}
     </div>
   );
 }

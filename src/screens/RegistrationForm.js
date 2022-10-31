@@ -1,22 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import Button from "../components/common/Button";
 import DropDownMenu from "../components/common/DropDownMenu";
 import Error from "../components/common/Error";
 import Input from "../components/common/Input";
 import ToggleActive from "../components/common/ToggleActive";
+import { validateEmail, validatePostalCode } from "../helper/validations";
+import WebApi from "../helper/WebApi";
 import { COLOR } from "../resources/theme/Color";
 import {
-  Gender,
-  HouseholdIncome,
-  Salutation,
-  TypeOfResidence,
+  genderType,
+  householdIncome,
+  salutationType,
+  residenceType,
 } from "../resources/theme/Constants";
 import Help from "./Help";
 
 function RegistrationForm() {
+  const [salutation, setSalutation] = useState("");
   const [givenName, setGivenName] = useState("");
   const [givenNameError, setGivenNameError] = useState("");
   const [surName, setSurName] = useState("");
+  const [gender, setGender] = useState("");
+  const [income, setIncome] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setemailError] = useState("");
   const [password, setPassword] = useState("");
@@ -28,6 +34,42 @@ function RegistrationForm() {
   const [unitNo, setUnitNo] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [postalCodeError, setPostalCodeError] = useState("");
+  const [residence, setResidence] = useState("");
+  const [agreement, setAgreement] = useState(true);
+  const [agreementError, setAgreementError] = useState("");
+  const [smsConsent, setSmsConsent] = useState(false);
+  const [emailConsent, setEmailConsent] = useState(false);
+  const [callConsent, setCallConsent] = useState(false);
+  const [date, setDate] = useState(new Date());
+
+  const location = useLocation();
+  console.log(
+    "location?.state?.contactlocation?.state?.contact",
+    location?.state?.contact
+  );
+
+  useEffect(() => {
+    if (email.length > 0) {
+      let valid = validateEmail(email);
+      if (!valid) {
+        setemailError("Email is invalid");
+      } else {
+        setemailError("");
+      }
+    }
+    if (postalCode.length > 0) {
+      let validCode = validatePostalCode(postalCode);
+      if (validCode) {
+        setPostalCodeError("Postal Code is invalid");
+      } else {
+        setPostalCodeError("");
+      }
+    }
+  }, [email, postalCode, agreement]);
+
+  const handleEmail = (text) => {
+    setEmail(text.target.value);
+  };
   const register = () => {
     if (givenName == "") {
       setGivenNameError("Please enter your First Name");
@@ -44,27 +86,59 @@ function RegistrationForm() {
     if (password == "") {
       setPasswordError("Please enter Password");
       return;
+    } else if (password.length < 8) {
+      setPasswordError("Your password should contain at least 8 characters");
     } else {
       setPasswordError("");
     }
-    if (retypePassword !== password) {
-      setRetypePassword("Passwords do not match ");
+
+    if (retypePassword == "") {
+      setRetypePasswordError("Passwords do not match");
       return;
+    } else if (retypePassword != password) {
+      setRetypePasswordError("Passwords do not match");
+    } else {
+      setRetypePasswordError("");
     }
     if (postalCode == "") {
       setPostalCodeError("Please enter your Postal Code");
       return;
     }
+    if (!agreement) {
+      setAgreementError("Please agree to our Terms of Use and Privacy Policy");
+    } else {
+      setAgreementError("");
+    }
+    new WebApi()
+      .userSignUp(
+        email,
+        givenName,
+        "",
+        password,
+        postalCode,
+        callConsent ? "Y" : "N",
+        emailConsent ? "Y" : "N",
+        smsConsent ? "Y" : "N",
+        surName,
+        "contact",
+        gender
+      )
+      .then((response) => {
+        console.log("response====", response.data);
+      });
   };
 
   return (
     <>
       <div style={styles.description}>Tell us more about yourself.</div>
       <div style={styles.section}>Your profile</div>
-
       {/* salutation */}
-      <DropDownMenu label={"Salutation"} Options={Salutation} />
-
+      <DropDownMenu
+        label={"Salutation"}
+        Options={salutationType}
+        value={salutation}
+        optionsHandler={(text) => setSalutation(text.target.value)}
+      />
       {/* given name */}
       <Input
         label={"Given Name*"}
@@ -74,7 +148,6 @@ function RegistrationForm() {
         onChange={(text) => setGivenName(text.target.value)}
         errorText={givenNameError}
       />
-
       {/* surname */}
       <Input
         label={"Surname"}
@@ -85,34 +158,38 @@ function RegistrationForm() {
       />
       <DropDownMenu
         label={"Gender*"}
-        Options={Gender}
+        Options={genderType}
+        value={gender}
+        optionsHandler={(text) => setGender(text.target.value)}
         customStyle={{
           marginTop: 45,
         }}
       />
       <DropDownMenu
         label={"Date of Birth*"}
-        dob
+        dob={true}
+        date={date}
+        dobHandler={(text) => setDate(text)}
         customStyle={{
           marginTop: 45,
         }}
       />
       <DropDownMenu
         label={"Household Income*"}
-        Options={HouseholdIncome}
+        Options={householdIncome}
+        value={income}
+        optionsHandler={(text) => setIncome(text.target.value)}
         customStyle={{
           marginTop: 45,
         }}
       />
       <div style={styles.section}>Your address</div>
-
       <Input
         label={"Block No"}
         type={"text"}
         placeholder={"Block No"}
         value={blockNo}
         onChange={(text) => setBlockNo(text.target.value)}
-        errorText={givenNameError}
       />
       <Input
         label={"Street Name"}
@@ -120,7 +197,6 @@ function RegistrationForm() {
         placeholder={"Street Name"}
         value={streetName}
         onChange={(text) => setStreetName(text.target.value)}
-        errorText={givenNameError}
       />
       <Input
         label={"Unit No"}
@@ -128,7 +204,6 @@ function RegistrationForm() {
         placeholder={"Unit No"}
         value={unitNo}
         onChange={(text) => setUnitNo(text.target.value)}
-        errorText={givenNameError}
       />
       {/* Postal Code */}
       <Input
@@ -141,31 +216,30 @@ function RegistrationForm() {
       />
       <DropDownMenu
         label={"Type of Residence"}
-        Options={TypeOfResidence}
+        Options={residenceType}
+        value={residence}
+        optionsHandler={(text) => setResidence(text.target.value)}
         customStyle={{
           marginTop: 45,
         }}
-      />
+      />{" "}
       {/* section label */}
       <div style={styles.section}>Your contact details</div>
-
       {/* mobile no */}
       <div style={styles.txtfieldDisabled}>
         <div style={styles.disabledLabel}>Mobile No.*</div>
-        <div style={styles.disabledValue}>9631 9467</div>
+        <div style={styles.disabledValue}>{}</div>
       </div>
-
       {/* Email */}
       <Input
         label={"Email"}
         type={"email"}
         placeholder={"Email*"}
         value={email}
-        onChange={(text) => setEmail(text.target.value)}
+        onChange={handleEmail}
         errorText={emailError}
       />
       <div style={styles.section}>Set your password</div>
-
       {/* Password */}
       <Input
         label={"Password*"}
@@ -184,7 +258,6 @@ function RegistrationForm() {
         onChange={(text) => setRetypePassword(text.target.value)}
         errorText={retypePasswordError}
       />
-
       <div style={styles.consent}>
         I consent to receive promotional marketing messages from Frasers
         Property Retail Management Pte. Ltd.
@@ -194,41 +267,67 @@ function RegistrationForm() {
           marginBottom: 25,
         }}
       >
-        <ToggleActive text={"Receive promotions via call"} />
-        <ToggleActive text={"Receive promotions via email"} />
-        <ToggleActive text={"Receive promotions via SMS"} />
+        <ToggleActive
+          text={"Receive promotions via call"}
+          active={callConsent}
+          onClickHandler={() => setCallConsent(!callConsent)}
+        />
+        <ToggleActive
+          text={"Receive promotions via email"}
+          active={emailConsent}
+          onClickHandler={() => setEmailConsent(!emailConsent)}
+        />
+        <ToggleActive
+          text={"Receive promotions via SMS"}
+          active={smsConsent}
+          onClickHandler={() => setSmsConsent(!smsConsent)}
+        />
       </div>
       <div style={styles.agreement}>
-        <div style={styles.checkboxWrap}>
-          <input type="checkbox" />
+        <div
+          style={{
+            display: "flex",
+          }}
+        >
+          <div style={styles.checkboxWrap}>
+            <input
+              type="checkbox"
+              checked={agreement}
+              onChange={() => setAgreement(!agreement)}
+            />
+          </div>
+          <div style={styles.agreeText}>
+            I have read and agree to the{" "}
+            <a
+              href="https://www.frasersexperience.com/terms-of-use"
+              target="_blank"
+              style={styles.link}
+            >
+              Terms of Use
+            </a>
+            ,{" "}
+            <a
+              href="https://www.frasersproperty.com/privacy-policy"
+              target="_blank"
+              style={styles.link}
+            >
+              Privacy Policy
+            </a>
+            , and the{" "}
+            <a
+              href="https://www.frasersexperience.com/privacy-policy-addendum/"
+              target="_blank"
+              style={styles.link}
+            >
+              Privacy Policy Addendum
+            </a>{" "}
+            on which include how my personal data may be collected, used,
+            disclosed and processed by Frasers Property Retail Management Pte.
+            Ltd. (“Frasers”) and its related corporations.
+          </div>
         </div>
-        <div style={styles.agreeText}>
-          I have read and agree to the{" "}
-          <a
-            href="https://www.frasersexperience.com/terms-of-use"
-            target="_blank"
-            style={styles.link}
-          >
-            Terms of Use
-          </a>
-          ,{" "}
-          <a
-            href="https://www.frasersproperty.com/privacy-policy"
-            target="_blank"
-            style={styles.link}
-          >
-            Privacy Policy
-          </a>
-          , and the{" "}
-          <a
-            href="https://www.frasersexperience.com/privacy-policy-addendum/"
-            target="_blank"
-            style={styles.link}
-          >
-            Privacy Policy Addendum
-          </a>{" "}
-          on which include how my personal data may be collected, used, disclosed and processed by Frasers Property Retail Management Pte. Ltd. (“Frasers”) and its related corporations.
-        </div>
+
+        <Error error={agreementError} />
       </div>
       <Button
         customStyle={{
@@ -287,7 +386,6 @@ const styles = {
   agreement: {
     // fontSize: 20,
     // paddingBottom: 30,
-    display: "flex",
     marginBottom: 25,
   },
   checkboxWrap: {

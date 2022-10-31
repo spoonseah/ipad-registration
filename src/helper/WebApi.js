@@ -4,12 +4,13 @@ import StatusUpdate from "./StatusUpdate";
 const _TIME_OUT = 15000;
 const api_version = 31;
 export default class WebApi {
-  _BASE_URL = `https://frxapi.tgate.sg/stage/`;
+  _BASE_URL = `https://frxapi-stage.tgate.sg/live/`;
   PRE_JOIN = "auth/pre_join";
   ARTICLE_LIST = "listarticle";
   ARTICLE_DETAIL = "articledetail";
   RESEND_MOBILE_OTP_ONLY = "auth/resend_mobile_otp_only";
   VERIFY_MOBILE_OTP_ONLY = "auth/verify_mobile_otp_only";
+  USER_SIGNUP = "signup";
 
   async sendPostRequest(props, _url, _params, custom_headers) {
     _url = this._BASE_URL + _url;
@@ -41,12 +42,14 @@ export default class WebApi {
         url: _url,
         data: _params,
         timeout: _TIME_OUT,
-        headers: _headers,
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
       console.log("url response", response);
-      // setTimeout(() => {
-      //   new StatusUpdate().processResponse(response.data, props);
-      // }, 400);
+      setTimeout(() => {
+        // new StatusUpdate().processResponse(response.data, props);
+      }, 400);
 
       return response;
     } catch (error) {
@@ -84,6 +87,43 @@ export default class WebApi {
       verification_token: _verification_token,
       otp: _otp,
     };
+    console.log("body==**", url, body);
     return this.sendPostRequest(props, url, body);
+  }
+  userSignUp(
+    _user_name,
+    _givenname,
+    _birthdate,
+    _password,
+    postal_code,
+    callconsent,
+    emailconsent,
+    smsconsent,
+    _familyname,
+    _contact,
+    _gender
+  ) {
+    let url = this.USER_SIGNUP;
+    // {"user":"tahir.aziz@goldevelopers.com", "password": "123456789","givenname":"tahir.aziz@goldevelopers.com", "nric": "S1111111G","birthdate":"07-07-81"}
+    let body = {
+      user: _user_name,
+      password: _password,
+      givenname: _givenname,
+      familyname: _familyname,
+      // nric: _nric,
+      birthdate: _birthdate,
+      postalcode: postal_code,
+      mobilephonenumber: _contact,
+      callconsent: callconsent,
+      emailconsent: emailconsent,
+      smsconsent: smsconsent,
+    };
+    if (_gender == "Male") {
+      body.gender = "M";
+    } else if (_gender == "Female") {
+      body.gender = "F";
+    }
+    console.log("body===***", body);
+    return this.sendPostRequest(null, url, body);
   }
 }

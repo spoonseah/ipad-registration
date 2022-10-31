@@ -13,13 +13,14 @@ function OTP(props) {
   const location = useLocation();
   const [otp, setOtp] = useState("");
   const [otpError, setOtpError] = useState("");
+
   const resendOtp = () => {
     let c = location?.state?.verification_token + "#frasers";
     let checksum = hex_md5(c);
-
     new WebApi()
       .resendMobileOtpOnly(props, checksum, location?.state?.verification_token)
       .then((response) => {
+        console.log("response===", response.data);
         if (response?.data?.data?.status == "success") {
           // error: "We have resent you an OTP. Please check your messages",
           setOtpError("OTP has been resent");
@@ -34,7 +35,6 @@ function OTP(props) {
       setOtp("");
       return;
     }
-
     let c = location?.state?.verification_token + otp + "#frasers";
     let checksum = hex_md5(c);
     new WebApi()
@@ -50,7 +50,11 @@ function OTP(props) {
           JSON.stringify(res.data.data.prefill.length == 0, null, 2)
         );
         if (res?.data?.data?.status == "success") {
-          navigate("/RegistrationForm");
+          navigate("/RegistrationForm", {
+            state: {
+              contact: location?.state?.contact,
+            },
+          });
         } else {
           setOtpError("OTP is incorrect or has expired");
           setOtp("");
@@ -109,7 +113,7 @@ function OTP(props) {
               border: `0px`,
               color: COLOR.SECONDARY_BLACK,
             }}
-            onClick={() => resendOtp()}
+            onClick={resendOtp}
           />
         </div>
         <div style={styles.button}>
