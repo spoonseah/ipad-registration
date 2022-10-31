@@ -13,6 +13,7 @@ function OTP(props) {
   const location = useLocation();
   const [otp, setOtp] = useState("");
   const [otpError, setOtpError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const resendOtp = () => {
     let c = location?.state?.verification_token + "#frasers";
@@ -30,11 +31,14 @@ function OTP(props) {
   };
 
   const verifyOtp = () => {
+    setLoading(true);
     if (location?.state?.verification_token == "" || otp == "") {
       setOtpError("Please enter OTP");
       setOtp("");
+      setLoading(false);
       return;
     }
+    setLoading(true);
     let c = location?.state?.verification_token + otp + "#frasers";
     let checksum = hex_md5(c);
     new WebApi()
@@ -50,6 +54,7 @@ function OTP(props) {
           JSON.stringify(res.data.data.prefill.length == 0, null, 2)
         );
         if (res?.data?.data?.status == "success") {
+          setLoading(false);
           navigate("/RegistrationForm", {
             state: {
               contact: location?.state?.contact,
@@ -126,6 +131,7 @@ function OTP(props) {
             }}
             // onClick={() => navigate("/RegistrationForm")}
             onClick={verifyOtp}
+            loading={loading}
           />
         </div>
       </div>

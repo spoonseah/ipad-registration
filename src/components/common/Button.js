@@ -1,3 +1,4 @@
+import { PuffLoader } from "react-spinners";
 import { COLOR } from "../../resources/theme/Color";
 
 function Button(props) {
@@ -6,7 +7,19 @@ function Button(props) {
       onClick={props.onClick}
       style={{ ...styles.button, ...props.customStyle }}
     >
-      {props.text}
+      {props.loading ? (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <PuffLoader
+            color={COLOR.WHITE}
+            loading={props.loading}
+            size={27}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      ) : (
+        props.text
+      )}
     </div>
   );
 }

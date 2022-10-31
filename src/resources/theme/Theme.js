@@ -14,7 +14,7 @@ const Theme = {
     // fontSize: "25px",
     fontSize: 30,
     fontWeight: 600,
-    marginBottom: '35px',
+    marginBottom: "35px",
   },
   description: {
     // fontSize: "20px",
@@ -25,7 +25,7 @@ const Theme = {
     fontWeight: 400,
   },
   otpDescription: {
-    fontSize: '25px',
+    fontSize: "25px",
     fontWeight: 400,
   },
   oneTimeOTP: {
@@ -45,6 +45,13 @@ const Theme = {
     fontSize: 20,
     fontWeight: 500,
     marginBottom: 5,
+  },
+  spinner: {
+    border: "10px solid #f3f3f3",
+    // border-radius: 50%,
+    width: "80px",
+    height: "80px",
+    animation: `spin 1s linear infinite`,
   },
 };
 

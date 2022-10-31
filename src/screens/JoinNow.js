@@ -12,6 +12,7 @@ function JoinNow(props) {
   const [contact, setContact] = useState("");
   const [contact_error_text, setContact_error_text] = useState("");
   const [verification_token, setVerification_token] = useState("");
+  const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -31,25 +32,23 @@ function JoinNow(props) {
 
   const joinNow = () => {
     //  navigate("/OTP");
+    setLoading(true);
     let c = contact + "#frasers";
     let checksum = hex_md5(c);
 
     if (contact === "") {
       setContact_error_text("Please enter Mobile No.");
+      setLoading(false);
       return;
     }
 
     try {
-      console.log("checksum", checksum, contact);
+      setLoading(true);
       new WebApi()
         .PreJoinSignup(props, contact, checksum)
         .then((response) => {
-          console.log("url ress", response);
           if (response?.data?.data?.status == "success") {
-            console.log(
-              " response?.data?.data?.status",
-              response?.data?.data?.verification_code
-            );
+            setLoading(false);
             setVerification_token(response.data.data.verification_code);
             navigate("/OTP", {
               state: {
@@ -58,6 +57,7 @@ function JoinNow(props) {
               },
             });
           } else {
+            setLoading(false);
             if (response?.data?.data?.status == "fail") {
               if (response.data.data.reason.includes("Mobile used by other")) {
                 console.log("Mobile used by other", response.data.data.reason);
@@ -92,7 +92,6 @@ function JoinNow(props) {
         A one-time password (OTP) will be sent to this <br /> Mobile No. for
         verification.
       </div>
-
       <Button
         text="Next"
         onClick={joinNow}
@@ -101,6 +100,7 @@ function JoinNow(props) {
           color: COLOR.WHITE,
           // marginTop: "35px",
         }}
+        loading={loading}
       />
 
       <Help />
