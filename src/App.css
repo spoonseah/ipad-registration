@@ -19,3 +19,29 @@ select {
 :focus {
   outline: none;
 }
+
+.react-date-picker__wrapper {
+  border: 0 !important;
+}
+
+.react-date-picker__inputGroup {
+  padding: 0 !important;
+  font-size: 20px;
+}
+
+.react-date-picker__inputGroup__input {
+  color: #999;
+  font-weight: 500 !important;
+}
+
+.react-calendar__navigation button,
+.react-calendar button,
+.react-calendar__month-view__weekdays {
+  font-family: "Montserrat";
+  font-weight: 500;
+  color: #666;
+}
+
+.react-calendar__tile--active {
+  background-color: #ccc !important;
+}

@@ -228,7 +228,7 @@ function RegistrationForm() {
       {/* mobile no */}
       <div style={styles.txtfieldDisabled}>
         <div style={styles.disabledLabel}>Mobile No.*</div>
-        <div style={styles.disabledValue}>{}</div>
+        <div style={styles.disabledValue}>{ }</div>
       </div>
       {/* Email */}
       <Input
@@ -386,7 +386,8 @@ const styles = {
   agreement: {
     // fontSize: 20,
     // paddingBottom: 30,
-    marginBottom: 25,
+    marginBottom: 50,
+    paddingTop: 20,
   },
   checkboxWrap: {
     flex: 0.1,
