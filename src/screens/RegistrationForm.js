@@ -15,6 +15,8 @@ import {
   residenceType,
 } from "../resources/theme/Constants";
 import Help from "./Help";
+import Moment from "react-moment";
+import moment from "moment";
 
 function RegistrationForm() {
   const [salutation, setSalutation] = useState("");
@@ -40,13 +42,10 @@ function RegistrationForm() {
   const [smsConsent, setSmsConsent] = useState(false);
   const [emailConsent, setEmailConsent] = useState(false);
   const [callConsent, setCallConsent] = useState(false);
-  const [date, setDate] = useState(new Date());
-
+  const [dob, setDob] = useState(new Date());
+  const [dobError, setDobError] = useState("");
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
-  console.log(
-    "location?.state?.contactlocation?.state?.contact",
-    location?.state?.contact
-  );
 
   useEffect(() => {
     if (email.length > 0) {
@@ -70,7 +69,9 @@ function RegistrationForm() {
   const handleEmail = (text) => {
     setEmail(text.target.value);
   };
+
   const register = () => {
+    setLoading(true);
     if (givenName == "") {
       setGivenNameError("Please enter your First Name");
       return;
@@ -109,25 +110,47 @@ function RegistrationForm() {
     } else {
       setAgreementError("");
     }
+    let dd = moment(dob).date();
+    let mm = moment(dob).month() + 1;
+    let yyyy = moment(dob).year();
+    let age = moment().diff(dob, "years");
+    let date_str;
+    if (age >= 18) {
+      date_str = yyyy + "-" + mm + "-" + dd;
+      setDobError("");
+    } else {
+      setDobError("You must be above 18 years old to join Frasers Experience");
+    }
+
     new WebApi()
       .userSignUp(
         email,
         givenName,
-        "",
+        date_str,
         password,
         postalCode,
         callConsent ? "Y" : "N",
         emailConsent ? "Y" : "N",
         smsConsent ? "Y" : "N",
         surName,
-        "contact",
+        location?.state?.contact,
         gender
       )
       .then((response) => {
+        setLoading(false);
         console.log("response====", response.data);
+        if (response.data.error === "Invalid birth date") {
+          setDobError("Invalid birth date");
+          return;
+        } else if (response.data.error == "Email used by other account") {
+          setemailError("This Email is already registered");
+          return;
+        } else {
+          setDobError("");
+          setemailError("");
+        }
       });
   };
-
   return (
     <>
       <div style={styles.description}>Tell us more about yourself.</div>
@@ -168,11 +191,12 @@ function RegistrationForm() {
       <DropDownMenu
         label={"Date of Birth*"}
         dob={true}
-        date={date}
-        dobHandler={(text) => setDate(text)}
+        date={dob}
+        dobHandler={(text) => setDob(text)}
         customStyle={{
           marginTop: 45,
         }}
+        error={dobError}
       />
       <DropDownMenu
         label={"Household Income*"}
@@ -228,7 +252,7 @@ function RegistrationForm() {
       {/* mobile no */}
       <div style={styles.txtfieldDisabled}>
         <div style={styles.disabledLabel}>Mobile No.*</div>
-        <div style={styles.disabledValue}>{ }</div>
+        <div style={styles.disabledValue}>{location?.state?.contact}</div>
       </div>
       {/* Email */}
       <Input
@@ -337,6 +361,7 @@ function RegistrationForm() {
         text="Finish"
         onClick={register}
       />
+      <Error error={agreementError} loading={loading} />
       <Help />
     </>
   );
@@ -386,8 +411,7 @@ const styles = {
   agreement: {
     // fontSize: 20,
     // paddingBottom: 30,
-    marginBottom: 50,
-    paddingTop: 20,
+    marginBottom: 25,
   },
   checkboxWrap: {
     flex: 0.1,

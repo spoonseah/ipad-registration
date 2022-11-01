@@ -14,8 +14,9 @@ function OTP(props) {
   const [otp, setOtp] = useState("");
   const [otpError, setOtpError] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [resendLoading, setResendLoading] = useState(false);
   const resendOtp = () => {
+    setResendLoading(true);
     let c = location?.state?.verification_token + "#frasers";
     let checksum = hex_md5(c);
     new WebApi()
@@ -23,6 +24,7 @@ function OTP(props) {
       .then((response) => {
         console.log("response===", response.data);
         if (response?.data?.data?.status == "success") {
+          setResendLoading(false);
           // error: "We have resent you an OTP. Please check your messages",
           setOtpError("OTP has been resent");
         } else {
@@ -119,6 +121,7 @@ function OTP(props) {
               color: COLOR.SECONDARY_BLACK,
             }}
             onClick={resendOtp}
+            loading={resendLoading}
           />
         </div>
         <div style={styles.button}>
