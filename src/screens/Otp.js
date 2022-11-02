@@ -4,8 +4,9 @@ import Help from "./Help";
 import PinInput from "react-pin-input";
 import { COLOR } from "../resources/theme/Color";
 import Theme from "../resources/theme/Theme";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import WebApi from "../helper/WebApi";
+import Error from "../components/common/Error";
 let hex_md5 = require("md5");
 
 function OTP(props) {
@@ -15,24 +16,30 @@ function OTP(props) {
   const [otpError, setOtpError] = useState("");
   const [loading, setLoading] = useState(false);
   const [resendLoading, setResendLoading] = useState(false);
+  let ele = useRef();
+
   const resendOtp = () => {
+    let clearOtp = ele;
     setResendLoading(true);
     let c = location?.state?.verification_token + "#frasers";
     let checksum = hex_md5(c);
     new WebApi()
       .resendMobileOtpOnly(props, checksum, location?.state?.verification_token)
       .then((response) => {
+        clearOtp.clear();
         console.log("response===", response.data);
         if (response?.data?.data?.status == "success") {
           setResendLoading(false);
           // error: "We have resent you an OTP. Please check your messages",
           setOtpError("OTP has been resent");
         } else {
+          setOtpError("");
         }
       });
   };
 
   const verifyOtp = () => {
+    let clearOtp = ele;
     setLoading(true);
     if (location?.state?.verification_token == "" || otp == "") {
       setOtpError("Please enter OTP");
@@ -41,6 +48,7 @@ function OTP(props) {
       return;
     }
     setLoading(true);
+
     let c = location?.state?.verification_token + otp + "#frasers";
     let checksum = hex_md5(c);
     new WebApi()
@@ -51,10 +59,8 @@ function OTP(props) {
         otp
       )
       .then((res) => {
-        console.log(
-          "response verifyOtp",
-          JSON.stringify(res.data.data.prefill.length == 0, null, 2)
-        );
+        clearOtp.clear();
+        console.log("response verifyOtp", JSON.stringify(res.data));
         if (res?.data?.data?.status == "success") {
           setLoading(false);
           navigate("/RegistrationForm", {
@@ -63,6 +69,7 @@ function OTP(props) {
             },
           });
         } else {
+          setLoading(false);
           setOtpError("OTP is incorrect or has expired");
           setOtp("");
         }
@@ -79,6 +86,7 @@ function OTP(props) {
       <div style={styles.userno}>{`${location?.state?.contact}`}</div>
 
       <PinInput
+        ref={(n) => (ele = n)}
         length={6}
         initialValue={otp}
         onChange={(value, index) => setOtp(value)}
@@ -110,7 +118,7 @@ function OTP(props) {
         autoSelect={true}
         regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
       />
-
+      <Error error={otpError} />
       <div style={styles.buttonWrap}>
         <div style={styles.button}>
           <Button

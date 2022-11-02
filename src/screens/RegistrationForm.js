@@ -20,10 +20,12 @@ import moment from "moment";
 
 function RegistrationForm() {
   const [salutation, setSalutation] = useState("");
+  const [salutationError, setSalutationError] = useState("");
   const [givenName, setGivenName] = useState("");
   const [givenNameError, setGivenNameError] = useState("");
   const [surName, setSurName] = useState("");
   const [gender, setGender] = useState("");
+  const [genderError, setGenderError] = useState("");
   const [income, setIncome] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setemailError] = useState("");
@@ -64,7 +66,7 @@ function RegistrationForm() {
         setPostalCodeError("");
       }
     }
-  }, [email, postalCode, agreement]);
+  }, [salutation, gender, email, postalCode, agreement]);
 
   const handleEmail = (text) => {
     setEmail(text.target.value);
@@ -72,54 +74,88 @@ function RegistrationForm() {
 
   const register = () => {
     setLoading(true);
+    if (salutation == "") {
+      setSalutationError("Please select your Salutation");
+      setLoading(false);
+      return;
+    } else {
+      setSalutationError("");
+    }
     if (givenName == "") {
       setGivenNameError("Please enter your First Name");
+      setLoading(false);
       return;
     } else {
       setGivenNameError("");
     }
+    if (gender == "") {
+      setGenderError("Please select your Gender");
+      setLoading(false);
+      return;
+    } else {
+      setGenderError("");
+    }
+
     if (email == "") {
       setemailError("Please enter Email");
+      setLoading(false);
       return;
     } else {
       setemailError("");
     }
     if (password == "") {
       setPasswordError("Please enter Password");
+      setLoading(false);
       return;
     } else if (password.length < 8) {
       setPasswordError("Your password should contain at least 8 characters");
+      setLoading(false);
+      return;
     } else {
       setPasswordError("");
     }
-
     if (retypePassword == "") {
       setRetypePasswordError("Passwords do not match");
+      setLoading(false);
       return;
     } else if (retypePassword != password) {
       setRetypePasswordError("Passwords do not match");
+      setLoading(false);
+      return;
     } else {
       setRetypePasswordError("");
     }
     if (postalCode == "") {
       setPostalCodeError("Please enter your Postal Code");
+      setLoading(false);
       return;
     }
     if (!agreement) {
       setAgreementError("Please agree to our Terms of Use and Privacy Policy");
+      setLoading(false);
+      return;
     } else {
       setAgreementError("");
     }
-    let dd = moment(dob).date();
-    let mm = moment(dob).month() + 1;
-    let yyyy = moment(dob).year();
-    let age = moment().diff(dob, "years");
     let date_str;
-    if (age >= 18) {
-      date_str = yyyy + "-" + mm + "-" + dd;
-      setDobError("");
+
+    if (dob == "") {
+      setDobError("Please select your Date of Birth");
+      setLoading(false);
+      return;
     } else {
-      setDobError("You must be above 18 years old to join Frasers Experience");
+      let dd = moment(dob).date();
+      let mm = moment(dob).month() + 1;
+      let yyyy = moment(dob).year();
+      let age = moment().diff(dob, "years");
+      if (age >= 18) {
+        date_str = yyyy + "-" + mm + "-" + dd;
+        setDobError("");
+      } else {
+        setDobError("You must be over 18 years to join FRx");
+        setLoading(false);
+        return;
+      }
     }
 
     new WebApi()
@@ -161,6 +197,7 @@ function RegistrationForm() {
         Options={salutationType}
         value={salutation}
         optionsHandler={(text) => setSalutation(text.target.value)}
+        error={salutationError}
       />
       {/* given name */}
       <Input
@@ -187,6 +224,7 @@ function RegistrationForm() {
         customStyle={{
           marginTop: 45,
         }}
+        error={genderError}
       />
       <DropDownMenu
         label={"Date of Birth*"}
@@ -360,8 +398,9 @@ function RegistrationForm() {
         }}
         text="Finish"
         onClick={register}
+        loading={loading}
       />
-      <Error error={agreementError} loading={loading} />
+      <Error error={agreementError} />
       <Help />
     </>
   );

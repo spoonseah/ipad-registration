@@ -87,6 +87,7 @@ function JoinNow(props) {
         value={contact}
         onChange={handleContact}
         errorText={contact_error_text}
+        label={"Mobile No."}
       />
       <div style={Theme.oneTimeOTP}>
         A one-time password (OTP) will be sent to this <br /> Mobile No. for
