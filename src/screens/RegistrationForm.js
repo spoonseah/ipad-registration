@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import Button from "../components/common/Button";
 import DropDownMenu from "../components/common/DropDownMenu";
@@ -39,130 +39,164 @@ function RegistrationForm() {
   const [postalCode, setPostalCode] = useState("");
   const [postalCodeError, setPostalCodeError] = useState("");
   const [residence, setResidence] = useState("");
-  const [agreement, setAgreement] = useState(true);
+  const [agreement, setAgreement] = useState(false);
   const [agreementError, setAgreementError] = useState("");
   const [smsConsent, setSmsConsent] = useState(false);
   const [emailConsent, setEmailConsent] = useState(false);
   const [callConsent, setCallConsent] = useState(false);
   const [dob, setDob] = useState(new Date());
+  const [dateString, setDateString] = useState("");
   const [dobError, setDobError] = useState("");
+  const [userCreated, setUserCreated] = useState("");
   const [loading, setLoading] = useState(false);
   const location = useLocation();
 
-  useEffect(() => {
-    if (email.length > 0) {
-      let valid = validateEmail(email);
-      if (!valid) {
-        setemailError("Email is invalid");
+  const handleSalutation = useCallback(
+    (text) => {
+      setSalutation(text.target.value);
+      if (text.target.value != "") {
+        setSalutationError("");
       } else {
-        setemailError("");
+        setSalutationError("Please select your Salutation");
       }
-    }
-    if (postalCode.length > 0) {
-      let validCode = validatePostalCode(postalCode);
-      if (validCode) {
-        setPostalCodeError("Postal Code is invalid");
+    },
+    [salutation]
+  );
+  const handleGivenName = useCallback(
+    (text) => {
+      setGivenName(text.target.value);
+      if (text.target.value.length > 0) {
+        setGivenNameError("");
       } else {
-        setPostalCodeError("");
+        setGivenNameError("Please enter your First Name");
       }
-    }
-  }, [salutation, gender, email, postalCode, agreement]);
-
-  const handleEmail = (text) => {
-    setEmail(text.target.value);
-  };
-
+    },
+    [givenName]
+  );
+  const handleGender = useCallback(
+    (text) => {
+      setGender(text.target.value);
+      if (text.target.value != "") {
+        setGenderError("");
+      } else {
+        setGenderError("Please select your Gender");
+      }
+    },
+    [gender]
+  );
+  const handlePostalCode = useCallback(
+    (text) => {
+      setPostalCode(text.target.value);
+      if (text.target.value.length > 0) {
+        let validCode = validatePostalCode(text.target.value);
+        console.log("valid", validCode);
+        if (!validCode) {
+          setPostalCodeError("Postal Code is invalid");
+        } else {
+          setPostalCodeError("");
+        }
+      } else {
+        setPostalCodeError("Please enter your Postal Code");
+      }
+    },
+    [postalCode]
+  );
+  const handleEmail = useCallback(
+    (text) => {
+      setEmail(text.target.value);
+      if (text.target.value.length > 0) {
+        let valid = validateEmail(text.target.value);
+        if (!valid) {
+          setemailError("Email is invalid");
+        } else {
+          setemailError("");
+        }
+      } else {
+        setemailError("Please enter Email");
+      }
+    },
+    [email]
+  );
+  const handlePassword = useCallback(
+    (text) => {
+      setPassword(text.target.value);
+      if (text.target.value == "") {
+        setPasswordError("Please enter Password");
+      } else if (text.target.value.length < 8) {
+        setPasswordError("Your password should contain at least 8 characters");
+      } else {
+        setPasswordError("");
+      }
+    },
+    [password]
+  );
+  const handleRetypePassword = useCallback(
+    (text) => {
+      setRetypePassword(text.target.value);
+      if (text.target.value != password || text.target.value == "") {
+        setRetypePasswordError("Passwords do not match");
+      } else {
+        setRetypePasswordError("");
+      }
+    },
+    [retypePassword]
+  );
+  const handleDob = useCallback(
+    (text) => {
+      setDob(text);
+      if (text == "") {
+        setDobError("Please select your Date of Birth");
+      } else {
+        let dd = moment(text).date();
+        let mm = moment(text).month() + 1;
+        let yyyy = moment(text).year();
+        let age = moment().diff(text, "years");
+        if (age >= 18) {
+          setDateString(yyyy + "-" + mm + "-" + dd);
+          // date_str =
+          setDobError("");
+        } else {
+          setDobError("You must be over 18 years to join FRx");
+        }
+      }
+    },
+    [dob]
+  );
   const register = () => {
     setLoading(true);
     if (salutation == "") {
       setSalutationError("Please select your Salutation");
-      setLoading(false);
-      return;
-    } else {
-      setSalutationError("");
     }
     if (givenName == "") {
       setGivenNameError("Please enter your First Name");
-      setLoading(false);
-      return;
-    } else {
-      setGivenNameError("");
     }
     if (gender == "") {
       setGenderError("Please select your Gender");
-      setLoading(false);
-      return;
-    } else {
-      setGenderError("");
     }
-
-    if (email == "") {
-      setemailError("Please enter Email");
-      setLoading(false);
-      return;
-    } else {
-      setemailError("");
-    }
-    if (password == "") {
-      setPasswordError("Please enter Password");
-      setLoading(false);
-      return;
-    } else if (password.length < 8) {
-      setPasswordError("Your password should contain at least 8 characters");
-      setLoading(false);
-      return;
-    } else {
-      setPasswordError("");
-    }
-    if (retypePassword == "") {
-      setRetypePasswordError("Passwords do not match");
-      setLoading(false);
-      return;
-    } else if (retypePassword != password) {
-      setRetypePasswordError("Passwords do not match");
-      setLoading(false);
-      return;
-    } else {
-      setRetypePasswordError("");
+    if (dob == "") {
+      setDobError("Please select your Date of Birth ");
     }
     if (postalCode == "") {
       setPostalCodeError("Please enter your Postal Code");
-      setLoading(false);
-      return;
     }
+    if (email == "") {
+      setemailError("Please enter Email");
+    }
+    if (password == "") {
+      setPasswordError("Please enter Password");
+    }
+
     if (!agreement) {
       setAgreementError("Please agree to our Terms of Use and Privacy Policy");
-      setLoading(false);
-      return;
     } else {
       setAgreementError("");
-    }
-    let date_str;
-
-    if (dob == "") {
-      setDobError("Please select your Date of Birth");
-      setLoading(false);
-      return;
-    } else {
-      let dd = moment(dob).date();
-      let mm = moment(dob).month() + 1;
-      let yyyy = moment(dob).year();
-      let age = moment().diff(dob, "years");
-      if (age >= 18) {
-        date_str = yyyy + "-" + mm + "-" + dd;
-        setDobError("");
-      } else {
-        setDobError("You must be over 18 years to join FRx");
-        setLoading(false);
-        return;
-      }
     }
 
     new WebApi()
       .userSignUp(
         email,
         givenName,
-        date_str,
+        dateString,
         password,
         postalCode,
         callConsent ? "Y" : "N",
@@ -196,7 +230,7 @@ function RegistrationForm() {
         label={"Salutation"}
         Options={salutationType}
         value={salutation}
-        optionsHandler={(text) => setSalutation(text.target.value)}
+        optionsHandler={handleSalutation}
         error={salutationError}
       />
       {/* given name */}
@@ -205,7 +239,7 @@ function RegistrationForm() {
         type={"text"}
         placeholder={"Given Name"}
         value={givenName}
-        onChange={(text) => setGivenName(text.target.value)}
+        onChange={handleGivenName}
         errorText={givenNameError}
       />
       {/* surname */}
@@ -220,7 +254,7 @@ function RegistrationForm() {
         label={"Gender*"}
         Options={genderType}
         value={gender}
-        optionsHandler={(text) => setGender(text.target.value)}
+        optionsHandler={handleGender}
         customStyle={{
           marginTop: 45,
         }}
@@ -230,7 +264,7 @@ function RegistrationForm() {
         label={"Date of Birth*"}
         dob={true}
         date={dob}
-        dobHandler={(text) => setDob(text)}
+        dobHandler={handleDob}
         customStyle={{
           marginTop: 45,
         }}
@@ -273,7 +307,7 @@ function RegistrationForm() {
         type={"text"}
         placeholder={"Postal Code*"}
         value={postalCode}
-        onChange={(text) => setPostalCode(text.target.value)}
+        onChange={handlePostalCode}
         errorText={postalCodeError}
       />
       <DropDownMenu
@@ -308,7 +342,7 @@ function RegistrationForm() {
         type={"password"}
         placeholder={"Password*"}
         value={password}
-        onChange={(text) => setPassword(text.target.value)}
+        onChange={handlePassword}
         errorText={passwordError}
       />
       {/* Retype Password */}
@@ -317,7 +351,7 @@ function RegistrationForm() {
         type={"password"}
         placeholder={"Retype Password*"}
         value={retypePassword}
-        onChange={(text) => setRetypePassword(text.target.value)}
+        onChange={handleRetypePassword}
         errorText={retypePasswordError}
       />
       <div style={styles.consent}>
@@ -400,7 +434,7 @@ function RegistrationForm() {
         onClick={register}
         loading={loading}
       />
-      <Error error={agreementError} />
+      <Error error={userCreated} />
       <Help />
     </>
   );
