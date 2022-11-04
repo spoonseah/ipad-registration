@@ -45,3 +45,8 @@ select {
 .react-calendar__tile--active {
   background-color: #ccc !important;
 }
+.datePicker {
+  width: 100%;
+  border: none;
+  color: #999;
+}

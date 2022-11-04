@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useNavigate, redirect as Redirect } from "react-router";
 import Button from "../components/common/Button";
 import FRxCards from "../components/common/FRxCards";
 import { COLOR } from "../resources/theme/Color";
@@ -8,6 +8,9 @@ import Theme from "../resources/theme/Theme";
 
 function Welcome() {
   let navigate = useNavigate();
+  setTimeout(() => {
+    navigate("/");
+  }, 5000);
   return (
     <>
       {/* title */}
@@ -37,7 +40,7 @@ function Welcome() {
       {/* button */}
       <Button
         text="Start Over"
-        onClick={() => navigate("/JoinNow")}
+        onClick={() => navigate("/")}
         customStyle={{
           border: `0.6px solid ${COLOR.SECONDARY_BLACK}`,
           color: COLOR.SECONDARY_BLACK,

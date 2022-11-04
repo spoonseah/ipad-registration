@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import Button from "../components/common/Button";
 import DropDownMenu from "../components/common/DropDownMenu";
 import Error from "../components/common/Error";
@@ -15,7 +15,6 @@ import {
   residenceType,
 } from "../resources/theme/Constants";
 import Help from "./Help";
-import Moment from "react-moment";
 import moment from "moment";
 
 function RegistrationForm() {
@@ -44,12 +43,12 @@ function RegistrationForm() {
   const [smsConsent, setSmsConsent] = useState(false);
   const [emailConsent, setEmailConsent] = useState(false);
   const [callConsent, setCallConsent] = useState(false);
-  const [dob, setDob] = useState(new Date());
+  const [dob, setDob] = useState();
   const [dateString, setDateString] = useState("");
   const [dobError, setDobError] = useState("");
-  const [userCreated, setUserCreated] = useState("");
   const [loading, setLoading] = useState(false);
   const location = useLocation();
+  let navigate = useNavigate();
 
   const handleSalutation = useCallback(
     (text) => {
@@ -68,7 +67,7 @@ function RegistrationForm() {
       if (text.target.value.length > 0) {
         setGivenNameError("");
       } else {
-        setGivenNameError("Please enter your First Name");
+        setGivenNameError("Please enter your Given Name");
       }
     },
     [givenName]
@@ -168,7 +167,7 @@ function RegistrationForm() {
       setSalutationError("Please select your Salutation");
     }
     if (givenName == "") {
-      setGivenNameError("Please enter your First Name");
+      setGivenNameError("Please enter your Given Name");
     }
     if (gender == "") {
       setGenderError("Please select your Gender");
@@ -208,7 +207,10 @@ function RegistrationForm() {
       )
       .then((response) => {
         setLoading(false);
-        console.log("response====", response.data);
+        console.log("response====", response.data.data.status);
+        if (response.data.data.status == "success") {
+          navigate("/Welcome");
+        }
         if (response.data.error === "Invalid birth date") {
           setDobError("Invalid birth date");
           return;
@@ -434,7 +436,6 @@ function RegistrationForm() {
         onClick={register}
         loading={loading}
       />
-      <Error error={userCreated} />
       <Help />
     </>
   );

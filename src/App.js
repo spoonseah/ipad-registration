@@ -15,14 +15,13 @@ function App() {
       <Header />
       <BrowserRouter>
         <Routes>
-          <Route exact path="/Welcome" element={<Welcome />}></Route>
-          <Route exact path="/JoinNow" element={<JoinNow />}></Route>
-          <Route exact path="/OTP" element={<Otp />}></Route>
+          <Route exact path="/" element={<JoinNow />}></Route>
+          <Route path="/OTP" element={<Otp />}></Route>
           <Route
-            exact
             path="/RegistrationForm"
             element={<RegistrationForm />}
           ></Route>
+          <Route path="/Welcome" element={<Welcome />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
