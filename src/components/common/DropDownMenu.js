@@ -52,15 +52,6 @@ function DropDownMenu({
               color: COLOR.DARK_GRAY,
             }}
           >
-            {/* <DatePicker
-              onChange={dobHandler}
-              value={date}
-              style={{ margin: 0, padding: 0 }}
-              calendarIcon={false}
-              clearIcon={false}
-              customStyles={{ dateInput: { borderWidth: 0 } }}
-              format={"dd/MM/yyyy"}
-            /> */}
             <DatePicker
               selected={date}
               onChange={dobHandler}
