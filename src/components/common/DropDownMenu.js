@@ -3,7 +3,7 @@ import Theme from "../../resources/theme/Theme";
 import { COLOR } from "../../resources/theme/Color";
 import { BiChevronDown } from "react-icons/bi";
 import Error from "./Error";
-import DatePicker from "react-datepicker";
+import DatePicker from "react-date-picker";
 import "react-datepicker/dist/react-datepicker.css";
 function DropDownMenu({
   label,
@@ -52,12 +52,21 @@ function DropDownMenu({
               color: COLOR.DARK_GRAY,
             }}
           >
-            <DatePicker
+            {/* <DatePicker
               selected={date}
               onChange={dobHandler}
               dateFormat={"dd/MM/yyyy"}
               className={"datePicker"}
               placeholderText="DD/MM/YYYY"
+            /> */}
+            <DatePicker
+              onChange={dobHandler}
+              value={date}
+              style={{ margin: 0, padding: 0 }}
+              calendarIcon={false}
+              clearIcon={false}
+              customStyles={{ dateInput: { borderWidth: 0 } }}
+              format={"dd/MM/yyyy"}
             />
             <BiChevronDown size={20} />
           </div>
