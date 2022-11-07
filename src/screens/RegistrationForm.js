@@ -229,7 +229,7 @@ function RegistrationForm() {
       <div style={styles.section}>Your profile</div>
       {/* salutation */}
       <DropDownMenu
-        label={"Salutation"}
+        label={"Salutation*"}
         Options={salutationType}
         value={salutation}
         optionsHandler={handleSalutation}
@@ -239,7 +239,7 @@ function RegistrationForm() {
       <Input
         label={"Given Name*"}
         type={"text"}
-        placeholder={"Given Name"}
+        placeholder={"Given Name*"}
         value={givenName}
         onChange={handleGivenName}
         errorText={givenNameError}
@@ -273,7 +273,7 @@ function RegistrationForm() {
         error={dobError}
       />
       <DropDownMenu
-        label={"Household Income*"}
+        label={"Household Income"}
         Options={householdIncome}
         value={income}
         optionsHandler={(text) => setIncome(text.target.value)}

@@ -44,7 +44,7 @@ const Theme = {
     display: "flex",
     fontSize: 20,
     fontWeight: 500,
-    marginBottom: 5,
+    marginBottom: 10,
   },
   spinner: {
     border: "10px solid #f3f3f3",

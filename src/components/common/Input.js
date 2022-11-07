@@ -8,7 +8,7 @@ export default function Input(props) {
     <div
       style={{
         // marginTop: "23px",
-        marginTop: 45,
+        marginTop: 30,
       }}
     >
       {value !== "" && <div style={Theme.label}>{label}</div>}
