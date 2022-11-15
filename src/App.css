@@ -12,6 +12,12 @@ img {
   max-width: 100%;
 }
 
+input {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
 select {
   -webkit-tap-highlight-color: transparent;
   appearance: none;
