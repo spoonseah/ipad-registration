@@ -18,7 +18,7 @@ function DropDownMenu({
 }) {
   return (
     <>
-      <div style={{ ...styles.selectWrap, ...customStyle }}>
+      <div class="select-style" style={{ ...styles.selectWrap, ...customStyle }}>
         <div style={Theme.label}>{label}</div>
         {!dob ? (
           <select
@@ -32,6 +32,7 @@ function DropDownMenu({
               // color: "#999",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "100% 50%",
+              backgroundColor: "transparent",
             }}
             value={value}
             onChange={optionsHandler}
