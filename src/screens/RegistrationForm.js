@@ -388,11 +388,15 @@ function RegistrationForm() {
           }}
         >
           <div style={styles.checkboxWrap}>
-            <input
+            <label class="checkbox">
+              <input type="checkbox" />
+              <span class="checkmark"></span>
+            </label>
+            {/* <input
               type="checkbox"
               checked={agreement}
               onChange={() => setAgreement(!agreement)}
-            />
+            /> */}
           </div>
           <div style={styles.agreeText}>
             I have read and agree to the{" "}
@@ -453,7 +457,6 @@ const styles = {
     marginBottom: 15,
     marginTop: 40,
   },
-
   txtfieldDisabled: {
     backgroundColor: "#F2F2F3",
     padding: "25px 30px",
