@@ -184,6 +184,9 @@ function RegistrationForm() {
     if (password == "") {
       setPasswordError("Please enter Password");
     }
+    if (retypePassword == "") {
+      setRetypePasswordError("Passwords do not match");
+    }
 
     if (!agreement) {
       setAgreementError("Please agree to our Terms of Use and Privacy Policy");
