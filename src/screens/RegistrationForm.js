@@ -43,7 +43,7 @@ function RegistrationForm() {
   const [smsConsent, setSmsConsent] = useState(false);
   const [emailConsent, setEmailConsent] = useState(false);
   const [callConsent, setCallConsent] = useState(false);
-  const [dob, setDob] = useState();
+  const [dob, setDob] = useState(null);
   const [dateString, setDateString] = useState("");
   const [dobError, setDobError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -146,13 +146,13 @@ function RegistrationForm() {
       if (text == "") {
         setDobError("Please select your Date of Birth");
       } else {
-        let dd = moment(text).date();
-        let mm = moment(text).month() + 1;
-        let yyyy = moment(text).year();
-        let age = moment().diff(text, "years");
+        let dd = text.$D;
+        let mm = text.$M + 1;
+        let yyyy = text.$y;
+        let age = moment().diff(`${yyyy}-${mm}-${dd}`, "years");
+        console.log("ageeeee", age);
         if (age >= 18) {
           setDateString(yyyy + "-" + mm + "-" + dd);
-          // date_str =
           setDobError("");
         } else {
           setDobError("You must be over 18 years to join FRx");
@@ -272,6 +272,7 @@ function RegistrationForm() {
         }}
         error={dobError}
       />
+      {console.log("dtae of birth", dob)}
       <DropDownMenu
         label={"Household Income"}
         Options={householdIncome}

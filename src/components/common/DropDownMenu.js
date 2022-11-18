@@ -3,8 +3,11 @@ import Theme from "../../resources/theme/Theme";
 import { COLOR } from "../../resources/theme/Color";
 import { BiChevronDown } from "react-icons/bi";
 import Error from "./Error";
-import DatePicker from "react-date-picker";
 import "react-datepicker/dist/react-datepicker.css";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { TextField } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
 function DropDownMenu({
   label,
   customStyle,
@@ -18,7 +21,10 @@ function DropDownMenu({
 }) {
   return (
     <>
-      <div class="select-style" style={{ ...styles.selectWrap, ...customStyle }}>
+      <div
+        class="select-style"
+        style={{ ...styles.selectWrap, ...customStyle }}
+      >
         <div style={Theme.label}>{label}</div>
         {!dob ? (
           <select
@@ -29,7 +35,6 @@ function DropDownMenu({
               border: 0,
               fontWeight: 500,
               fontFamily: "Montserrat",
-              // color: "#999",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "100% 50%",
               backgroundColor: "transparent",
@@ -46,31 +51,28 @@ function DropDownMenu({
             </>
           </select>
         ) : (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              color: COLOR.DARK_GRAY,
-            }}
-          >
-            {/* <DatePicker
-              selected={date}
-              onChange={dobHandler}
-              dateFormat={"dd/MM/yyyy"}
-              className={"datePicker"}
-              placeholderText="DD/MM/YYYY"
-            /> */}
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               onChange={dobHandler}
               value={date}
-              style={{ margin: 0, padding: 0 }}
-              calendarIcon={false}
-              clearIcon={false}
-              customStyles={{ dateInput: { borderWidth: 0 } }}
-              format={"dd/MM/yyyy"}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  margin="none"
+                  style={{ display: "flex" }}
+                  sx={{
+                    ".MuiOutlinedInput-notchedOutline": { border: "none" },
+                    "& .MuiInputBase-root": {
+                      "& input": {
+                        textAlign: "left",
+                      },
+                    },
+                  }}
+                />
+              )}
             />
-            <BiChevronDown size={20} />
-          </div>
+          </LocalizationProvider>
         )}
       </div>
       <Error error={error} />

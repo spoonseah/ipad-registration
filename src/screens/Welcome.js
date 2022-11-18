@@ -8,9 +8,9 @@ import Theme from "../resources/theme/Theme";
 
 function Welcome() {
   let navigate = useNavigate();
-  // setTimeout(() => {
-  //   navigate("/");
-  // }, 5000);
+  setTimeout(() => {
+    navigate("/");
+  }, 5000);
   return (
     <>
       {/* title */}
