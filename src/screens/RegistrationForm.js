@@ -142,13 +142,7 @@ function RegistrationForm() {
     [retypePassword]
   );
   const handleAgreement = useCallback(() => {
-    console.log("agreement", agreement);
     setAgreement(!agreement);
-    if (agreement) {
-      setAgreementError("Please agree to our Terms of Use and Privacy Policy");
-    } else {
-      setAgreementError("");
-    }
   }, [agreement]);
   const handleDob = useCallback(
     (text) => {
@@ -406,7 +400,6 @@ function RegistrationForm() {
           }}
         >
           <div style={styles.checkboxWrap}>
-            {console.log("agreement====", agreement)}
             <label class="checkbox">
               <input
                 type="checkbox"
@@ -415,11 +408,6 @@ function RegistrationForm() {
               />
               <span class="checkmark"></span>
             </label>
-            {/* <input
-              type="checkbox"
-              checked={agreement}
-              onChange={handleAgreement}
-            /> */}
           </div>
           <div style={styles.agreeText}>
             I have read and agree to the{" "}
@@ -452,7 +440,7 @@ function RegistrationForm() {
           </div>
         </div>
 
-        <Error error={agreementError} />
+        {!agreement && <Error error={agreementError} />}
       </div>
       <Button
         customStyle={{
