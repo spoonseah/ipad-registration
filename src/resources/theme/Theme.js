@@ -7,7 +7,7 @@ const Theme = {
     textAlign: "center",
     marginLeft: "auto",
     marginRight: "auto",
-    padding: "0 115px 100px 115px",
+    padding: "0 95px 100px 95px",
     color: "#333",
   },
   title: {

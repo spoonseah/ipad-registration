@@ -14,7 +14,7 @@ export default function FRxCards({ img, text }) {
 
 const styles = {
   item: {
-    width: "22%",
+    width: "23%",
   },
   iconImg: {
     height: "60px",

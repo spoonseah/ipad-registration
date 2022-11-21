@@ -11,7 +11,7 @@ function Welcome() {
   let navigate = useNavigate();
   setTimeout(() => {
     navigate("/");
-  }, 10000);
+  }, 600000);
   return (
     <>
       <Header onClick={() => navigate("/")} />
@@ -56,7 +56,8 @@ function Welcome() {
 const styles = {
   iconWrap: {
     // same
-
+    marginLeft: "-20px",
+    marginRight: "-20px",
     display: "flex",
     marginTop: 35,
     justifyContent: "space-between",

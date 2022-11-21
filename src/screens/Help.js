@@ -15,7 +15,7 @@ const styles = {
     // marginTop: "25px",
     // lineHeight: "23px",
 
-    fontSize: 21,
+    fontSize: 19,
     marginTop: 40,
     lineHeight: "130%",
   },
