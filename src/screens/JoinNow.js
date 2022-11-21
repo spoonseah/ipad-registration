@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/common/Button";
+import Header from "../components/common/Header";
 import Input from "../components/common/Input";
 import { validateContactNo } from "../helper/validations";
 import WebApi from "../helper/WebApi";
@@ -30,7 +31,7 @@ function JoinNow(props) {
     setContact(text.target.value);
   };
 
-  const joinNow = () => {
+  const _joinNow = () => {
     //  navigate("/OTP");
     setLoading(true);
     let c = contact + "#frasers";
@@ -75,6 +76,8 @@ function JoinNow(props) {
   };
   return (
     <div>
+      <Header onClick={() => navigate("/")} />
+
       <div style={Theme.title}>Join Now!</div>
 
       <div style={Theme.description}>
@@ -95,7 +98,7 @@ function JoinNow(props) {
       </div>
       <Button
         text="Next"
-        onClick={joinNow}
+        onClick={_joinNow}
         customStyle={{
           backgroundColor: COLOR.BLACK,
           color: COLOR.WHITE,

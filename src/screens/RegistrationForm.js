@@ -16,6 +16,7 @@ import {
 } from "../resources/theme/Constants";
 import Help from "./Help";
 import moment from "moment";
+import Header from "../components/common/Header";
 
 function RegistrationForm() {
   const [salutation, setSalutation] = useState("");
@@ -43,7 +44,7 @@ function RegistrationForm() {
   const [smsConsent, setSmsConsent] = useState(false);
   const [emailConsent, setEmailConsent] = useState(false);
   const [callConsent, setCallConsent] = useState(false);
-  const [dob, setDob] = useState(null);
+  const [dob, setDob] = useState("");
   const [dateString, setDateString] = useState("");
   const [dobError, setDobError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -187,7 +188,9 @@ function RegistrationForm() {
     if (retypePassword == "") {
       setRetypePasswordError("Passwords do not match");
     }
-
+    if (dob == "") {
+      setDobError("Please select your Date of Birth");
+    }
     if (!agreement) {
       setAgreementError("Please agree to our Terms of Use and Privacy Policy");
     } else {
@@ -228,6 +231,7 @@ function RegistrationForm() {
   };
   return (
     <>
+      <Header onClick={() => navigate("/")} />
       <div style={styles.description}>Tell us more about yourself.</div>
       <div style={styles.section}>Your profile</div>
       {/* salutation */}

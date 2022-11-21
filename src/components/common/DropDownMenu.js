@@ -41,6 +41,7 @@ function DropDownMenu({
             }}
             value={value}
             onChange={optionsHandler}
+            placeholder="Select"
           >
             <>
               {Options.map((option, index) => (

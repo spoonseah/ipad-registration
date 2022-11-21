@@ -7,6 +7,7 @@ import Theme from "../resources/theme/Theme";
 import { useRef, useState } from "react";
 import WebApi from "../helper/WebApi";
 import Error from "../components/common/Error";
+import Header from "../components/common/Header";
 let hex_md5 = require("md5");
 
 function OTP(props) {
@@ -78,6 +79,8 @@ function OTP(props) {
 
   return (
     <>
+      <Header onClick={() => navigate("/")} />
+
       <div style={Theme.otpDescription}>
         Please enter the one time password (OTP)
         <br /> sent to:

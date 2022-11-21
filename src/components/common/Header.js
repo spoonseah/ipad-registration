@@ -1,8 +1,8 @@
 import React from "react";
 import { IMAGES } from "../../resources/theme/Images";
-function Header() {
+function Header({ onClick }) {
   return (
-    <div style={styles.container}>
+    <div style={styles.container} onClick={onClick}>
       <img src={IMAGES.LOGO} style={styles.logo} />
     </div>
   );

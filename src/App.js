@@ -12,7 +12,6 @@ function App() {
   return (
     <div style={Theme.globalStyle}>
       {/* <Header /> */}
-      <Header />
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<JoinNow />}></Route>

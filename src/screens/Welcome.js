@@ -1,6 +1,7 @@
 import { useNavigate, redirect as Redirect } from "react-router";
 import Button from "../components/common/Button";
 import FRxCards from "../components/common/FRxCards";
+import Header from "../components/common/Header";
 import { COLOR } from "../resources/theme/Color";
 import { FRX_GIFT_CARD } from "../resources/theme/Constants";
 import { IMAGES } from "../resources/theme/Images";
@@ -13,6 +14,8 @@ function Welcome() {
   }, 5000);
   return (
     <>
+      <Header onClick={() => navigate("/")} />
+
       {/* title */}
       <div style={Theme.title}>Welcome to the FRx family!</div>
 
