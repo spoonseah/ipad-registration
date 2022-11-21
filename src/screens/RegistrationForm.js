@@ -141,6 +141,15 @@ function RegistrationForm() {
     },
     [retypePassword]
   );
+  const handleAgreement = useCallback(() => {
+    console.log("agreement", agreement);
+    setAgreement(!agreement);
+    if (agreement) {
+      setAgreementError("Please agree to our Terms of Use and Privacy Policy");
+    } else {
+      setAgreementError("");
+    }
+  }, [agreement]);
   const handleDob = useCallback(
     (text) => {
       setDob(text);
@@ -212,6 +221,7 @@ function RegistrationForm() {
         gender
       )
       .then((response) => {
+        console.log("response=====", response.data);
         setLoading(false);
         console.log("response====", response.data.data.status);
         if (response.data.data.status == "success") {
@@ -396,14 +406,19 @@ function RegistrationForm() {
           }}
         >
           <div style={styles.checkboxWrap}>
+            {console.log("agreement====", agreement)}
             <label class="checkbox">
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                checked={agreement}
+                onChange={handleAgreement}
+              />
               <span class="checkmark"></span>
             </label>
             {/* <input
               type="checkbox"
               checked={agreement}
-              onChange={() => setAgreement(!agreement)}
+              onChange={handleAgreement}
             /> */}
           </div>
           <div style={styles.agreeText}>
