@@ -124,3 +124,42 @@ select {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+.css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop {
+  background: transparent !important;
+}
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 0 !important;
+}
+
+.css-6t5f1e-MuiDayPicker-monthContainer,
+.css-bkrceb-MuiButtonBase-root-MuiPickersDay-root,
+.css-raiqh1-MuiTypography-root-MuiDayPicker-weekDayLabel {
+  font-family: "Montserrat" !important;
+}
+
+.css-6t5f1e-MuiDayPicker-monthContainer {
+  font-size: 16px;
+}
+
+.css-bkrceb-MuiButtonBase-root-MuiPickersDay-root,
+.css-raiqh1-MuiTypography-root-MuiDayPicker-weekDayLabel {
+  font-size: 16px !important;
+}
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  color: rgb(153, 153, 153) !important;
+  width: 100%;
+  font-size: 20px !important;
+  border: 0px;
+  font-weight: 500 !important;
+  font-family: 'Montserrat' !important;
+  background-repeat: no-repeat;
+  background-position: 100% 50%;
+  background-color: transparent;
+}
+
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  color: #666 !important;
+}
