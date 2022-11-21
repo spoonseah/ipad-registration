@@ -11,7 +11,7 @@ function Welcome() {
   let navigate = useNavigate();
   setTimeout(() => {
     navigate("/");
-  }, 5000);
+  }, 10000);
   return (
     <>
       <Header onClick={() => navigate("/")} />

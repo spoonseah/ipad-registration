@@ -55,6 +55,7 @@ function DropDownMenu({
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               onChange={dobHandler}
+              inputFormat="DD/MM/YYYY"
               value={date}
               renderInput={(params) => (
                 <TextField
