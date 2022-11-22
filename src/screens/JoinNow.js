@@ -62,7 +62,7 @@ function JoinNow(props) {
             if (response?.data?.data?.status == "fail") {
               if (response.data.data.reason.includes("Mobile used by other")) {
                 console.log("Mobile used by other", response.data.data.reason);
-                setContact_error_text("This Mobile No. is already registered.");
+                setContact_error_text("This Mobile No. is already registered");
               }
             } else {
             }

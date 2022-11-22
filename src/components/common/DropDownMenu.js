@@ -57,13 +57,31 @@ function DropDownMenu({
               onChange={dobHandler}
               inputFormat="DD/MM/YYYY"
               value={date}
+              maxDate={new Date()}
               renderInput={(params) => (
                 <TextField
                   {...params}
                   variant="outlined"
                   margin="none"
                   style={{ display: "flex" }}
+                  inputProps={{
+                    ...params.inputProps,
+                    placeholder: "Select",
+                  }}
                   sx={{
+                    input: {
+                      color: COLOR.DARK_GRAY,
+                      fontSize: 20,
+                      fontWeight: 500,
+                      margin: 0,
+                      padding: 0,
+                      fontWeight: 500,
+                      fontFamily: "Montserrat",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "100% 50%",
+                      backgroundColor: "transparent",
+                    },
+
                     ".MuiOutlinedInput-notchedOutline": { border: "none" },
                     "& .MuiInputBase-root": {
                       "& input": {

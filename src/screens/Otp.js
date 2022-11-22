@@ -4,7 +4,7 @@ import Help from "./Help";
 import PinInput from "react-pin-input";
 import { COLOR } from "../resources/theme/Color";
 import Theme from "../resources/theme/Theme";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import WebApi from "../helper/WebApi";
 import Error from "../components/common/Error";
 import Header from "../components/common/Header";
@@ -18,6 +18,12 @@ function OTP(props) {
   const [loading, setLoading] = useState(false);
   const [resendLoading, setResendLoading] = useState(false);
   let ele = useRef();
+
+  useEffect(() => {
+    setTimeout(() => {
+      navigate("/");
+    }, 600000);
+  }, []);
 
   const resendOtp = () => {
     let clearOtp = ele;

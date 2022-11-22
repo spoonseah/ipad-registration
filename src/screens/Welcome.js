@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate, redirect as Redirect } from "react-router";
 import Button from "../components/common/Button";
 import FRxCards from "../components/common/FRxCards";
@@ -9,9 +10,13 @@ import Theme from "../resources/theme/Theme";
 
 function Welcome() {
   let navigate = useNavigate();
-  setTimeout(() => {
-    navigate("/");
-  }, 600000);
+
+  useEffect(() => {
+    setTimeout(() => {
+      navigate("/");
+    }, 600000);
+  }, []);
+
   return (
     <>
       <Header onClick={() => navigate("/")} />

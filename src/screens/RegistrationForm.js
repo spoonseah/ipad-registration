@@ -51,6 +51,12 @@ function RegistrationForm() {
   const location = useLocation();
   let navigate = useNavigate();
 
+  useEffect(() => {
+    setTimeout(() => {
+      navigate("/");
+    }, 600000);
+  }, []);
+
   const handleSalutation = useCallback(
     (text) => {
       setSalutation(text.target.value);
