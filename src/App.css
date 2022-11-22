@@ -163,3 +163,8 @@ select {
 .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
   color: #666 !important;
 }
+
+.css-1agwlm6-MuiFormControl-root-MuiTextField-root input::placeholder {
+  color: #999 !important;
+  opacity: 1;
+}
