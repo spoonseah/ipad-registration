@@ -177,7 +177,7 @@ function RegistrationForm() {
       setGenderError("Please select your Gender");
     }
     if (dob == "") {
-      setDobError("Please select your Date of Birth ");
+      setDobError("Please select your Date of Birth");
     }
     if (postalCode == "") {
       setPostalCodeError("Please enter your Postal Code");

@@ -30,18 +30,22 @@ export const genderType = [
   { label: "Select", value: "" },
   { label: "Male", value: "Male" },
   { label: "Female", value: "Female" },
-  { label: "Prefer not to say", value: "Prefer not to say" },
 ];
 export const householdIncome = [
   { label: "Select", value: "" },
-  { label: "0 - 1000", value: "0 - 1000" },
-  { label: "1000 - 2999", value: "1000 - 2999" },
-  { label: "3000 - 5999", value: "3000 - 5999" },
-  { label: "6000", value: "6000" },
+  { label: "Below $2,000", value: "Below $2,000" },
+  { label: "$2,000 - $3,999", value: "$2,000 - $3,999" },
+  { label: "$4,000 - $5,999", value: "$4,000 - $5,999" },
+  { label: "$6,000 - $7,999", value: "$6,000 - $7,999" },
+  { label: "$8,000 - $9,999", value: "$8,000 - $9,999" },
+  { label: "$10,000 and above", value: "$10,000 and above" },
 ];
 export const residenceType = [
   { label: "Select", value: "" },
-  { label: "HDB", value: "HDB" },
-  { label: "Condominum", value: "Condominum" },
+  { label: "2-3 room HDB", value: "2-3 room HDB" },
+  { label: "4 room HDB", value: "4 room HDB" },
+  { label: "5 room HDB / Executive Condominium", value: "5 room HDB / Executive Condominium" },
+  { label: "Private Apartment / Condominium", value: "Private Apartment / Condominium" },
   { label: "Landed Property", value: "Landed Property" },
+  { label: "Others", value: "Others" },
 ];
