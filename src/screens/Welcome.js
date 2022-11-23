@@ -43,7 +43,7 @@ function Welcome() {
       </div>
 
       {/* download-frx */}
-      <img src={IMAGES.DOWNLOAD} style={styles.downloadImg} />
+      <img src={'images/frx-download-icons.svg'} style={styles.downloadImg} />
 
       {/* button */}
       <Button
