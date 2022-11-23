@@ -27,7 +27,7 @@ function Welcome() {
       {/* description */}
       <div style={Theme.description}>
         Get started by scanning the QR Code to download the Frasers
-        Experience(FRx) app and unlock your exclusive member benefits.
+        Experience (FRx) app and unlock your exclusive member benefits.
       </div>
 
       {/* icons with text */}
