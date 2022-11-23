@@ -221,16 +221,14 @@ function RegistrationForm() {
         gender
       )
       .then((response) => {
-        console.log("response=====", response.data);
         setLoading(false);
-        console.log("response====", response.data.data.status);
-        if (response.data.data.status == "success") {
+        if (response?.data?.data?.status == "success") {
           navigate("/Welcome");
         }
-        if (response.data.error === "Invalid birth date") {
+        if (response?.data?.error === "Invalid birth date") {
           setDobError("Invalid birth date");
           return;
-        } else if (response.data.error == "Email used by other account") {
+        } else if (response?.data?.error == "Email used by other account") {
           setemailError("This Email is already registered");
           return;
         } else {
