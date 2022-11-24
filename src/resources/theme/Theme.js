@@ -53,6 +53,12 @@ const Theme = {
     height: "80px",
     animation: `spin 1s linear infinite`,
   },
+  selectWrap: {
+    width: "100%",
+    border: "1px solid #DFE0E5",
+    borderRadius: "5px",
+    padding: "15px 30px",
+  },
 };
 
 export default Theme;

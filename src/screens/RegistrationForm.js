@@ -17,6 +17,8 @@ import {
 import Help from "./Help";
 import moment from "moment";
 import Header from "../components/common/Header";
+import DatePickerModel from "../components/common/DatePickerModel";
+import Theme from "../resources/theme/Theme";
 
 function RegistrationForm() {
   const [salutation, setSalutation] = useState("");
@@ -44,7 +46,9 @@ function RegistrationForm() {
   const [smsConsent, setSmsConsent] = useState(false);
   const [emailConsent, setEmailConsent] = useState(false);
   const [callConsent, setCallConsent] = useState(false);
+  const [datePicker, setDatePicker] = useState(false);
   const [dob, setDob] = useState("");
+  const [selectedDob, setSelectedDob] = useState("");
   const [dateString, setDateString] = useState("");
   const [dobError, setDobError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -130,6 +134,9 @@ function RegistrationForm() {
         setPasswordError("Please enter Password");
       } else if (text.target.value.length < 8) {
         setPasswordError("Your password should contain at least 8 characters");
+      } else if (text.target.value != retypePassword) {
+        setPasswordError("");
+        setRetypePasswordError("Passwords do not match");
       } else {
         setPasswordError("");
       }
@@ -139,7 +146,7 @@ function RegistrationForm() {
   const handleRetypePassword = useCallback(
     (text) => {
       setRetypePassword(text.target.value);
-      if (text.target.value != password || text.target.value == "") {
+      if (text.target.value !== password) {
         setRetypePasswordError("Passwords do not match");
       } else {
         setRetypePasswordError("");
@@ -150,6 +157,7 @@ function RegistrationForm() {
   const handleAgreement = useCallback(() => {
     setAgreement(!agreement);
   }, [agreement]);
+
   const handleDob = useCallback(
     (text) => {
       setDob(text);
@@ -160,7 +168,6 @@ function RegistrationForm() {
         let mm = text.$M + 1;
         let yyyy = text.$y;
         let age = moment().diff(`${yyyy}-${mm}-${dd}`, "years");
-        console.log("ageeeee", age);
         if (age >= 18) {
           setDateString(yyyy + "-" + mm + "-" + dd);
           setDobError("");
@@ -194,7 +201,7 @@ function RegistrationForm() {
     if (password == "") {
       setPasswordError("Please enter Password");
     }
-    if (retypePassword == "") {
+    if (retypePassword == "" || password !== retypePassword) {
       setRetypePasswordError("Passwords do not match");
     }
     if (dob == "") {
@@ -273,28 +280,48 @@ function RegistrationForm() {
         value={gender}
         optionsHandler={handleGender}
         customStyle={{
-          marginTop: 45,
+          marginTop: 30,
         }}
         error={genderError}
       />
-      <DropDownMenu
-        label={"Date of Birth*"}
-        dob={true}
+      <div class="select-style" style={{ ...Theme.selectWrap, marginTop: 30 }}>
+        <div style={Theme.label}>{"Date of Birth*"}</div>
+        <div
+          style={{
+            color: COLOR.DARK_GRAY,
+            fontSize: 20,
+            fontWeight: 500,
+            margin: 0,
+            padding: 0,
+            fontWeight: 500,
+            fontFamily: "Montserrat",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "100% 50%",
+            backgroundColor: "transparent",
+            display: "flex",
+          }}
+          onClick={() => setDatePicker(!datePicker)}
+        >
+          {selectedDob ? selectedDob : "Select"}
+        </div>
+      </div>
+      <DatePickerModel
+        datePicker={datePicker}
+        customStyle={{
+          marginTop: 30,
+        }}
         date={dob}
         dobHandler={handleDob}
-        customStyle={{
-          marginTop: 45,
-        }}
+        onClose={() => setDatePicker(!datePicker)}
         error={dobError}
       />
-      {console.log("dtae of birth", dob)}
       <DropDownMenu
         label={"Household Income"}
         Options={householdIncome}
         value={income}
         optionsHandler={(text) => setIncome(text.target.value)}
         customStyle={{
-          marginTop: 45,
+          marginTop: 30,
         }}
       />
       <div style={styles.section}>Your address</div>
@@ -334,7 +361,7 @@ function RegistrationForm() {
         value={residence}
         optionsHandler={(text) => setResidence(text.target.value)}
         customStyle={{
-          marginTop: 45,
+          marginTop: 30,
         }}
       />{" "}
       {/* section label */}
