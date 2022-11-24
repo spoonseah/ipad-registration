@@ -18,6 +18,10 @@ input {
   -webkit-appearance: none;
 }
 
+input::placeholder {
+  color: #999;
+}
+
 select {
   -webkit-tap-highlight-color: transparent;
   appearance: none;

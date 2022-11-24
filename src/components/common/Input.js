@@ -41,5 +41,6 @@ const styles = {
     width: "100%",
     fontFamily: "Montserrat",
     fontWeight: 500,
+    color: "#999999",
   },
 };
