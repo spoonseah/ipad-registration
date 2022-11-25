@@ -10,15 +10,7 @@ import { DatePicker } from "@mui/x-date-pickers";
 import moment from "moment";
 import Button from "./Button";
 
-function DatePickerModel({
-  onOpen,
-  onClose,
-  date,
-  dobHandler,
-  closeOnSelect,
-  error,
-  datePicker,
-}) {
+function DatePickerModel({ onOpen, onClose, date, dobHandler }) {
   return (
     <>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -39,24 +31,3 @@ function DatePickerModel({
 }
 
 export default DatePickerModel;
-
-const styles = {
-  selectWrap: {
-    width: "100%",
-    border: "1px solid #DFE0E5",
-    borderRadius: "5px",
-    padding: "15px 30px",
-  },
-  select: {
-    appearance: "none",
-    width: "100%",
-    fontSize: 20,
-    border: 0,
-    fontWeight: 500,
-    fontFamily: "Montserrat",
-    color: "#999",
-    backgroundImage: 'url("../images/down-arrow.png")',
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "100% 50%",
-  },
-};
