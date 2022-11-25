@@ -19,6 +19,7 @@ import moment from "moment";
 import Header from "../components/common/Header";
 import DatePickerModel from "../components/common/DatePickerModel";
 import Theme from "../resources/theme/Theme";
+import { TextField } from "@mui/material";
 
 function RegistrationForm() {
   const [salutation, setSalutation] = useState("");
@@ -46,11 +47,16 @@ function RegistrationForm() {
   const [smsConsent, setSmsConsent] = useState(false);
   const [emailConsent, setEmailConsent] = useState(false);
   const [callConsent, setCallConsent] = useState(false);
-  const [datePicker, setDatePicker] = useState(false);
   const [dob, setDob] = useState("");
   const [dateString, setDateString] = useState("");
   const [dobError, setDobError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [is_date_modal_visible, setIs_date_modal_visible] = useState(false);
+  const [date_picker_value, setDate_picker_value] = useState(
+    moment().subtract(18, "years")
+  );
+
   const location = useLocation();
   let navigate = useNavigate();
 
@@ -168,7 +174,7 @@ function RegistrationForm() {
 
   const handleDob = useCallback(
     (text) => {
-      setDob(text);
+      setDate_picker_value(text);
       if (text == "") {
         setDobError("Please select your Date of Birth");
       } else {
@@ -176,6 +182,8 @@ function RegistrationForm() {
         let mm = text.$M + 1;
         let yyyy = text.$y;
         let age = moment().diff(`${yyyy}-${mm}-${dd}`, "years");
+        setDob(`${dd}/${mm}/${yyyy}`);
+
         if (age >= 18) {
           setDateString(yyyy + "-" + mm + "-" + dd);
           setDobError("");
@@ -186,6 +194,7 @@ function RegistrationForm() {
     },
     [dob]
   );
+
   const register = () => {
     setLoading(true);
     if (salutation == "") {
@@ -295,34 +304,49 @@ function RegistrationForm() {
         }}
         error={genderError}
       />
-      <div class="select-style" style={{ ...Theme.selectWrap, marginTop: 30 }}>
+      <div
+        class="select-style"
+        style={{ ...Theme.selectWrap, marginTop: 30 }}
+        onClick={() => setIs_date_modal_visible(true)}
+      >
         <div style={Theme.label}>{"Date of Birth*"}</div>
-        <div
-          style={{
-            color: COLOR.DARK_GRAY,
-            fontSize: 20,
-            fontWeight: 500,
-            margin: 0,
-            padding: 0,
-            fontWeight: 500,
-            fontFamily: "Montserrat",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "100% 50%",
-            backgroundColor: "transparent",
-            display: "flex",
+
+        <TextField
+          margin="none"
+          style={{ display: "flex" }}
+          placeholder={"Select"}
+          value={dob}
+          sx={{
+            input: {
+              color: COLOR.DARK_GRAY,
+              fontSize: 20,
+              fontWeight: 500,
+              margin: 0,
+              padding: 0,
+              fontWeight: 500,
+              fontFamily: "Montserrat",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "100% 50%",
+              backgroundColor: "transparent",
+            },
+            ".MuiOutlinedInput-notchedOutline": { border: "none" },
+            "& .MuiInputBase-root": {
+              "& input": {
+                textAlign: "left",
+              },
+            },
           }}
-        >
-          <DatePickerModel
-            customStyle={{
-              marginTop: 30,
-            }}
-            date={dob}
-            dobHandler={handleDob}
-            onClose={() => setDatePicker(!datePicker)}
-            error={dobError}
-          />
-        </div>
+        />
       </div>
+      <DatePickerModel
+        onOpen={is_date_modal_visible}
+        onClose={() => setIs_date_modal_visible(false)}
+        customStyle={{
+          marginTop: 30,
+        }}
+        date={date_picker_value}
+        dobHandler={handleDob}
+      />
       <Error error={dobError} />
       <DropDownMenu
         label={"Household Income"}

@@ -10,46 +10,27 @@ import { DatePicker } from "@mui/x-date-pickers";
 import moment from "moment";
 import Button from "./Button";
 
-function DatePickerModel({ date, dobHandler, error, datePicker, onClose }) {
+function DatePickerModel({
+  onOpen,
+  onClose,
+  date,
+  dobHandler,
+  closeOnSelect,
+  error,
+  datePicker,
+}) {
   return (
     <>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
+          open={onOpen}
+          onClose={onClose}
+          value={date}
           onChange={dobHandler}
           inputFormat="DD/MM/YYYY"
-          value={date != "" ? date : moment().subtract(18, "year")}
           maxDate={new Date()}
           renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="outlined"
-              margin="none"
-              style={{ display: "flex" }}
-              inputProps={{
-                ...params.inputProps,
-                placeholder: "Select",
-              }}
-              sx={{
-                input: {
-                  color: COLOR.DARK_GRAY,
-                  fontSize: 20,
-                  fontWeight: 500,
-                  margin: 0,
-                  padding: 0,
-                  fontWeight: 500,
-                  fontFamily: "Montserrat",
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "100% 50%",
-                  backgroundColor: "transparent",
-                },
-                ".MuiOutlinedInput-notchedOutline": { border: "none" },
-                "& .MuiInputBase-root": {
-                  "& input": {
-                    textAlign: "left",
-                  },
-                },
-              }}
-            />
+            <div style={{ padding: 0, margin: 0 }}></div>
           )}
         />
       </LocalizationProvider>
