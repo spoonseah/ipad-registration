@@ -15,11 +15,9 @@ function DatePickerModel({ date, dobHandler, error, datePicker, onClose }) {
     <>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
-          open={datePicker}
-          onClose={onClose}
           onChange={dobHandler}
           inputFormat="DD/MM/YYYY"
-          value={date ? date : moment().subtract(18, "year")}
+          value={date != "" ? date : moment().subtract(18, "year")}
           maxDate={new Date()}
           renderInput={(params) => (
             <TextField
@@ -55,8 +53,6 @@ function DatePickerModel({ date, dobHandler, error, datePicker, onClose }) {
           )}
         />
       </LocalizationProvider>
-
-      <Error error={error} />
     </>
   );
 }

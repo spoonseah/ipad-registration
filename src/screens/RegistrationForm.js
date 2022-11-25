@@ -132,13 +132,17 @@ function RegistrationForm() {
       setPassword(text.target.value);
       if (text.target.value == "") {
         setPasswordError("Please enter Password");
-      } else if (text.target.value.length < 8) {
+      } else if (text.target.value.length < 8 && text.target.value.length > 0) {
         setPasswordError("Your password should contain at least 8 characters");
-      } else if (text.target.value != retypePassword) {
-        setPasswordError("");
-        setRetypePasswordError("Passwords do not match");
       } else {
         setPasswordError("");
+      }
+      if (retypePassword.length > 0) {
+        if (text.target.value !== retypePassword) {
+          setPasswordError("Passwords do not match");
+        } else {
+          setPasswordError("");
+        }
       }
     },
     [password]
@@ -149,6 +153,9 @@ function RegistrationForm() {
       if (text.target.value !== password) {
         setRetypePasswordError("Passwords do not match");
       } else {
+        setRetypePasswordError("");
+      }
+      if (text.target.value.length == 0) {
         setRetypePasswordError("");
       }
     },
@@ -201,7 +208,10 @@ function RegistrationForm() {
     if (password == "") {
       setPasswordError("Please enter Password");
     }
-    if (retypePassword == "" || password !== retypePassword) {
+    if (retypePassword == "") {
+      setRetypePasswordError("Please enter Password");
+    }
+    if (password !== retypePassword) {
       setRetypePasswordError("Passwords do not match");
     }
     if (dob == "") {
@@ -300,21 +310,19 @@ function RegistrationForm() {
             backgroundColor: "transparent",
             display: "flex",
           }}
-          onClick={() => setDatePicker(!datePicker)}
         >
-          {selectedDob ? selectedDob : "Select"}
+          <DatePickerModel
+            customStyle={{
+              marginTop: 30,
+            }}
+            date={dob}
+            dobHandler={handleDob}
+            onClose={() => setDatePicker(!datePicker)}
+            error={dobError}
+          />
         </div>
       </div>
-      <DatePickerModel
-        datePicker={datePicker}
-        customStyle={{
-          marginTop: 30,
-        }}
-        date={dob}
-        dobHandler={handleDob}
-        onClose={() => setDatePicker(!datePicker)}
-        error={dobError}
-      />
+      <Error error={dobError} />
       <DropDownMenu
         label={"Household Income"}
         Options={householdIncome}
