@@ -48,7 +48,6 @@ function RegistrationForm() {
   const [callConsent, setCallConsent] = useState(false);
   const [datePicker, setDatePicker] = useState(false);
   const [dob, setDob] = useState("");
-  const [selectedDob, setSelectedDob] = useState("");
   const [dateString, setDateString] = useState("");
   const [dobError, setDobError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -61,6 +60,15 @@ function RegistrationForm() {
     }, 600000);
   }, []);
 
+  useEffect(() => {
+    if (retypePassword !== "") {
+      if (password !== retypePassword) {
+        setRetypePasswordError("Passwords do not match");
+      } else {
+        setRetypePasswordError("");
+      }
+    }
+  }, [password, retypePassword]);
   const handleSalutation = useCallback(
     (text) => {
       setSalutation(text.target.value);
@@ -136,13 +144,6 @@ function RegistrationForm() {
         setPasswordError("Your password should contain at least 8 characters");
       } else {
         setPasswordError("");
-      }
-      if (retypePassword.length > 0) {
-        if (text.target.value !== retypePassword) {
-          setPasswordError("Passwords do not match");
-        } else {
-          setPasswordError("");
-        }
       }
     },
     [password]
