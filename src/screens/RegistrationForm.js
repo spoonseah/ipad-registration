@@ -280,6 +280,7 @@ function RegistrationForm() {
             return;
           } else {
             setDobError("");
+            setemailError("");
           }
         });
     }
