@@ -233,15 +233,15 @@ function RegistrationForm() {
       setRetypePasswordError("Passwords do not match");
       setLoading(false);
     }
-    if (dob == "") {
-      setDobError("Please select your Date of Birth");
-      setLoading(false);
-    }
+
     if (!agreement) {
       setAgreementError("Please agree to our Terms of Use and Privacy Policy");
       setLoading(false);
     }
-
+    if (dob != "" && dobError.length > 0) {
+      setLoading(false);
+    }
+    console.log("dobbb", dobError == "");
     if (
       salutationError == "" &&
       givenNameError == "" &&
@@ -282,6 +282,9 @@ function RegistrationForm() {
             setDobError("");
             setemailError("");
           }
+        })
+        .catch((err) => {
+          setLoading(false);
         });
     }
   };
@@ -368,7 +371,7 @@ function RegistrationForm() {
         date={date_picker_value}
         dobHandler={handleDob}
       />
-      <Error error={dobError} />
+      {dobError != "" && <Error error={dobError} />}
       <DropDownMenu
         label={"Household Income"}
         Options={householdIncome}
