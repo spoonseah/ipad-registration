@@ -199,70 +199,90 @@ function RegistrationForm() {
     setLoading(true);
     if (salutation == "") {
       setSalutationError("Please select your Salutation");
+      setLoading(false);
     }
     if (givenName == "") {
       setGivenNameError("Please enter your Given Name");
+      setLoading(false);
     }
     if (gender == "") {
       setGenderError("Please select your Gender");
+      setLoading(false);
     }
     if (dob == "") {
       setDobError("Please select your Date of Birth");
+      setLoading(false);
     }
     if (postalCode == "") {
       setPostalCodeError("Please enter your Postal Code");
+      setLoading(false);
     }
     if (email == "") {
       setemailError("Please enter Email");
+      setLoading(false);
     }
     if (password == "") {
       setPasswordError("Please enter Password");
+      setLoading(false);
     }
     if (retypePassword == "") {
       setRetypePasswordError("Please enter Password");
+      setLoading(false);
     }
     if (password !== retypePassword) {
       setRetypePasswordError("Passwords do not match");
+      setLoading(false);
     }
     if (dob == "") {
       setDobError("Please select your Date of Birth");
+      setLoading(false);
     }
     if (!agreement) {
       setAgreementError("Please agree to our Terms of Use and Privacy Policy");
-    } else {
-      setAgreementError("");
+      setLoading(false);
     }
 
-    new WebApi()
-      .userSignUp(
-        email,
-        givenName,
-        dateString,
-        password,
-        postalCode,
-        callConsent ? "Y" : "N",
-        emailConsent ? "Y" : "N",
-        smsConsent ? "Y" : "N",
-        surName,
-        location?.state?.contact,
-        gender
-      )
-      .then((response) => {
-        setLoading(false);
-        if (response?.data?.data?.status == "success") {
-          navigate("/Welcome");
-        }
-        if (response?.data?.error === "Invalid birth date") {
-          setDobError("Invalid birth date");
-          return;
-        } else if (response?.data?.error == "Email used by other account") {
-          setemailError("This Email is already registered");
-          return;
-        } else {
-          setDobError("");
-          setemailError("");
-        }
-      });
+    if (
+      salutationError == "" &&
+      givenNameError == "" &&
+      genderError == "" &&
+      passwordError == "" &&
+      retypePasswordError == "" &&
+      emailError == "" &&
+      dobError == "" &&
+      agreement
+    ) {
+      new WebApi()
+        .userSignUp(
+          email,
+          givenName,
+          dateString,
+          password,
+          postalCode,
+          callConsent ? "Y" : "N",
+          emailConsent ? "Y" : "N",
+          smsConsent ? "Y" : "N",
+          surName,
+          location?.state?.contact,
+          gender
+        )
+        .then((response) => {
+          console.log("response===", response.data);
+          setLoading(false);
+          if (response?.data?.data?.status == "success") {
+            navigate("/Welcome");
+          }
+          if (response?.data?.error === "Invalid birth date") {
+            setDobError("Invalid birth date");
+            return;
+          } else if (response?.data?.error == "Email used by other account") {
+            setemailError("This Email is already registered");
+            return;
+          } else {
+            setDobError("");
+          }
+        });
+    }
   };
   return (
     <>
