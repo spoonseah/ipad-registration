@@ -181,7 +181,11 @@ function RegistrationForm() {
         let dd = text.$D;
         let mm = text.$M + 1;
         let yyyy = text.$y;
-        let age = moment().diff(`${yyyy}-${mm}-${dd}`, "years");
+       
+        const currentDate = moment();
+        const birthDate = moment(`${yyyy}-${mm}-${dd}`, 'YYYY-MM-DD');
+        const age = currentDate.diff(birthDate, 'years');
+
         setDob(`${dd}/${mm}/${yyyy}`);
 
         if (age >= 18) {
