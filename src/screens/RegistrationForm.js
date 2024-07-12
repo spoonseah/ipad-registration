@@ -9,10 +9,7 @@ import { validateEmail, validatePostalCode } from "../helper/validations";
 import WebApi from "../helper/WebApi";
 import { COLOR } from "../resources/theme/Color";
 import {
-  genderType,
-  householdIncome,
-  salutationType,
-  residenceType,
+  genderType
 } from "../resources/theme/Constants";
 import Help from "./Help";
 import moment from "moment";
@@ -22,26 +19,19 @@ import Theme from "../resources/theme/Theme";
 import { TextField } from "@mui/material";
 
 function RegistrationForm() {
-  const [salutation, setSalutation] = useState("");
-  const [salutationError, setSalutationError] = useState("");
   const [givenName, setGivenName] = useState("");
   const [givenNameError, setGivenNameError] = useState("");
   const [surName, setSurName] = useState("");
   const [gender, setGender] = useState("");
   const [genderError, setGenderError] = useState("");
-  const [income, setIncome] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setemailError] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [retypePassword, setRetypePassword] = useState("");
   const [retypePasswordError, setRetypePasswordError] = useState("");
-  const [blockNo, setBlockNo] = useState("");
-  const [streetName, setStreetName] = useState("");
-  const [unitNo, setUnitNo] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [postalCodeError, setPostalCodeError] = useState("");
-  const [residence, setResidence] = useState("");
   const [agreement, setAgreement] = useState(false);
   const [agreementError, setAgreementError] = useState("");
   const [smsConsent, setSmsConsent] = useState(false);
@@ -75,17 +65,6 @@ function RegistrationForm() {
       }
     }
   }, [password, retypePassword]);
-  const handleSalutation = useCallback(
-    (text) => {
-      setSalutation(text.target.value);
-      if (text.target.value != "") {
-        setSalutationError("");
-      } else {
-        setSalutationError("Please select your Salutation");
-      }
-    },
-    [salutation]
-  );
   const handleGivenName = useCallback(
     (text) => {
       setGivenName(text.target.value);
@@ -100,11 +79,6 @@ function RegistrationForm() {
   const handleGender = useCallback(
     (text) => {
       setGender(text.target.value);
-      if (text.target.value != "") {
-        setGenderError("");
-      } else {
-        setGenderError("Please select your Gender");
-      }
     },
     [gender]
   );
@@ -119,8 +93,9 @@ function RegistrationForm() {
         } else {
           setPostalCodeError("");
         }
-      } else {
-        setPostalCodeError("Please enter your Postal Code");
+      }
+      else{
+        setPostalCodeError("");
       }
     },
     [postalCode]
@@ -175,9 +150,7 @@ function RegistrationForm() {
   const handleDob = useCallback(
     (text) => {
       setDate_picker_value(text);
-      if (text == "") {
-        setDobError("Please select your Date of Birth");
-      } else {
+      if (text != "") {
         let dd = text.$D;
         let mm = text.$M + 1;
         let yyyy = text.$y;
@@ -192,7 +165,7 @@ function RegistrationForm() {
           setDateString(yyyy + "-" + mm + "-" + dd);
           setDobError("");
         } else {
-          setDobError("You must be over 18 years to join FRx");
+          setDobError("You must be over 18 years old to join Frasers Experience");
         }
       }
     },
@@ -201,24 +174,8 @@ function RegistrationForm() {
 
   const register = () => {
     setLoading(true);
-    if (salutation == "") {
-      setSalutationError("Please select your Salutation");
-      setLoading(false);
-    }
     if (givenName == "") {
       setGivenNameError("Please enter your Given Name");
-      setLoading(false);
-    }
-    if (gender == "") {
-      setGenderError("Please select your Gender");
-      setLoading(false);
-    }
-    if (dob == "") {
-      setDobError("Please select your Date of Birth");
-      setLoading(false);
-    }
-    if (postalCode == "") {
-      setPostalCodeError("Please enter your Postal Code");
       setLoading(false);
     }
     if (email == "") {
@@ -247,7 +204,6 @@ function RegistrationForm() {
     }
     console.log("dobbb", dobError == "");
     if (
-      salutationError == "" &&
       givenNameError == "" &&
       genderError == "" &&
       passwordError == "" &&
@@ -297,14 +253,6 @@ function RegistrationForm() {
       <Header onClick={() => navigate("/")} />
       <div style={styles.description}>Tell us more about yourself.</div>
       <div style={styles.section}>Your profile</div>
-      {/* salutation */}
-      <DropDownMenu
-        label={"Salutation*"}
-        Options={salutationType}
-        value={salutation}
-        optionsHandler={handleSalutation}
-        error={salutationError}
-      />
       {/* given name */}
       <Input
         label={"Given Name*"}
@@ -323,7 +271,7 @@ function RegistrationForm() {
         onChange={(text) => setSurName(text.target.value)}
       />
       <DropDownMenu
-        label={"Gender*"}
+        label={"Gender"}
         Options={genderType}
         value={gender}
         optionsHandler={handleGender}
@@ -337,7 +285,7 @@ function RegistrationForm() {
         style={{ ...Theme.selectWrap, marginTop: 30 }}
         onClick={() => setIs_date_modal_visible(true)}
       >
-        <div style={Theme.label}>{"Date of Birth*"}</div>
+        <div style={Theme.label}>{"Date of Birth"}</div>
 
         <TextField
           margin="none"
@@ -376,55 +324,16 @@ function RegistrationForm() {
         dobHandler={handleDob}
       />
       {dobError != "" && <Error error={dobError} />}
-      <DropDownMenu
-        label={"Household Income"}
-        Options={householdIncome}
-        value={income}
-        optionsHandler={(text) => setIncome(text.target.value)}
-        customStyle={{
-          marginTop: 30,
-        }}
-      />
-      <div style={styles.section}>Your address</div>
+      {/* Postal Code */}      
       <Input
-        label={"Block No"}
+        label={"Postal Code"}
         type={"text"}
-        placeholder={"Block No"}
-        value={blockNo}
-        onChange={(text) => setBlockNo(text.target.value)}
-      />
-      <Input
-        label={"Street Name"}
-        type={"text"}
-        placeholder={"Street Name"}
-        value={streetName}
-        onChange={(text) => setStreetName(text.target.value)}
-      />
-      <Input
-        label={"Unit No"}
-        type={"text"}
-        placeholder={"Unit No"}
-        value={unitNo}
-        onChange={(text) => setUnitNo(text.target.value)}
-      />
-      {/* Postal Code */}
-      <Input
-        label={"Postal Code*"}
-        type={"text"}
-        placeholder={"Postal Code*"}
+        placeholder={"Postal Code"}
         value={postalCode}
         onChange={handlePostalCode}
         errorText={postalCodeError}
       />
-      <DropDownMenu
-        label={"Type of Residence"}
-        Options={residenceType}
-        value={residence}
-        optionsHandler={(text) => setResidence(text.target.value)}
-        customStyle={{
-          marginTop: 30,
-        }}
-      />{" "}
+      {" "}
       {/* section label */}
       <div style={styles.section}>Your contact details</div>
       {/* mobile no */}
@@ -502,7 +411,7 @@ function RegistrationForm() {
             </label>
           </div>
           <div style={styles.agreeText}>
-            I have read and agree to the{" "}
+            I certify that I am at least 18 years old. I have read and agree to the{" "}
             <a
               href="https://www.frasersexperience.com/terms-of-use"
               target="_blank"
