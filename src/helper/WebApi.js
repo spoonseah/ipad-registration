@@ -104,20 +104,22 @@ export default class WebApi {
     _gender
   ) {
     let url = this.USER_SIGNUP;
-    // {"user":"tahir.aziz@goldevelopers.com", "password": "123456789","givenname":"tahir.aziz@goldevelopers.com", "nric": "S1111111G","birthdate":"07-07-81"}
     let body = {
       user: _user_name,
       password: _password,
       givenname: _givenname,
       familyname: _familyname,
-      // nric: _nric,
-      birthdate: _birthdate,
-      postalcode: postal_code,
       mobilephonenumber: _contact,
       callconsent: callconsent,
       emailconsent: emailconsent,
       smsconsent: smsconsent,
-    };
+    };    
+    if(_birthdate != null && _birthdate != ""){
+      body.birthdate = _birthdate;
+    }
+    if(postal_code != null && postal_code != ""){
+      body.postalcode = postal_code;
+    }    
     if (_gender == "Male") {
       body.gender = "M";
     } else if (_gender == "Female") {
