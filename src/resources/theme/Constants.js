@@ -7,7 +7,7 @@ export const FRX_GIFT_CARD = [
   },
   {
     img: IMAGES.BUY,
-    text: "Buy or Redeem FRx Gift Cards & Retailer eVouchers",
+    text: "Buy or Redeem FRx Gift Cards & Retailer eDeals",
   },
   {
     img: IMAGES.USE,
