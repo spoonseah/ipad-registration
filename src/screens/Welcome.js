@@ -43,7 +43,7 @@ function Welcome() {
       </div>
 
       {/* download-frx */}
-      <img src={'images/frx-download-icons.svg'} style={styles.downloadImg} />
+      <img src={'/images/frx-download-icons.png'} style={styles.downloadImg} />
 
       {/* button */}
       <Button
@@ -77,6 +77,7 @@ const styles = {
   },
   downloadImg: {
     margin: "30px 0 50px 0",
+    width: "100%"
     // marginTop: "20px",
     // height: "75px",
   },

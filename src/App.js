@@ -9,10 +9,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/common/Header";
 
 function App() {
+  const getBasename = path => path.substr(0, path.lastIndexOf('/'));
+  
   return (
     <div style={Theme.globalStyle}>
       {/* <Header /> */}
-      <BrowserRouter>
+      <BrowserRouter basename={getBasename(window.location.pathname)}>
         <Routes>
           <Route exact path="/" element={<JoinNow />}></Route>
           <Route path="/OTP" element={<Otp />}></Route>
