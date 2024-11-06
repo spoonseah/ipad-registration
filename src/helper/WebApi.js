@@ -9,7 +9,7 @@ export default class WebApi {
   ARTICLE_LIST = "listarticle";
   ARTICLE_DETAIL = "articledetail";
   RESEND_MOBILE_OTP_ONLY = "auth/resend_mobile_otp_only";
-  VERIFY_MOBILE_OTP_ONLY = "auth/verify_mobile_otp_only";
+  VERIFY_MOBILE_OTP_ONLY = "icolumn/proxy";
   USER_SIGNUP = "signup";
 
   async sendPostRequest(props, _url, _params, custom_headers) {
@@ -63,11 +63,14 @@ export default class WebApi {
     }
   }
 
-  PreJoinSignup(props, _mobileNumber, _checksum) {
+  PreJoinSignup(props, _mobileNumber, _checksum, selectedCountry) {
     let url = this.PRE_JOIN;
     let body = {
+      fn: "pre_join",
+      mobilecountryprefix:selectedCountry,
       mobilephonenumber: _mobileNumber,
       checksum: _checksum,
+      website:true
     };
     return this.sendPostRequest(props, url, body);
   }
@@ -83,9 +86,11 @@ export default class WebApi {
   verifyMobileOtpOnly(props, _checksum, _verification_token, _otp) {
     let url = this.VERIFY_MOBILE_OTP_ONLY;
     let body = {
+      fn : 'verify_mobile_otp',
       checksum: _checksum,
       verification_token: _verification_token,
       otp: _otp,
+      website:true
     };
     console.log("body==**", url, body);
     return this.sendPostRequest(props, url, body);

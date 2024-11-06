@@ -325,6 +325,7 @@ function RegistrationForm() {
       />
       {dobError != "" && <Error error={dobError} />}
       {/* Postal Code */}      
+      {(location?.state?.selectedCountry == "65") &&
       <Input
         label={"Postal Code"}
         type={"text"}
@@ -332,7 +333,7 @@ function RegistrationForm() {
         value={postalCode}
         onChange={handlePostalCode}
         errorText={postalCodeError}
-      />
+      />}
       {" "}
       {/* section label */}
       <div style={styles.section}>Your contact details</div>

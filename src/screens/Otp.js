@@ -73,6 +73,7 @@ function OTP(props) {
           navigate("/RegistrationForm", {
             state: {
               contact: location?.state?.contact,
+              selectedCountry: location?.state?.selectedCountry
             },
           });
         } else {

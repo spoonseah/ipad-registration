@@ -172,3 +172,108 @@ select {
   color: #999 !important;
   opacity: 1;
 }
+
+ /* Country select with input field */
+ .mobile-no {
+  display: flex;
+  position: relative;
+  border: 1px solid #D9D9D9;
+  border-radius: 5px;
+}
+
+.mobile-no .country-code {
+  display: flex;
+  width: 20%;
+  justify-content: center;
+  border-right: 1px solid #D9D9D9;
+  align-items: center;
+  gap: 0 5px;
+  cursor: pointer;
+}
+
+.mobile-no .country-code .code {
+  font-size: 17px;
+}
+
+.mobile-no .country-code .arrow {}
+
+.mobile-no .dropdown {
+  border: 1px solid #DFE0E4;
+  border-radius: 5px;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  width: calc(100% + 2px);
+  top: 50px;
+  left: -1px;
+  background-color: #fff;
+  transition: 0.3s;
+}
+
+.mobile-no .dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  top: 65px;
+}
+
+.mobile-no .dropdown .item {
+  display: flex;
+  padding: 13px 20px;
+  align-items: center;
+  gap: 0 30px;
+  transition: 0.3s;
+}
+
+.mobile-no .dropdown .item:hover {
+  cursor: pointer;
+  background-color: #F2F2F2;
+  border-radius: 5px;
+}
+
+.mobile-no .dropdown .item .flag img {
+  display: block;
+}
+
+.mobile-no input {
+  width: 80%;
+  border: 0;
+  padding: 25px 15px;
+  font-size: 17px;
+}
+
+/* Media queries */
+
+/* Medium devices (desktops, 768px and up) */
+@media (min-width: 768px) {
+  .mobile-no .country-code {
+    width: 10%;
+  }
+
+  .mobile-no input {
+    width: 90%;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .mobile-no .country-code .code {
+    font-size: 17px;
+  }
+
+  .mobile-no .country-code {
+    width: 18%;
+  }
+
+  .mobile-no input {
+    width: 90%;
+  }
+}
+.error-message{
+  color: #ef8822;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 8px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: left;
+}
