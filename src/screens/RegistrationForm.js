@@ -28,8 +28,8 @@ function RegistrationForm() {
   const [emailError, setemailError] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [retypePassword, setRetypePassword] = useState("");
-  const [retypePasswordError, setRetypePasswordError] = useState("");
+  // const [retypePassword, setRetypePassword] = useState("");
+  // const [retypePasswordError, setRetypePasswordError] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [postalCodeError, setPostalCodeError] = useState("");
   const [agreement, setAgreement] = useState(false);
@@ -56,22 +56,23 @@ function RegistrationForm() {
     }, 600000);
   }, []);
 
-  useEffect(() => {
-    if (retypePassword !== "") {
-      if (password !== retypePassword) {
-        setRetypePasswordError("Passwords do not match");
-      } else {
-        setRetypePasswordError("");
-      }
-    }
-  }, [password, retypePassword]);
+  // useEffect(() => {
+  //   if (retypePassword !== "") {
+  //     if (password !== retypePassword) {
+  //       setRetypePasswordError("Passwords do not match");
+  //     } else {
+  //       setRetypePasswordError("");
+  //     }
+  //   }
+  // }, [password, retypePassword]);
+
   const handleGivenName = useCallback(
     (text) => {
       setGivenName(text.target.value);
       if (text.target.value.length > 0) {
         setGivenNameError("");
       } else {
-        setGivenNameError("Please enter your Given Name");
+        setGivenNameError("Please enter your given name");
       }
     },
     [givenName]
@@ -89,7 +90,7 @@ function RegistrationForm() {
         let validCode = validatePostalCode(text.target.value);
         console.log("valid", validCode);
         if (!validCode) {
-          setPostalCodeError("Postal Code is invalid");
+          setPostalCodeError("Please enter a valid Singapore postal code");
         } else {
           setPostalCodeError("");
         }
@@ -106,12 +107,12 @@ function RegistrationForm() {
       if (text.target.value.length > 0) {
         let valid = validateEmail(text.target.value);
         if (!valid) {
-          setemailError("Email is invalid");
+          setemailError("Please enter a valid email address");
         } else {
           setemailError("");
         }
       } else {
-        setemailError("Please enter Email");
+        setemailError("Please enter your email address");
       }
     },
     [email]
@@ -120,7 +121,7 @@ function RegistrationForm() {
     (text) => {
       setPassword(text.target.value);
       if (text.target.value == "") {
-        setPasswordError("Please enter Password");
+        setPasswordError("Please enter password");
       } else if (text.target.value.length < 8 && text.target.value.length > 0) {
         setPasswordError("Your password should contain at least 8 characters");
       } else {
@@ -129,20 +130,20 @@ function RegistrationForm() {
     },
     [password]
   );
-  const handleRetypePassword = useCallback(
-    (text) => {
-      setRetypePassword(text.target.value);
-      if (text.target.value !== password) {
-        setRetypePasswordError("Passwords do not match");
-      } else {
-        setRetypePasswordError("");
-      }
-      if (text.target.value.length == 0) {
-        setRetypePasswordError("");
-      }
-    },
-    [retypePassword]
-  );
+  // const handleRetypePassword = useCallback(
+  //   (text) => {
+  //     setRetypePassword(text.target.value);
+  //     if (text.target.value !== password) {
+  //       setRetypePasswordError("Passwords do not match");
+  //     } else {
+  //       setRetypePasswordError("");
+  //     }
+  //     if (text.target.value.length == 0) {
+  //       setRetypePasswordError("");
+  //     }
+  //   },
+  //   [retypePassword]
+  // );
   const handleAgreement = useCallback(() => {
     setAgreement(!agreement);
   }, [agreement]);
@@ -165,7 +166,7 @@ function RegistrationForm() {
           setDateString(yyyy + "-" + mm + "-" + dd);
           setDobError("");
         } else {
-          setDobError("You must be over 18 years old to join Frasers Experience");
+          setDobError("You must be above 18 years old to join Frasers Experience");
         }
       }
     },
@@ -175,28 +176,28 @@ function RegistrationForm() {
   const register = () => {
     setLoading(true);
     if (givenName == "") {
-      setGivenNameError("Please enter your Given Name");
+      setGivenNameError("Please enter your given name");
       setLoading(false);
     }
     if (email == "") {
-      setemailError("Please enter Email");
+      setemailError("Please enter your email address");
       setLoading(false);
     }
     if (password == "") {
       setPasswordError("Please enter Password");
       setLoading(false);
     }
-    if (retypePassword == "") {
-      setRetypePasswordError("Please enter Password");
-      setLoading(false);
-    }
-    if (password !== retypePassword) {
-      setRetypePasswordError("Passwords do not match");
-      setLoading(false);
-    }
+    // if (retypePassword == "") {
+    //   setRetypePasswordError("Please enter Password");
+    //   setLoading(false);
+    // }
+    // if (password !== retypePassword) {
+    //   setRetypePasswordError("Passwords do not match");
+    //   setLoading(false);
+    // }
 
     if (!agreement) {
-      setAgreementError("Please agree to our Terms of Use and Privacy Policy");
+      setAgreementError("Please accept our Privacy Policy and Terms of Use");
       setLoading(false);
     }
     if (dob != "" && dobError.length > 0) {
@@ -207,7 +208,6 @@ function RegistrationForm() {
       givenNameError == "" &&
       genderError == "" &&
       passwordError == "" &&
-      retypePasswordError == "" &&
       emailError == "" &&
       dobError == "" &&
       agreement
@@ -236,7 +236,7 @@ function RegistrationForm() {
             setDobError("Invalid birth date");
             return;
           } else if (response?.data?.error == "Email used by other account") {
-            setemailError("This Email is already registered");
+            setemailError("This email address is already registered");
             return;
           } else {
             setDobError("");
@@ -362,14 +362,14 @@ function RegistrationForm() {
         errorText={passwordError}
       />
       {/* Retype Password */}
-      <Input
+      {/* <Input
         label={"Retype Password"}
         type={"password"}
         placeholder={"Retype Password*"}
         value={retypePassword}
         onChange={handleRetypePassword}
         errorText={retypePasswordError}
-      />
+      /> */}
       <div style={styles.consent}>
         I consent to receive promotional marketing messages from Frasers
         Property Retail Management Pte. Ltd.
