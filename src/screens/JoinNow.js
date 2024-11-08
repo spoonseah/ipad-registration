@@ -101,7 +101,7 @@ function JoinNow(props) {
             setLoading(false);
             if (response?.data?.data.status === 'fail') {
               if (response?.data?.data?.reason.includes('Mobile used by other account')) {
-                setErrorMessage('This Mobile No. is already registered.');
+                setErrorMessage('This mobile no. is already registered');
                 setShowContactError(true);
               }else{
                 setErrorMessage(`Please enter a valid ${selectedCountry?.name} mobile no.`);

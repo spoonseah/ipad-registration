@@ -38,7 +38,7 @@ function OTP(props) {
         if (response?.data?.data?.status == "success") {
           setResendLoading(false);
           // error: "We have resent you an OTP. Please check your messages",
-          setOtpError("OTP has been resent");
+          setOtpError("We have resent you an OTP. Please check your messages.");
         } else {
           setOtpError("");
         }
@@ -78,7 +78,7 @@ function OTP(props) {
           });
         } else {
           setLoading(false);
-          setOtpError("OTP is incorrect or has expired");
+          setOtpError("One-time password is incorrect");
           setOtp("");
         }
       });
@@ -93,7 +93,7 @@ function OTP(props) {
         <br /> sent to:
       </div>
 
-      <div style={styles.userno}>{`${location?.state?.contact}`}</div>
+      <div style={styles.userno}>{`+${location?.state?.selectedCountry} ${location?.state?.contact}`}</div>
 
       <PinInput
         ref={(n) => (ele = n)}
