@@ -15,11 +15,6 @@ function JoinNow(props) {
       name: "Singapore",
     },
     {
-      code: "+86",
-      flag: "/images/flag-cn.png",
-      name: "China",
-    },
-    {
       code: "+91",
       flag: "/images/flag-in.png",
       name: "India",
