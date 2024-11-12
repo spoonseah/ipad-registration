@@ -252,7 +252,7 @@ function RegistrationForm() {
     <>
       <Header onClick={() => navigate("/")} />
       <div style={styles.description}>Tell us more about yourself.</div>
-      <div style={styles.section}>Your profile</div>
+      {/* <div style={styles.section}>Your profile</div> */}
       {/* given name */}
       <Input
         label={"Given Name*"}

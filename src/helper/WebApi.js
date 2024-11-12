@@ -129,6 +129,8 @@ export default class WebApi {
       body.gender = "M";
     } else if (_gender == "Female") {
       body.gender = "F";
+    }else if(_gender == "Prefer-not-to-say"){
+      body.gender = "P";
     }
     console.log("body===***", body);
     return this.sendPostRequest(null, url, body);

@@ -30,7 +30,9 @@ export const genderType = [
   { label: "Select", value: "" },
   { label: "Male", value: "Male" },
   { label: "Female", value: "Female" },
+  { label: "Prefer not to say", value: "Prefer-not-to-say"},
 ];
+
 export const householdIncome = [
   { label: "Select", value: "" },
   { label: "Below $2,000", value: "Below $2,000" },
