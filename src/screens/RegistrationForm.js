@@ -340,7 +340,7 @@ function RegistrationForm() {
       {/* mobile no */}
       <div style={styles.txtfieldDisabled}>
         <div style={styles.disabledLabel}>Mobile No.*</div>
-        <div style={styles.disabledValue}>{location?.state?.contact}</div>
+        <div style={styles.disabledValue}>{`+${location?.state.selectedCountry} ${location?.state?.contact}`}</div>
       </div>
       {/* Email */}
       <Input
