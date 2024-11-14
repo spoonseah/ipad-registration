@@ -10,7 +10,7 @@ export default class WebApi {
   ARTICLE_DETAIL = "articledetail";
   RESEND_MOBILE_OTP_ONLY = "auth/resend_mobile_otp_only";
   VERIFY_MOBILE_OTP_ONLY = "icolumn/proxy";
-  USER_SIGNUP = "signup";
+  USER_SIGNUP = "icolumn/proxy";
 
   async sendPostRequest(props, _url, _params, custom_headers) {
     _url = this._BASE_URL + _url;
@@ -106,18 +106,22 @@ export default class WebApi {
     smsconsent,
     _familyname,
     _contact,
-    _gender
+    _gender,
+    selectedCountry
   ) {
     let url = this.USER_SIGNUP;
     let body = {
-      user: _user_name,
+      fn :'join',
+      email: _user_name,
       password: _password,
       givenname: _givenname,
       familyname: _familyname,
       mobilephonenumber: _contact,
+      mobilecountryprefix:selectedCountry,
       callconsent: callconsent,
       emailconsent: emailconsent,
       smsconsent: smsconsent,
+      website:true
     };    
     if(_birthdate != null && _birthdate != ""){
       body.birthdate = _birthdate;
