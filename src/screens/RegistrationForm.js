@@ -174,6 +174,9 @@ function RegistrationForm() {
   );
 
   const register = () => {
+    if(postalCodeError){
+      return
+    }
     setLoading(true);
     if (givenName == "") {
       setGivenNameError("Please enter your given name");
@@ -184,7 +187,7 @@ function RegistrationForm() {
       setLoading(false);
     }
     if (password == "") {
-      setPasswordError("Please enter Password");
+      setPasswordError("Please enter password");
       setLoading(false);
     }
     // if (retypePassword == "") {
@@ -238,6 +241,8 @@ function RegistrationForm() {
           } else if (response?.data?.error == "Email used by other account") {
             setemailError("This email address is already registered");
             return;
+          }else if(response?.data?.error =="Invalid postal code"){
+            setPostalCodeError("Please enter a valid Singapore postal code")
           } else {
             setDobError("");
             setemailError("");
@@ -331,7 +336,10 @@ function RegistrationForm() {
         type={"text"}
         placeholder={"Postal Code"}
         value={postalCode}
-        onChange={handlePostalCode}
+        onChange={(e)=>{
+          setPostalCode(e.target.value);
+          setPostalCodeError("");
+        }}
         errorText={postalCodeError}
       />}
       {" "}
