@@ -174,9 +174,6 @@ function RegistrationForm() {
   );
 
   const register = () => {
-    if(postalCodeError){
-      return
-    }
     setLoading(true);
     if (givenName == "") {
       setGivenNameError("Please enter your given name");
