@@ -230,7 +230,7 @@ function RegistrationForm() {
         .then((response) => {
           console.log("response===", response.data);
           setLoading(false);
-          if (response?.data?.data.status == "success") {
+          if (response?.data?.data?.status == "success") {
             navigate("/Welcome");
           }
           if (response?.data?.error === "Invalid birth date") {
