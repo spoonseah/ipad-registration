@@ -251,6 +251,13 @@ function RegistrationForm() {
         });
     }
   };
+
+  function addSpaceforMobile(num) {
+    const numStr = num.toString();
+    if (numStr.length <= 4) return numStr;
+    return numStr.slice(0, 4) + " " + numStr.slice(4);
+}
+
   return (
     <>
       <Header onClick={() => navigate("/")} />
@@ -346,7 +353,7 @@ function RegistrationForm() {
       {/* mobile no */}
       <div style={styles.txtfieldDisabled}>
         <div style={styles.disabledLabel}>Mobile No.*</div>
-        <div style={styles.disabledValue}>{`+${location?.state.selectedCountry} ${location?.state?.contact}`}</div>
+        <div style={styles.disabledValue}>{`+${location?.state.selectedCountry} ${addSpaceforMobile(location?.state?.contact)}`}</div>
       </div>
       {/* Email */}
       <Input

@@ -84,6 +84,12 @@ function OTP(props) {
       });
   };
 
+  function addSpaceforMobile(num) {
+    const numStr = num.toString();
+    if (numStr.length <= 4) return numStr;
+    return numStr.slice(0, 4) + " " + numStr.slice(4);
+}
+
   return (
     <>
       <Header onClick={() => navigate("/")} />
@@ -93,7 +99,7 @@ function OTP(props) {
         <br /> sent to:
       </div>
 
-      <div style={styles.userno}>{`+${location?.state?.selectedCountry} ${location?.state?.contact}`}</div>
+      <div style={styles.userno}>{`+${location?.state?.selectedCountry} ${addSpaceforMobile(location?.state?.contact)}`}</div>
 
       <PinInput
         ref={(n) => (ele = n)}
