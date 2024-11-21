@@ -96,7 +96,7 @@ function JoinNow(props) {
             setLoading(false);
             if (response?.data?.data.status === 'fail') {
               if (response?.data?.data?.reason.includes('Mobile used by other account')) {
-                setErrorMessage('This mobile no. is already registered');
+                setErrorMessage('We are unable to process your request. Please check your details or contact us for further assistance.');
                 setShowContactError(true);
               }else{
                 setErrorMessage(`Please enter a valid ${selectedCountry?.name} mobile no.`);
@@ -116,7 +116,6 @@ function JoinNow(props) {
   return (
     <div>
       <Header onClick={() => navigate("/")} />
-
       <div style={Theme.title}>Join Now!</div>
 
       <div style={Theme.description}>

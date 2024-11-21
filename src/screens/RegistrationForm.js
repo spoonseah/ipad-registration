@@ -237,7 +237,7 @@ function RegistrationForm() {
             setDobError("Invalid birth date");
             return;
           } else if (response?.data?.error == "Email used by other account") {
-            setemailError("This email address is already registered");
+            setemailError("We are unable to process your request. Please check your details or contact us for further assistance.");
             return;
           }else if(response?.data?.error =="Invalid postal code"){
             setPostalCodeError("Please enter a valid Singapore postal code")
