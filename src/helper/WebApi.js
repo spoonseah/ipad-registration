@@ -4,7 +4,7 @@ import StatusUpdate from "./StatusUpdate";
 const _TIME_OUT = 15000;
 const api_version = 31;
 export default class WebApi {
-  _BASE_URL = `https://frxapi-stage.tgate.sg/live/`;
+  _BASE_URL = `https://frxapi.tgate.sg/live/`;
   PRE_JOIN = "auth/pre_join";
   ARTICLE_LIST = "listarticle";
   ARTICLE_DETAIL = "articledetail";

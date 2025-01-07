@@ -11,32 +11,32 @@ function JoinNow(props) {
   const countries = [
     {
       code: "+65",
-      flag: "/images/flag-sg.png",
+      flag: "images/flag-sg.png",
       name: "Singapore",
     },
     {
       code: "+91",
-      flag: "/images/flag-in.png",
+      flag: "images/flag-in.png",
       name: "India",
     },
     {
       code: "+62",
-      flag: "/images/flag-id.png",
+      flag: "images/flag-id.png",
       name: "Indonesia",
     },
     {
       code: "+60",
-      flag: "/images/flag-my.png",
+      flag: "images/flag-my.png",
       name: "Malaysia",
     },
     {
       code: "+63",
-      flag: "/images/flag-ph.png",
+      flag: "images/flag-ph.png",
       name: "Philippines",
     },
     {
       code: "+66",
-      flag: "/images/flag-th.png",
+      flag: "images/flag-th.png",
       name: "Thailand",
     },
   ];
@@ -131,7 +131,7 @@ function JoinNow(props) {
               <div className="code">{selectedCountry.code}</div>
               <div className="arrow">
                 <img
-                  src="/images/down-arrow-grey.svg"
+                  src="images/down-arrow-grey.svg"
                   alt="Dropdown arrow"
                 />
               </div>

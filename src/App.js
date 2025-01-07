@@ -14,7 +14,7 @@ function App() {
   return (
     <div style={Theme.globalStyle}>
       {/* <Header /> */}
-      <BrowserRouter basename={getBasename(window.location.pathname)}>
+      <BrowserRouter basename="/register">
         <Routes>
           <Route exact path="/" element={<JoinNow />}></Route>
           <Route path="/OTP" element={<Otp />}></Route>
