@@ -70,7 +70,8 @@ export default class WebApi {
       mobilecountryprefix:selectedCountry,
       mobilephonenumber: _mobileNumber,
       checksum: _checksum,
-      website:true
+      website:true,
+      app_name: 'register'
     };
     return this.sendPostRequest(props, url, body);
   }
@@ -80,6 +81,8 @@ export default class WebApi {
     let body = {
       checksum: _checksum,
       verification_token: _verification_token,
+      website: true,
+      app_name: 'register'
     };
     return this.sendPostRequest(props, url, body);
   }
@@ -90,7 +93,8 @@ export default class WebApi {
       checksum: _checksum,
       verification_token: _verification_token,
       otp: _otp,
-      website:true
+      website:true,
+      app_name: 'register'
     };
     console.log("body==**", url, body);
     return this.sendPostRequest(props, url, body);
@@ -121,7 +125,8 @@ export default class WebApi {
       callconsent: callconsent,
       emailconsent: emailconsent,
       smsconsent: smsconsent,
-      website:true
+      website:true,
+      app_name: 'register'
     };    
     if(_birthdate != null && _birthdate != ""){
       body.birthdate = _birthdate;
