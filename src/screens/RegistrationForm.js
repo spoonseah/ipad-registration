@@ -28,8 +28,6 @@ function RegistrationForm() {
   const [emailError, setemailError] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  // const [retypePassword, setRetypePassword] = useState("");
-  // const [retypePasswordError, setRetypePasswordError] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [postalCodeError, setPostalCodeError] = useState("");
   const [agreement, setAgreement] = useState(false);
@@ -56,16 +54,6 @@ function RegistrationForm() {
     }, 600000);
   }, []);
 
-  // useEffect(() => {
-  //   if (retypePassword !== "") {
-  //     if (password !== retypePassword) {
-  //       setRetypePasswordError("Passwords do not match");
-  //     } else {
-  //       setRetypePasswordError("");
-  //     }
-  //   }
-  // }, [password, retypePassword]);
-
   const handleGivenName = useCallback(
     (text) => {
       setGivenName(text.target.value);
@@ -77,30 +65,36 @@ function RegistrationForm() {
     },
     [givenName]
   );
+
   const handleGender = useCallback(
     (text) => {
       setGender(text.target.value);
+      if (text.target.value.length > 0) {
+        setGenderError("");
+      } else {
+        setGenderError("Please select gender");
+      }
     },
     [gender]
   );
+
   const handlePostalCode = useCallback(
     (text) => {
       setPostalCode(text.target.value);
       if (text.target.value.length > 0) {
         let validCode = validatePostalCode(text.target.value);
-        console.log("valid", validCode);
         if (!validCode) {
           setPostalCodeError("Please enter a valid Singapore postal code");
         } else {
           setPostalCodeError("");
         }
-      }
-      else{
-        setPostalCodeError("");
+      } else {
+        setPostalCodeError("Please enter postal code");
       }
     },
     [postalCode]
   );
+
   const handleEmail = useCallback(
     (text) => {
       setEmail(text.target.value);
@@ -117,6 +111,7 @@ function RegistrationForm() {
     },
     [email]
   );
+
   const handlePassword = useCallback(
     (text) => {
       setPassword(text.target.value);
@@ -130,20 +125,7 @@ function RegistrationForm() {
     },
     [password]
   );
-  // const handleRetypePassword = useCallback(
-  //   (text) => {
-  //     setRetypePassword(text.target.value);
-  //     if (text.target.value !== password) {
-  //       setRetypePasswordError("Passwords do not match");
-  //     } else {
-  //       setRetypePasswordError("");
-  //     }
-  //     if (text.target.value.length == 0) {
-  //       setRetypePasswordError("");
-  //     }
-  //   },
-  //   [retypePassword]
-  // );
+
   const handleAgreement = useCallback(() => {
     setAgreement(!agreement);
   }, [agreement]);
@@ -152,22 +134,13 @@ function RegistrationForm() {
     (text) => {
       setDate_picker_value(text);
       if (text != "") {
-        let dd = text.$D;
         let mm = text.$M + 1;
         let yyyy = text.$y;
-       
-        const currentDate = moment();
-        const birthDate = moment(`${yyyy}-${mm}-${dd}`, 'YYYY-MM-DD');
-        const age = currentDate.diff(birthDate, 'years');
-
-        setDob(`${dd}/${mm}/${yyyy}`);
-
-        if (age >= 18) {
-          setDateString(yyyy + "-" + mm + "-" + dd);
-          setDobError("");
-        } else {
-          setDobError("You must be above 18 years old to join Frasers Experience");
-        }
+        setDob(`${mm}/${yyyy}`);
+        setDateString(yyyy + "-" + mm + "-01");
+        setDobError("");
+      } else {
+        setDobError("Please enter your date of birth");
       }
     },
     [dob]
@@ -179,6 +152,10 @@ function RegistrationForm() {
       setGivenNameError("Please enter your given name");
       setLoading(false);
     }
+    if (gender == "") {
+      setGenderError("Please select gender");
+      setLoading(false);
+    }
     if (email == "") {
       setemailError("Please enter your email address");
       setLoading(false);
@@ -187,29 +164,26 @@ function RegistrationForm() {
       setPasswordError("Please enter password");
       setLoading(false);
     }
-    // if (retypePassword == "") {
-    //   setRetypePasswordError("Please enter Password");
-    //   setLoading(false);
-    // }
-    // if (password !== retypePassword) {
-    //   setRetypePasswordError("Passwords do not match");
-    //   setLoading(false);
-    // }
-
+    if (dob == "") {
+      setDobError("Please enter your date of birth");
+      setLoading(false);
+    }
+    if (location?.state?.selectedCountry == "65" && postalCode == "") {
+      setPostalCodeError("Please enter postal code");
+      setLoading(false);
+    }
     if (!agreement) {
       setAgreementError("Please accept our Privacy Policy and Terms of Use");
       setLoading(false);
     }
-    if (dob != "" && dobError.length > 0) {
-      setLoading(false);
-    }
-    console.log("dobbb", dobError == "");
+
     if (
       givenNameError == "" &&
       genderError == "" &&
       passwordError == "" &&
       emailError == "" &&
       dobError == "" &&
+      (location?.state?.selectedCountry != "65" || postalCodeError == "") &&
       agreement
     ) {
       new WebApi()
@@ -239,8 +213,8 @@ function RegistrationForm() {
           } else if (response?.data?.error == "Email used by other account") {
             setemailError("We are unable to process your request. Please check your details or contact us for further assistance.");
             return;
-          }else if(response?.data?.error =="Invalid postal code"){
-            setPostalCodeError("Please enter a valid Singapore postal code")
+          } else if (response?.data?.error == "Invalid postal code") {
+            setPostalCodeError("Please enter a valid Singapore postal code");
           } else {
             setDobError("");
             setemailError("");
@@ -256,14 +230,12 @@ function RegistrationForm() {
     const numStr = num.toString();
     if (numStr.length <= 4) return numStr;
     return numStr.slice(0, 4) + " " + numStr.slice(4);
-}
+  }
 
   return (
     <>
       <Header onClick={() => navigate("/")} />
       <div style={styles.description}>Tell us more about yourself.</div>
-      {/* <div style={styles.section}>Your profile</div> */}
-      {/* given name */}
       <Input
         label={"Given Name*"}
         type={"text"}
@@ -272,7 +244,6 @@ function RegistrationForm() {
         onChange={handleGivenName}
         errorText={givenNameError}
       />
-      {/* surname */}
       <Input
         label={"Surname"}
         type={"text"}
@@ -281,7 +252,7 @@ function RegistrationForm() {
         onChange={(text) => setSurName(text.target.value)}
       />
       <DropDownMenu
-        label={"Gender"}
+        label={"Gender*"}
         Options={genderType}
         value={gender}
         optionsHandler={handleGender}
@@ -296,7 +267,6 @@ function RegistrationForm() {
         onClick={() => setIs_date_modal_visible(true)}
       >
         <div style={Theme.label}>{"Date of Birth"}</div>
-
         <TextField
           margin="none"
           style={{ display: "flex" }}
@@ -332,32 +302,26 @@ function RegistrationForm() {
         }}
         date={date_picker_value}
         dobHandler={handleDob}
+        showDay={false}
       />
       {dobError != "" && <Error error={dobError} />}
-      {/* Postal Code */}      
-      {(location?.state?.selectedCountry == "65") &&
-      <Input
-        label={"Postal Code"}
-        type={"text"}
-        placeholder={"Postal Code"}
-        value={postalCode}
-        onChange={(e)=>{
-          setPostalCode(e.target.value);
-          setPostalCodeError("");
-        }}
-        errorText={postalCodeError}
-      />}
-      {" "}
-      {/* section label */}
+      {location?.state?.selectedCountry == "65" && (
+        <Input
+          label={"Postal Code*"}
+          type={"text"}
+          placeholder={"Postal Code*"}
+          value={postalCode}
+          onChange={handlePostalCode}
+          errorText={postalCodeError}
+        />
+      )}
       <div style={styles.section}>Your contact details</div>
-      {/* mobile no */}
       <div style={styles.txtfieldDisabled}>
         <div style={styles.disabledLabel}>Mobile No.*</div>
         <div style={styles.disabledValue}>{`+${location?.state.selectedCountry} ${addSpaceforMobile(location?.state?.contact)}`}</div>
       </div>
-      {/* Email */}
       <Input
-        label={"Email"}
+        label={"Email*"}
         type={"email"}
         placeholder={"Email*"}
         value={email}
@@ -365,7 +329,6 @@ function RegistrationForm() {
         errorText={emailError}
       />
       <div style={styles.section}>Set your password</div>
-      {/* Password */}
       <Input
         label={"Password*"}
         type={"password"}
@@ -374,24 +337,11 @@ function RegistrationForm() {
         onChange={handlePassword}
         errorText={passwordError}
       />
-      {/* Retype Password */}
-      {/* <Input
-        label={"Retype Password"}
-        type={"password"}
-        placeholder={"Retype Password*"}
-        value={retypePassword}
-        onChange={handleRetypePassword}
-        errorText={retypePasswordError}
-      /> */}
       <div style={styles.consent}>
         I consent to receive promotional marketing messages from Frasers
         Property Retail Management Pte. Ltd.
       </div>
-      <div
-        style={{
-          marginBottom: 25,
-        }}
-      >
+      <div style={{ marginBottom: 25 }}>
         <ToggleActive
           text={"Receive promotions via call"}
           active={callConsent}
@@ -409,11 +359,7 @@ function RegistrationForm() {
         />
       </div>
       <div style={styles.agreement}>
-        <div
-          style={{
-            display: "flex",
-          }}
-        >
+        <div style={{ display: "flex" }}>
           <div style={styles.checkboxWrap}>
             <label class="checkbox">
               <input
@@ -454,7 +400,6 @@ function RegistrationForm() {
             Ltd. (“Frasers”) and its related corporations.
           </div>
         </div>
-
         {!agreement && <Error error={agreementError} />}
       </div>
       <Button
@@ -500,20 +445,14 @@ const styles = {
     fontWeight: 500,
   },
   consent: {
-    // fontSize: "14px",
-    // display: "flex",
     textAlign: "left",
-    // fontWeight: "500",
     fontSize: 19,
     fontWeight: 500,
     lineHeight: "130%",
     paddingTop: 20,
     marginBottom: 25,
   },
-
   agreement: {
-    // fontSize: 20,
-    // paddingBottom: 30,
     marginBottom: 25,
   },
   checkboxWrap: {

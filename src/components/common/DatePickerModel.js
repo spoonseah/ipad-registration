@@ -15,6 +15,7 @@ function DatePickerModel({ onOpen, onClose, date, dobHandler }) {
     <>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
+          views={["year", "month"]}
           open={onOpen}
           onClose={onClose}
           value={date}
