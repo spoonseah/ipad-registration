@@ -134,7 +134,7 @@ function RegistrationForm() {
     (text) => {
       setDate_picker_value(text);
       if (text != "") {
-        let mm = text.$M + 1;
+        let mm = String(text.$M + 1).padStart(2, "0");
         let yyyy = text.$y;
         setDob(`${mm}/${yyyy}`);
         setDateString(yyyy + "-" + mm + "-01");
